@@ -83,22 +83,18 @@ export default function FormAddress() {
             </div>
 
             <div className="sm:col-span-1">
-                <label htmlFor="state" className="block text-[16px] font-bold text-black-700">
+                <label htmlFor="state" className="block font-bold text-[16px] text-black-700">
                     Estado
                 </label>
                 <div className="mt-1">
-                    <select
+                    <input
+                        type="text"
                         name="state"
                         id="state"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-                    >
-                        <option value="" selected disabled>Escolha</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
-                    </select>
+                    />
                 </div>
             </div>
-
         </>
     )
 }
