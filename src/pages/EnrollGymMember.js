@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
 import FormPersonData from './../components/FormPersonData';
 import FormAddress from '../components/FormAddress';
+import FormEnroll from '../components/FormEnroll';
 
 export default function EnrollGymMember() {
 
@@ -65,7 +67,7 @@ export default function EnrollGymMember() {
                             ) : (stepper === 2) ? (
                                 <FormAddress />
                             ) : (stepper === 3) && (
-                                ''
+                                <FormEnroll />
                             )
                         }
                     </div>
