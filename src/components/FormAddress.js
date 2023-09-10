@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IMaskInput } from 'react-imask';
+import MainContext from '../context/MainContext';
 
 export default function FormAddress() {
+
+    const {
+        zipCode, setZipCode,
+        street, setStreet, district, setDistrict,
+        number, setNumber, city, setCity,
+        state, setState
+    } = useContext(MainContext);
+
     return (
         <>
             <div className="sm:col-span-6 text-left">
@@ -11,6 +20,8 @@ export default function FormAddress() {
                 <div className="mt-1 flex rounded-md shadow-sm mb-[20px]">
                     <div className="relative flex flex-grow items-stretch focus-within:z-10">
                         <IMaskInput
+                            value={zipCode}
+                            onChange={(e) => setZipCode(e.target.value)}
                             mask='00.000-000'
                             type="text"
                             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
@@ -32,6 +43,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={street}
+                        onChange={(e) => setStreet(e.target.value)}
                         type="text"
                         name="street"
                         id="street"
@@ -46,6 +59,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
                         type="text"
                         name="district"
                         id="district"
@@ -60,6 +75,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={number}
+                        onChange={(e) => setNumber(e.target.value)}
                         type="text"
                         name="number"
                         id="number"
@@ -74,6 +91,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
                         type="text"
                         name="city"
                         id="city"
@@ -88,6 +107,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
                         type="text"
                         name="state"
                         id="state"

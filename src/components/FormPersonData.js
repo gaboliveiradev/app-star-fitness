@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import MainContext from '../context/MainContext';
 
 export default function FormPersonData() {
+
+    const {
+        name, setName, email, setEmail,
+        document, setDocument, phone, setPhone,
+        birthday, setBirthday, gender, setGender,
+        height, setHeight, weight, setWeight,
+        observation, setObservation
+    } = useContext(MainContext);
+
     return (
         <>
             <div className="sm:col-span-3">
@@ -9,6 +19,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         type="text"
                         name="name"
                         id="name"
@@ -23,6 +35,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         type="text"
                         name="email"
                         id="email"
@@ -37,6 +51,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={document}
+                        onChange={(e) => setDocument(e.target.value)}
                         type="text"
                         name="document"
                         id="document"
@@ -51,6 +67,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         type="text"
                         name="phone"
                         id="phone"
@@ -65,6 +83,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={birthday}
+                        onChange={(e) => setBirthday(e.target.value)}
                         type="text"
                         name="birthday"
                         id="birthday"
@@ -79,11 +99,13 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <select
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
                         name="gender"
                         id="gender"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     >
-                        <option value="" selected disabled>Escolha</option>
+                        <option value={null} selected disabled>Escolha</option>
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                     </select>
@@ -96,6 +118,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
                         type="text"
                         name="height"
                         id="height"
@@ -110,6 +134,8 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        value={weight}
+                        onChange={(e) => setWeight(e.target.value)}
                         type="text"
                         name="weight"
                         id="weight"
@@ -124,11 +150,13 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <textarea
+                        value={observation}
+                        onChange={(e) => setObservation(e.target.value)}
                         type="text"
                         rows={6}
                         name="observation"
                         id="observation"
-                        className="resize-none block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear" 
+                        className="resize-none block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     />
                 </div>
             </div>
