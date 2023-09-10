@@ -23,6 +23,7 @@ export default function FormAddress() {
                             value={zipCode}
                             onChange={(e) => setZipCode(e.target.value)}
                             mask='00.000-000'
+                            placeholder='99.999-999'
                             type="text"
                             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                         />

@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { IMaskInput } from 'react-imask';
 import MainContext from '../context/MainContext';
 
 export default function FormPersonData() {
@@ -50,7 +51,10 @@ export default function FormPersonData() {
                     Documento
                 </label>
                 <div className="mt-1">
-                    <input
+                    <IMaskInput
+                        mask='000.000.000-00'
+                        placeholder='999.999.999-99'
+                        lazy={true}
                         value={document}
                         onChange={(e) => setDocument(e.target.value)}
                         type="text"
@@ -67,6 +71,9 @@ export default function FormPersonData() {
                 </label>
                 <div className="mt-1">
                     <input
+                        mask='(00) 00000-0000'
+                        placeholder='(99) 99999-9999'
+                        lazy={true}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         type="text"
@@ -85,7 +92,7 @@ export default function FormPersonData() {
                     <input
                         value={birthday}
                         onChange={(e) => setBirthday(e.target.value)}
-                        type="text"
+                        type="date"
                         name="birthday"
                         id="birthday"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
@@ -117,7 +124,17 @@ export default function FormPersonData() {
                     Altura
                 </label>
                 <div className="mt-1">
-                    <input
+                    <IMaskInput
+                        mask="num cm"
+                        blocks={{
+                            num: {
+                                mask: Number,
+                                scale: 2,
+                                max: 238, // Maior homem do mundo
+                                radix: ',',
+                            },
+                        }}
+                        lazy={false}
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}
                         type="text"
@@ -133,7 +150,17 @@ export default function FormPersonData() {
                     Peso
                 </label>
                 <div className="mt-1">
-                    <input
+                    <IMaskInput
+                        mask="num kg"
+                        blocks={{
+                            num: {
+                                mask: Number,
+                                scale: 2,
+                                radix: ',',
+                                max: 600,
+                            },
+                        }}
+                        lazy={false} // True = Aplica a mascará após tirar o focus do input
                         value={weight}
                         onChange={(e) => setWeight(e.target.value)}
                         type="text"

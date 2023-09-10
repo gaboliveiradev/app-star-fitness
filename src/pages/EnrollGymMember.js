@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import FormPersonData from './../components/FormPersonData';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
+import MainContext from '../context/MainContext';
 
 export default function EnrollGymMember() {
 
+    const {
+        name, setName, email, setEmail,
+        document, setDocument, phone, setPhone,
+        birthday, setBirthday, gender, setGender,
+        height, setHeight, weight, setWeight,
+        observation, setObservation, zipCode, setZipCode,
+        street, setStreet, district, setDistrict,
+        number, setNumber, city, setCity,
+        state, setState, idPlan, setIdPlan,
+        invoiceDate, setInvoiceDate, dueDate, setDueDate
+    } = useContext(MainContext);
+
     const [stepper, setStepper] = useState(1);
+
+    const handleClickEnroll = async (e) => {
+        e.preventDefault();
+
+        console.log(birthday);
+    }
 
     return (
         <>
@@ -73,11 +92,21 @@ export default function EnrollGymMember() {
                     </div>
 
                     <div className="sm:col-span-6 flex justify-between">
-                        <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
-                            <button onClick={() => setStepper((stepper === 3) ? 3 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                <span relative="relative z-10">Avançar</span>
-                            </button>
-                        </div>
+                        {
+                            (stepper === 3) ? (
+                                <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
+                                    <button onClick={(e) => handleClickEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                        <span relative="relative z-10">Matrícular</span>
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
+                                    <button onClick={() => setStepper((stepper === 3) ? 3 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                        <span relative="relative z-10">Avançar</span>
+                                    </button>
+                                </div>
+                            )
+                        }
 
                         {
                             (stepper !== 1) && (
