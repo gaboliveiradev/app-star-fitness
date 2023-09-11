@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
 import MainContext from './MainContext';
+import { getCurrentDate } from '../utils/format';
 
 export const MainProvider = ({ children }) => {
 
     // Person Data
-    const [ name, setName ] = useState(null);
-    const [ email, setEmail ] = useState(null);
-    const [ document, setDocument ] = useState(null);
-    const [ phone, setPhone ] = useState(null);
-    const [ birthday, setBirthday ] = useState(null);
-    const [ gender, setGender ] = useState(null);
-    const [ height, setHeight ] = useState(null);
-    const [ weight, setWeight ] = useState(null);
-    const [ observation, setObservation ] = useState(null);
+    const [ name, setName ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ document, setDocument ] = useState("");
+    const [ phone, setPhone ] = useState("");
+    const [ birthday, setBirthday ] = useState("");
+    const [ gender, setGender ] = useState("");
+    const [ height, setHeight ] = useState("");
+    const [ weight, setWeight ] = useState("");
+    const [ observation, setObservation ] = useState("");
 
     // Address Data
-    const [ zipCode, setZipCode ] = useState(null);
-    const [ street, setStreet ] = useState(null);
-    const [ district, setDistrict ] = useState(null);
-    const [ number, setNumber ] = useState(null);
-    const [ city, setCity ] = useState(null);
-    const [ state, setState ] = useState(null);
+    const [ zipCode, setZipCode ] = useState("");
+    const [ street, setStreet ] = useState("");
+    const [ district, setDistrict ] = useState("");
+    const [ number, setNumber ] = useState("");
+    const [ city, setCity ] = useState("");
+    const [ state, setState ] = useState("");
 
     // Enroll Data
-    const [ idPlan, setIdPlan ] = useState(null);
-    const [ invoiceDate, setInvoiceDate ] = useState(null);
-    const [ dueDate, setDueDate ] = useState(null);
+    const [ idPlan, setIdPlan ] = useState("");
+    const [ invoiceDate, setInvoiceDate ] = useState(getCurrentDate());
+    const [ dueDate, setDueDate ] = useState("");
 
     const context = {
         name, setName, email, setEmail,

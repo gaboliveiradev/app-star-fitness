@@ -22,11 +22,6 @@ export default function AddNewAcademyPlans() {
             if (response.status === 201) {
                 await getType(token);
 
-                /*Toast.fire({
-                    icon: 'success',
-                    title: 'Você registrou um novo plano da academia.'
-                })*/
-
                 Swal.fire({
                     icon: 'success',
                     title: 'Plano Criado',

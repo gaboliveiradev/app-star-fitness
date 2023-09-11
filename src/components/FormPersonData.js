@@ -70,7 +70,7 @@ export default function FormPersonData() {
                     Telefone
                 </label>
                 <div className="mt-1">
-                    <input
+                    <IMaskInput
                         mask='(00) 00000-0000'
                         placeholder='(99) 99999-9999'
                         lazy={true}

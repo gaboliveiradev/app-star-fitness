@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
+import axios from 'axios';
 import { IMaskInput } from 'react-imask';
 import MainContext from '../context/MainContext';
+import Swal from 'sweetalert2'
+import { Toast } from './../common/Toast';
 
 export default function FormAddress() {
 
@@ -10,6 +13,53 @@ export default function FormAddress() {
         number, setNumber, city, setCity,
         state, setState
     } = useContext(MainContext);
+
+    const handleClickZipcode = async (e) => {
+        e.preventDefault();
+
+        if (zipCode === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: 'Porfavor, informe <b>um CEP válido</b> para continuar. Caso não saiba o seu, clique em <b>\"Não sei meu CEP\"</b>.'
+            })
+
+            return;
+        }
+
+        if (zipCode !== "") {
+            try {
+                axios.get(`http://viacep.com.br/ws/${zipCode.replace(/[.-]/g, "")}/json/`)
+                    .then((res) => {
+                        setDistrict(res.data.bairro);
+                        setCity(res.data.localidade);
+                        setStreet(res.data.logradouro);
+                        setState(res.data.uf);
+
+                        if (res.data.hasOwnProperty('erro')) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                html: 'Ocorreu um erro inesperado ao tentar <b>buscar os dados do seu CEP</b>, por favor <b>verifique</b> o número informado.'
+                            })
+                        } else {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'CEP ENCONTRADO!'
+                            })
+                        }
+                    })
+            } catch {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: 'Ocorreu um erro inesperado ao tentar <b>buscar os dados do seu CEP</b>, por favor <b>tente novamente</b> mais tarde.'
+                })
+            }
+
+            return;
+        }
+    }
 
     return (
         <>
@@ -29,6 +79,7 @@ export default function FormAddress() {
                         />
                     </div>
                     <button
+                        onClick={(e) => handleClickZipcode(e)}
                         type="button"
                         className="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-primary-blue bg-primary-blue px-4 py-2 text-sm font-medium text-white hover:opacity-80"
                     >

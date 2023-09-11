@@ -24,7 +24,7 @@ export default function EnrollGymMember() {
     const handleClickEnroll = async (e) => {
         e.preventDefault();
 
-        console.log(birthday);
+        console.log(name, email, document, phone, birthday, gender, height, weight, observation, zipCode, street, district, number, city, state, idPlan, invoiceDate, dueDate);
     }
 
     return (
