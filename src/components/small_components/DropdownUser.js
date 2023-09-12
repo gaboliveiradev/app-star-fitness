@@ -50,7 +50,7 @@ export default function DropdownUser() {
           <span className="block text-sm font-medium text-black dark:text-white">
             {user.name}
           </span>
-          <span className="block text-xs">PROPRIETÁRIO</span>
+          <span className="block text-xs">{user.employee.occupation}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
