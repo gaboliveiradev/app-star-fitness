@@ -17,7 +17,13 @@ export default function AddNewAcademyPlans() {
         setIsLoader(true);
 
         try {
-            const response = await createType(token, plan, days, parseFloat(price.replace("R$", "").replace(",", ".")));
+            const parameters = {
+                name: plan,
+                number_of_days: days,
+                price: parseFloat(price.replace("R$", "").replace(",", "."))
+            }
+
+            const response = await createType(parameters, token);
 
             if (response.status === 201) {
                 await getType(token);

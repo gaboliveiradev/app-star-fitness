@@ -66,7 +66,9 @@ export const AuthProvider = ({ children }) => {
                 employee: employee
             }));
 
-            await getType(response.token);
+            console.log(response);
+
+            await getType(response.data.token);
 
             return true;
         } catch (error) {
@@ -75,8 +77,8 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    async function createType(token, name, number_of_days, price) {
-        const response = await type.create(token, name, number_of_days, price);
+    async function createType(parameters, token) {
+        const response = await type.create(parameters, token);
 
         return (response.status === 201) ? response : false;
     }

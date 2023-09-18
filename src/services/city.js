@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { api } from './api';
 
-export const create = async (token, name, state) => {
+export const create = async (parameters, token) => {
     try {
         const response = await axios.post(`${api}/city`, {
-            name: name,
-            state: state,
+            name: parameters.name,
+            state: parameters.state,
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`,
