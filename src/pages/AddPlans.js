@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { IMaskInput } from 'react-imask';
 import Swal from 'sweetalert2'
+import MainContext from "../context/MainContext";
 
 export default function AddNewAcademyPlans() {
 
     const { token, createType, getType } = useContext(AuthContext);
-    const [isLoader, setIsLoader] = useState(false);
+    const { setIsLoading, setIsLoadingText } = useContext(MainContext);
 
     const [plan, setPlan] = useState('');
     const [days, setDays] = useState('');
@@ -14,7 +15,8 @@ export default function AddNewAcademyPlans() {
 
     const handleClickSave = async (e) => {
         e.preventDefault();
-        setIsLoader(true);
+        setIsLoading(true);
+        setIsLoadingText('Criando Plano...');
 
         try {
             const parameters = {
@@ -55,7 +57,8 @@ export default function AddNewAcademyPlans() {
                 html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar um novo plano.'
             })
         } finally {
-            setIsLoader(false);
+            setIsLoading(false);
+            setIsLoadingText("");
         }
     }
 
@@ -67,13 +70,6 @@ export default function AddNewAcademyPlans() {
 
     return (
         <>
-            {
-                (isLoader) && (
-                    <div class="z-10 absolute right-1/2 bottom-1/2  transform translate-x-1/2 translate-y-1/2 ">
-                        <div class="border-t-transparent border-solid animate-spin  rounded-full border-blue-400 border-8 h-64 w-64"></div>
-                    </div>
-                )
-            }
             <article className="flex-auto h-full mx-auto rounded-md w-full">
                 <div>
                     <div className="flex-auto pb-[14px]">
