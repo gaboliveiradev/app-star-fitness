@@ -65,7 +65,7 @@ export default function FormAddress() {
         <>
             <div className="sm:col-span-6 text-left">
                 <label className="block font-bold text-[16px] text-black-700">
-                    CEP
+                    CEP *
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm mb-[20px]">
                     <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -91,7 +91,7 @@ export default function FormAddress() {
 
             <div className="sm:col-span-6">
                 <label htmlFor="street" className="block text-[16px] font-bold text-black-700">
-                    Logradouro
+                    Logradouro *
                 </label>
                 <div className="mt-1">
                     <input
@@ -107,7 +107,7 @@ export default function FormAddress() {
 
             <div className="sm:col-span-5">
                 <label htmlFor="district" className="block text-[16px] font-bold text-black-700">
-                    Bairro
+                    Bairro *
                 </label>
                 <div className="mt-1">
                     <input
@@ -123,7 +123,7 @@ export default function FormAddress() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="number" className="block text-[16px] font-bold text-black-700">
-                    Número
+                    Número *
                 </label>
                 <div className="mt-1">
                     <input
@@ -139,7 +139,7 @@ export default function FormAddress() {
 
             <div className="sm:col-span-3">
                 <label htmlFor="city" className="block font-bold text-[16px] text-black-700">
-                    Cidade
+                    Cidade *
                 </label>
                 <div className="mt-1">
                     <input
@@ -155,7 +155,7 @@ export default function FormAddress() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="state" className="block font-bold text-[16px] text-black-700">
-                    Estado
+                    Estado *
                 </label>
                 <div className="mt-1">
                     <input

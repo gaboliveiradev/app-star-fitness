@@ -4,6 +4,9 @@ import { getCurrentDate } from '../utils/format';
 
 export const MainProvider = ({ children }) => {
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingText, setIsLoadingText] = useState(false);
+
     // Person Data
     const [ name, setName ] = useState("");
     const [ email, setEmail ] = useState("");
@@ -37,7 +40,8 @@ export const MainProvider = ({ children }) => {
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
         state, setState, idPlan, setIdPlan,
-        invoiceDate, setInvoiceDate, dueDate, setDueDate
+        invoiceDate, setInvoiceDate, dueDate, setDueDate,
+        isLoading, setIsLoading, isLoadingText, setIsLoadingText,
     };
 
     return (

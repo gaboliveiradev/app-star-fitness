@@ -3,11 +3,12 @@ import { api } from './api';
 
 export const create = async (parameters, token) => {
     try {
-        const response = await axios.post(`${api}/city`, {
+        const response = await axios.post(`${api}/address`, {
             street: parameters.street,
             district: parameters.district,
             number: parameters.number,
-            zipCode: parameters.zipCode,
+            zip_code: parameters.zipCode,
+            id_city: parameters.idCity
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`,

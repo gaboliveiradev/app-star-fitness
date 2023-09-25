@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
-
 import FormPersonData from './../components/FormPersonData';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
 import MainContext from '../context/MainContext';
+import Swal from 'sweetalert2'
+import AuthContext from '../context/AuthContext';
 
 export default function EnrollGymMember() {
 
@@ -19,12 +20,112 @@ export default function EnrollGymMember() {
         invoiceDate, setInvoiceDate, dueDate, setDueDate
     } = useContext(MainContext);
 
+    const { createCity, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
+
     const [stepper, setStepper] = useState(1);
 
-    const handleClickEnroll = async (e) => {
+    const handleClickCreateEnroll = async (e) => {
         e.preventDefault();
 
-        console.log(name, email, document, phone, birthday, gender, height, weight, observation, zipCode, street, district, number, city, state, idPlan, invoiceDate, dueDate);
+        try {
+            if(name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== "" 
+            && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+                alert('Matriculando...');
+
+                const cityParameters = {
+                    name: city,
+                    state: state,
+                }
+                const responseCity = await createCity(cityParameters, token);
+
+                if(responseCity.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>nova cidade</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                console.log(responseCity);
+
+                const addressParameters = {
+                    street: street,
+                    district: district,
+                    number: number,
+                    zipCode: zipCode.replace(/[^0-9]/g, ''),
+                    idCity: responseCity.data.data.id
+                }
+                const responseAddress = await createAddress(addressParameters, token);
+
+                if(responseAddress.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> um <b>novo endereço</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                const personGymMemberParameters = {
+                    name: name,
+                    email: email,
+                    document: document.replace(/[^0-9]/g, ''),
+                    phone: phone.replace(/[^0-9]/g, ''),
+                    birthday: birthday,
+                    gender: gender,
+                    height_cm: height.replace(/[^0-9]/g, ''),
+                    weight_kg: weight.replace(/[^0-9]/g, ''),
+                    observation:observation,
+                    id_address: responseAddress.data.data.id,
+                    id_type_enrollment: idPlan,
+                }
+                const responseGymMemberPerson = await createGymMemberPerson(personGymMemberParameters, token);
+
+                if(responseGymMemberPerson.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> os dados de um <b>novo aluno</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                const billingParameters = {
+                    invoice_date: invoiceDate,
+                    due_date: dueDate,
+                    id_gym_member: responseGymMemberPerson.data.data.id
+                }
+                const responseBilling = await createBilling(billingParameters, token);
+
+                if(responseBilling.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                return;
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vazio!',
+                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+            })
+        } catch {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: 'Ocorreu um erro inesperado, ao <b>tentar matrícula</b> um <b>NOVO ALUNO</b> tente novamente mais tarde.'
+            })
+        }
     }
 
     return (
@@ -95,7 +196,7 @@ export default function EnrollGymMember() {
                         {
                             (stepper === 3) ? (
                                 <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
-                                    <button onClick={(e) => handleClickEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                    <button onClick={(e) => handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                                         <span relative="relative z-10">Matrícular</span>
                                     </button>
                                 </div>

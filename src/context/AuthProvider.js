@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as auth from './../services/auth';
 import * as type from './../services/type';
+import * as city from './../services/city';
+import * as address from './../services/address';
+import * as gymMemberPerson from './../services/gymMemberPerson';
+import * as billing from './../services/billing';
 import AuthContext from './AuthContext';
 
 export const AuthProvider = ({ children }) => {
@@ -83,6 +87,30 @@ export const AuthProvider = ({ children }) => {
         return (response.status === 201) ? response : false;
     }
 
+    async function createCity(parameters, token) {
+        const response = await city.create(parameters, token);
+
+        return (response.status === 201) ? response : false;
+    }
+
+    async function createAddress(parameters, token) {
+        const response = await address.create(parameters, token);
+
+        return (response.status === 201) ? response : false;
+    }
+
+    async function createGymMemberPerson(parameters, token) {
+        const response = await gymMemberPerson.create(parameters, token);
+
+        return (response.status === 201) ? response : false;
+    }
+
+    async function createBilling(parameters, token) {
+        const response = await billing.create(parameters, token);
+
+        return (response.status === 201) ? response : false;
+    }
+
     async function getType(token) {
         const response = await type.get(token);
 
@@ -111,6 +139,8 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated, setIsAuthenticated,
         typeList, setTypeList,
         createType, getType, deleteType,
+        createCity, createAddress, createGymMemberPerson,
+        createBilling,
     };
 
     return (

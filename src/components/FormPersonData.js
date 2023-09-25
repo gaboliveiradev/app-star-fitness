@@ -16,7 +16,7 @@ export default function FormPersonData() {
         <>
             <div className="sm:col-span-3">
                 <label htmlFor="name" className="block font-bold text-[16px] text-black-700">
-                    Nome
+                    Nome *
                 </label>
                 <div className="mt-1">
                     <input
@@ -32,7 +32,7 @@ export default function FormPersonData() {
 
             <div className="sm:col-span-3">
                 <label htmlFor="email" className="block font-bold text-[16px] text-black-700">
-                    Email
+                    Email *
                 </label>
                 <div className="mt-1">
                     <input
@@ -48,7 +48,7 @@ export default function FormPersonData() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="document" className="block font-bold text-[16px] text-black-700">
-                    Documento
+                    Documento *
                 </label>
                 <div className="mt-1">
                     <IMaskInput
@@ -67,7 +67,7 @@ export default function FormPersonData() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="phone" className="block font-bold text-[16px] text-black-700">
-                    Telefone
+                    Telefone *
                 </label>
                 <div className="mt-1">
                     <IMaskInput
@@ -86,7 +86,7 @@ export default function FormPersonData() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="birthday" className="block font-bold text-[16px] text-black-700">
-                    Data de Nascimento
+                    Data de Nasc. *
                 </label>
                 <div className="mt-1">
                     <input
@@ -102,7 +102,7 @@ export default function FormPersonData() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="gender" className="block font-bold text-[16px] text-black-700">
-                    Sexo
+                    Sexo *
                 </label>
                 <div className="mt-1">
                     <select
@@ -112,7 +112,7 @@ export default function FormPersonData() {
                         id="gender"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     >
-                        <option value={null} selected disabled>Escolha</option>
+                        <option value={""} selected disabled>Escolha</option>
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                     </select>
@@ -121,7 +121,7 @@ export default function FormPersonData() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="height" className="block font-bold text-[16px] text-black-700">
-                    Altura
+                    Altura 
                 </label>
                 <div className="mt-1">
                     <IMaskInput
