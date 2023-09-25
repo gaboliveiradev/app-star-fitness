@@ -17,7 +17,8 @@ export default function EnrollGymMember() {
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
         state, setState, idPlan, setIdPlan,
-        invoiceDate, setInvoiceDate, dueDate, setDueDate
+        invoiceDate, setInvoiceDate, dueDate, setDueDate,
+        setIsLoading, setIsLoadingText,
     } = useContext(MainContext);
 
     const { createCity, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
@@ -30,7 +31,8 @@ export default function EnrollGymMember() {
         try {
             if(name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== "" 
             && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
-                alert('Matriculando...');
+                setIsLoading(true);
+                setIsLoadingText("Criando Cidade...");
 
                 const cityParameters = {
                     name: city,
@@ -48,7 +50,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                console.log(responseCity);
+                setIsLoadingText("Criando Endereço...");
 
                 const addressParameters = {
                     street: street,
@@ -68,6 +70,8 @@ export default function EnrollGymMember() {
 
                     return;
                 }
+
+                setIsLoadingText("Criando Aluno...");
 
                 const personGymMemberParameters = {
                     name: name,
@@ -93,6 +97,8 @@ export default function EnrollGymMember() {
 
                     return;
                 }
+
+                setIsLoadingText("Criando Cobrança...");
 
                 const billingParameters = {
                     invoice_date: invoiceDate,
@@ -125,6 +131,9 @@ export default function EnrollGymMember() {
                 title: 'Oops...',
                 html: 'Ocorreu um erro inesperado, ao <b>tentar matrícula</b> um <b>NOVO ALUNO</b> tente novamente mais tarde.'
             })
+        } finally {
+            setIsLoading(false);
+            setIsLoadingText("");
         }
     }
 
