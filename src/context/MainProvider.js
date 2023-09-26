@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MainContext from './MainContext';
-import { getCurrentDate } from '../utils/format';
+import { getCurrentDate, add30Days } from '../utils/format';
 
 export const MainProvider = ({ children }) => {
 
@@ -29,7 +29,7 @@ export const MainProvider = ({ children }) => {
     // Enroll Data
     const [ idPlan, setIdPlan ] = useState("");
     const [ invoiceDate, setInvoiceDate ] = useState(getCurrentDate());
-    const [ dueDate, setDueDate ] = useState("");
+    const [ dueDate, setDueDate ] = useState(add30Days(getCurrentDate()));
 
     const context = {
         name, setName, email, setEmail,

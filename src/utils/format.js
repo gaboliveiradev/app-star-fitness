@@ -13,7 +13,15 @@ function getCurrentDate() {
     return `${ano}-${mes}-${dia}`;
 }
 
+function add30Days(data) {
+    const dataOriginal = new Date(data);
+    const dataNova = new Date(dataOriginal);
+    dataNova.setDate(dataOriginal.getDate() + 30);
+    return dataNova.toISOString().split('T')[0];
+}
+
 export {
     formatMoney,
-    getCurrentDate
+    getCurrentDate,
+    add30Days
 }
