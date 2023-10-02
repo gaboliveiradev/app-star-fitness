@@ -9,6 +9,7 @@ import AddPlans from './pages/AddPlans'
 import MyPlans from './pages/MyPlans';
 import DashboardLayout from './layouts/DashboardLayout';
 import EnrollGymMember from './pages/EnrollGymMember';
+import EnrollPerson from './pages/EnrollPersons';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -23,6 +24,7 @@ export const Routing = () => {
             <Route element={ <DashboardLayout page={ <AddPlans /> } /> } path="/academy-plans/form" exact />
             <Route element={ <DashboardLayout page={ <MyPlans /> } /> } path="/academy-plans" exact />
             <Route element={ <DashboardLayout page={ <EnrollGymMember /> } /> } path="/gym-member/enroll/form" exact />
+            <Route element={ <DashboardLayout page={ <EnrollPerson /> } /> } path="/persons/enroll/form" exact /> 
 
         </Routes>
     )
