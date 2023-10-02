@@ -25,6 +25,26 @@ export default function EnrollGymMember() {
 
     const [stepper, setStepper] = useState(1);
 
+    const handleClickClearFields = async () => {
+        setName('');
+        setEmail('');
+        setDocument('');
+        setPhone('');
+        setBirthday('');
+        setHeight('');
+        setWeight('');
+        setObservation('');
+        setZipCode('');
+        setStreet('');
+        setDistrict('');
+        setNumber('');
+        setCity('');
+        setState('');
+        setIdPlan('');
+        setInvoiceDate('');
+        setDueDate('');
+    }
+
     const handleClickCreateEnroll = async (e) => {
         e.preventDefault();
 
@@ -116,6 +136,14 @@ export default function EnrollGymMember() {
 
                     return;
                 }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Aluno Matriculado.',
+                    html: 'Ihuul... Parabéns, você <b>matriculou</b> um novo aluno na academia. Acompanhe os alunos da sua academia acessando <b>Aluno/Matrículas e Alunos.</b>'
+                })
+
+                handleClickClearFields();
 
                 return;
             }
