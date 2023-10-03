@@ -9,30 +9,156 @@ import AuthContext from '../context/AuthContext';
 
 export default function EnrollPerson() {
 
+    const {  
+        name, setName, email, setEmail, document, setDocument, phone, setPhone, 
+        birthday, setBirthday, gender, setGender, cref, setCref, occupation, setOccupation,
+        observation, setObservation, zipCode, setZipCode,
+        street, setStreet, district, setDistrict,
+        number, setNumber, city, setCity,
+        state, setState,setIsLoading, setIsLoadingText,
+    } = useContext(MainContext);
+
+    const { createCity, createAddress, createPerson, token } = useContext(AuthContext);
+
     const [stepper, setStepper] = useState(1);
+
+    const handleClickClearFields = async () => {
+        setName('');
+        setEmail('');
+        setDocument('');
+        setPhone('');
+        setBirthday('');
+        setGender('');
+        setCref('');
+        setOccupation('');
+        setObservation('');
+        setZipCode('');
+        setStreet('');
+        setDistrict('');
+        setNumber('');
+        setCity('');
+        setState('');
+    }
 
     const handleClickCreateEnroll = async (e) => {
         e.preventDefault();
+
+        try {
+            if(name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== "" 
+            && district !== "" && number !== "" && city !== "" && state !== "") {
+                setIsLoading(true);
+                setIsLoadingText("Criando Cidade...");
+
+                const cityParameters = {
+                    name: city,
+                    state: state,
+                }
+                const responseCity = await createCity(cityParameters, token);
+
+                if(responseCity.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>nova cidade</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Criando Endereço...");
+
+                const addressParameters = {
+                    street: street,
+                    district: district,
+                    number: number,
+                    zipCode: zipCode.replace(/[^0-9]/g, ''),
+                    idCity: responseCity.data.data.id
+                }
+                const responseAddress = await createAddress(addressParameters, token);
+
+                if(responseAddress.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> um <b>novo endereço</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Criando Funcionário...");
+
+                const personParameters = {
+                    name: name,
+                    email: email,
+                    document: document.replace(/[^0-9]/g, ''),
+                    phone: phone.replace(/[^0-9]/g, ''),
+                    birthday: birthday,
+                    gender: gender,
+                    cref: cref.replace(/[^0-9]/g, ''),
+                    observation:observation,
+                    id_address: responseAddress.data.data.id,
+                }
+
+                
+                const responsePerson = await createPerson(personParameters, token);
+
+                if(responsePerson.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> os dados de um <b>novo funcionário</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Funcionário Matriculado.',
+                    html: 'Ihuul... Parabéns, você <b>cadastrou</b> um novo funcionário na academia. Acompanhe os funcionários da sua academia acessando <b>Funcionários/Gestão de Funcionários.</b>'
+                })
+
+                handleClickClearFields();
+
+                return;
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vazio!',
+                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+            })
+        } catch {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: 'Ocorreu um erro inesperado, ao <b>tentar cadastrar</b> um <b>NOVO FUNCIONÁRIO</b> tente novamente mais tarde.'
+            })
+        } finally {
+            setIsLoading(false);
+            setIsLoadingText("");
+        }
 
     }
 
     return (
         <>
-            <article className="flex-auto h-full mx-auto rounded-md w-full">
+            <article className='flex-auto h-full mx-auto rounded-md w-full'>
                 <div className='flex flex-col md:flex-row'>
-                    <div className='flex-auto pb-[14px]'>
-                        <h1 className='title'>Novo Funcionário</h1>
+                    <div className="flex-auto pb-[14px]">
+                        <h1 class="title">Novo Funcionário</h1>
                         <ul class="breadcrumbs">
                             <li><a href="#">Principal</a></li>
                             <li class="divider">/</li>
-                            <li><a href="#">Funcionários</a></li>
+                            <li><a href="#" class="active">Funcionários</a></li>
                             <li class="divider">/</li>
                             <li><a href="#" class="active">Cadastrar Funcionários</a></li>
                         </ul>
                     </div>
 
                     <div className='accordion-body flex-auto'>
-                        <div class="mx-4 p-4">
+                        <div className="mx-4 p-4">
                             <div class="flex items-center">
                                 <div class="flex items-center text-white relative">
                                     <div class="border-stepper-active bg-stepper-active flex justify-center items-center rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2">
@@ -55,22 +181,12 @@ export default function EnrollPerson() {
                                         <span>Endereço</span>
                                     </div>
                                 </div>
-                                <div class={`${(stepper === 3) && 'border-stepper-active'} flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300`}></div>
-                                <div class={`${(stepper === 3) && 'text-white'} flex items-center relative`}>
-                                    <div class={`${(stepper === 3) ? 'border-stepper-active bg-stepper-active' : 'border-gray-300'} flex justify-center items-center rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300`}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" />
-                                        </svg>
-                                    </div>
-                                    <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium text-teal-600">
-                                        <span>Matrícula</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div className="flex-auto pb-[30px]">
+                <div className="flex-auto pb-[30px]">
                     <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
                         {
                             (stepper === 1) ? (
@@ -82,10 +198,11 @@ export default function EnrollPerson() {
                             )
                         }
                     </div>
+                </div>
 
-                    <div className="sm:col-span-6 flex justify-between">
-                        {
-                            (stepper === 3) ? (
+                <div className="sm:col-span-6 flex justify-between">
+                {
+                            (stepper === 2) ? (
                                 <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
                                     <button onClick={(e) => handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                                         <span relative="relative z-10">Matrícular</span>
@@ -99,21 +216,18 @@ export default function EnrollPerson() {
                                 </div>
                             )
                         }
-
-                        {
-                            (stepper !== 1) && (
-                                <div className='m-[20px] absolute left-[20px] bottom-[20px] hover:cursor-pointer'>
-                                    <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Voltar</span>
-                                    </button>
-                                </div>
-                            )
-                        }
-                    </div>
-                </div>
+                    
+                {
+                    (stepper !== 1) && (
+                        <div className='m-[20px] absolute left-[20px] bottom-[20px] hover:cursor-pointer'>
+                            <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
+                                <span relative="relative z-10">Voltar</span>
+                            </button>
+                        </div>
+                    )
+                }     
                 </div>
             </article>
         </>
     )
-
 }

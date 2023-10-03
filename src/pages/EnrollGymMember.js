@@ -31,6 +31,7 @@ export default function EnrollGymMember() {
         setDocument('');
         setPhone('');
         setBirthday('');
+        setGender('');
         setHeight('');
         setWeight('');
         setObservation('');
@@ -79,6 +80,7 @@ export default function EnrollGymMember() {
                     zipCode: zipCode.replace(/[^0-9]/g, ''),
                     idCity: responseCity.data.data.id
                 }
+
                 const responseAddress = await createAddress(addressParameters, token);
 
                 if(responseAddress.status !== 201) {
@@ -106,6 +108,8 @@ export default function EnrollGymMember() {
                     id_address: responseAddress.data.data.id,
                     id_type_enrollment: idPlan,
                 }
+
+                
                 const responseGymMemberPerson = await createGymMemberPerson(personGymMemberParameters, token);
 
                 if(responseGymMemberPerson.status !== 201) {
