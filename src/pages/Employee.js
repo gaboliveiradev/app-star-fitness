@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import FormPerson from '../components/employee/FormPerson';
+import FormEmployee from '../components/employee/FormEmployee';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
 import MainContext from '../context/MainContext';
@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import AuthContext from '../context/AuthContext';
 
 
-export default function EnrollPerson() {
+export default function Employee() {
 
     const {  
         name, setName, email, setEmail, document, setDocument, phone, setPhone, 
@@ -18,7 +18,7 @@ export default function EnrollPerson() {
         state, setState,setIsLoading, setIsLoadingText,
     } = useContext(MainContext);
 
-    const { createCity, createAddress, createPerson, token } = useContext(AuthContext);
+    const { createCity, createAddress, createEmployee, token } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
 
@@ -88,7 +88,7 @@ export default function EnrollPerson() {
 
                 setIsLoadingText("Criando Funcionário...");
 
-                const personParameters = {
+                const employeeParameters = {
                     name: name,
                     email: email,
                     document: document.replace(/[^0-9]/g, ''),
@@ -101,9 +101,9 @@ export default function EnrollPerson() {
                 }
 
                 
-                const responsePerson = await createPerson(personParameters, token);
+                const responseEmployee = await createEmployee(employeeParameters, token);
 
-                if(responsePerson.status !== 201) {
+                if(responseEmployee.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -190,7 +190,7 @@ export default function EnrollPerson() {
                     <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
                         {
                             (stepper === 1) ? (
-                                <FormPerson />
+                                <Employee />
                             ) : (stepper === 2) ? (
                                 <FormAddress />
                             ) : (stepper === 3) && (
