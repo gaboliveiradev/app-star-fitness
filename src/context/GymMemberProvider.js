@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import GymMemberContext from './GymMemberContext';
 
 export const GymMemberProvider = ({ children }) => {

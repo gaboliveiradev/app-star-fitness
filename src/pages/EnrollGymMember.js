@@ -3,6 +3,7 @@ import FormPersonDataGymMember from '../components/FormPersonDataGymMember';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
 import MainContext from '../context/MainContext';
+import { getCurrentDate, add30Days } from './../utils/format';
 import Swal from 'sweetalert2'
 
 import AuthContext from '../context/AuthContext';
@@ -39,7 +40,7 @@ export default function EnrollGymMember() {
         invoiceDate, setInvoiceDate, dueDate, setDueDate,
     } = useContext(BillingContext);
 
-    const { createCity, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
+    const { getGymMembers, createCity, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
 
@@ -60,8 +61,8 @@ export default function EnrollGymMember() {
         setCity('');
         setState('');
         setIdPlan('');
-        setInvoiceDate('');
-        setDueDate('');
+        setInvoiceDate(getCurrentDate());
+        setDueDate(add30Days(getCurrentDate()));
     }
 
     const handleClickCreateEnroll = async (e) => {
@@ -159,6 +160,9 @@ export default function EnrollGymMember() {
                     return;
                 }
 
+                setIsLoadingText("Atualizando Alunos...");
+                await getGymMembers(token);
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Aluno Matriculado.',
@@ -166,6 +170,7 @@ export default function EnrollGymMember() {
                 })
 
                 handleClickClearFields();
+                
 
                 return;
             }

@@ -37,7 +37,7 @@ export const get = async (token) => {
             }
         });
 
-        return (response.status === 201) ? response : false;
+        return (response.status === 200) ? response : false;
     } catch (error) {
         console.log(error);
         return false;

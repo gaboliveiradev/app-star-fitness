@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import * as auth from './../services/auth';
@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
 
     const [typeList, setTypeList] = useState(null);
+    const [gymMembersList, setGymMembersList] = useState(null);
 
     useEffect(() => {
         const token = localStorage.getItem('app-star-fitness-token');
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
         const isAuthenticated = localStorage.getItem('app-star-fitness-logged');
 
         const typeList = localStorage.getItem('app-star-fitness-type');
+        const gymMembersList = localStorage.getItem('app-star-fitness-gym-members');
 
         if (token && user && isAuthenticated) {
             setUser(JSON.parse(user));
@@ -35,6 +37,12 @@ export const AuthProvider = ({ children }) => {
         
         if(typeList) {
             setTypeList(JSON.parse(typeList));
+
+            return;
+        }
+
+        if (gymMembersList) {
+            setGymMembersList(JSON.parse(gymMembersList));
 
             return;
         }
@@ -73,6 +81,7 @@ export const AuthProvider = ({ children }) => {
             console.log(response);
 
             await getType(response.data.token);
+            await getGymMembers(response.data.token);
 
             return true;
         } catch (error) {
@@ -122,6 +131,17 @@ export const AuthProvider = ({ children }) => {
         return true;
     }
 
+    async function getGymMembers(token) {
+        const response = await gymMemberPerson.get(token);
+
+        console.log(response);
+
+        setGymMembersList(response.data.data);
+        localStorage.setItem('app-star-fitness-gym-members', JSON.stringify(response.data.data));
+
+        return (response.status === 200) ? response : false;
+    }
+
     async function deleteType(token, idType) {
         const response = await type.del(token, idType);
 
@@ -140,7 +160,7 @@ export const AuthProvider = ({ children }) => {
         typeList, setTypeList,
         createType, getType, deleteType,
         createCity, createAddress, createGymMemberPerson,
-        createBilling,
+        createBilling, getGymMembers
     };
 
     return (
