@@ -1,25 +1,43 @@
 import React, { useContext, useState } from 'react';
-import FormPersonData from './../components/FormPersonData';
+import FormPersonDataGymMember from '../components/FormPersonDataGymMember';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
 import MainContext from '../context/MainContext';
 import Swal from 'sweetalert2'
+
 import AuthContext from '../context/AuthContext';
+import PersonContext from './../context/PersonContext';
+import GymMemberContext from './../context/GymMemberContext';
+import AddressContext from './../context/AddressContext';
+import BillingContext from './../context/BillingContext';
 
 export default function EnrollGymMember() {
+
+    const {
+        setIsLoading, setIsLoadingText,
+    } = useContext(MainContext);
 
     const {
         name, setName, email, setEmail,
         document, setDocument, phone, setPhone,
         birthday, setBirthday, gender, setGender,
+    } = useContext(PersonContext);
+
+    const {
         height, setHeight, weight, setWeight,
-        observation, setObservation, zipCode, setZipCode,
+        observation, setObservation, idPlan, setIdPlan,
+    } = useContext(GymMemberContext);
+
+    const {
+        zipCode, setZipCode,
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
-        state, setState, idPlan, setIdPlan,
+        state, setState,
+    } = useContext(AddressContext);
+
+    const {
         invoiceDate, setInvoiceDate, dueDate, setDueDate,
-        setIsLoading, setIsLoadingText,
-    } = useContext(MainContext);
+    } = useContext(BillingContext);
 
     const { createCity, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
 
@@ -50,8 +68,8 @@ export default function EnrollGymMember() {
         e.preventDefault();
 
         try {
-            if(name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== "" 
-            && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+            if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
+                && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 setIsLoading(true);
                 setIsLoadingText("Criando Cidade...");
 
@@ -61,7 +79,7 @@ export default function EnrollGymMember() {
                 }
                 const responseCity = await createCity(cityParameters, token);
 
-                if(responseCity.status !== 201) {
+                if (responseCity.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -83,7 +101,7 @@ export default function EnrollGymMember() {
 
                 const responseAddress = await createAddress(addressParameters, token);
 
-                if(responseAddress.status !== 201) {
+                if (responseAddress.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -104,15 +122,15 @@ export default function EnrollGymMember() {
                     gender: gender,
                     height_cm: height.replace(/[^0-9]/g, ''),
                     weight_kg: weight.replace(/[^0-9]/g, ''),
-                    observation:observation,
+                    observation: observation,
                     id_address: responseAddress.data.data.id,
                     id_type_enrollment: idPlan,
                 }
 
-                
+
                 const responseGymMemberPerson = await createGymMemberPerson(personGymMemberParameters, token);
 
-                if(responseGymMemberPerson.status !== 201) {
+                if (responseGymMemberPerson.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -131,7 +149,7 @@ export default function EnrollGymMember() {
                 }
                 const responseBilling = await createBilling(billingParameters, token);
 
-                if(responseBilling.status !== 201) {
+                if (responseBilling.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -224,7 +242,7 @@ export default function EnrollGymMember() {
                     <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
                         {
                             (stepper === 1) ? (
-                                <FormPersonData />
+                                <FormPersonDataGymMember />
                             ) : (stepper === 2) ? (
                                 <FormAddress />
                             ) : (stepper === 3) && (

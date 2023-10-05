@@ -1,14 +1,19 @@
 import React, { useContext } from 'react';
+
 import AuthContext from '../context/AuthContext';
-import MainContext from '../context/MainContext';
+import GymMemberContext from '../context/GymMemberContext';
+import BillingContext from '../context/BillingContext';
 
 export default function FormEnroll() {
     const { typeList } = useContext(AuthContext);
 
     const {
         idPlan, setIdPlan,
-        invoiceDate, setInvoiceDate, dueDate, setDueDate
-    } = useContext(MainContext);
+    } = useContext(GymMemberContext);
+
+    const {
+        invoiceDate, setInvoiceDate, dueDate, setDueDate,
+    } = useContext(BillingContext);
 
     return (
         <>

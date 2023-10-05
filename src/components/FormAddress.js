@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { IMaskInput } from 'react-imask';
-import MainContext from '../context/MainContext';
+import AddressContext from '../context/AddressContext';
 import Swal from 'sweetalert2'
 import { Toast } from './../common/Toast';
 
@@ -11,8 +11,8 @@ export default function FormAddress() {
         zipCode, setZipCode,
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
-        state, setState
-    } = useContext(MainContext);
+        state, setState,
+    } = useContext(AddressContext);
 
     const handleClickZipcode = async (e) => {
         e.preventDefault();
