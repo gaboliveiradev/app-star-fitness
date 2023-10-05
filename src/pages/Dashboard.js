@@ -1,4 +1,5 @@
 import React from 'react';
+import StaticsInfoData from '../components/StaticsInfoData';
 
 export default function Dashboard() {
     return (
@@ -13,7 +14,7 @@ export default function Dashboard() {
             </div>
 
             <div className='pt-[20px]'>
-                <h1>Teste</h1>
+                <StaticsInfoData />
             </div>
         </section>
     )
