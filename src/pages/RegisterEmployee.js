@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import FormPerson from '../components/employee/FormPerson';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
 import MainContext from '../context/MainContext';
 import Swal from 'sweetalert2'
-import AuthContext from '../context/AuthContext';
+import EmployeeContext from '../context/EmployeeContext';
+import FormEmployee from '../components/employee/FormEmployee';
 
 
-export default function EnrollPerson() {
+export default function RegisterEmployee() {
 
     const {  
         name, setName, email, setEmail, document, setDocument, phone, setPhone, 
@@ -18,7 +18,7 @@ export default function EnrollPerson() {
         state, setState,setIsLoading, setIsLoadingText,
     } = useContext(MainContext);
 
-    const { createCity, createAddress, createPerson, token } = useContext(AuthContext);
+    const { createCity, createAddress, createEmployee, token } = useContext(EmployeeContext);
 
     const [stepper, setStepper] = useState(1);
 
@@ -88,7 +88,7 @@ export default function EnrollPerson() {
 
                 setIsLoadingText("Criando Funcionário...");
 
-                const personParameters = {
+                const employeeParameters = {
                     name: name,
                     email: email,
                     document: document.replace(/[^0-9]/g, ''),
@@ -101,9 +101,9 @@ export default function EnrollPerson() {
                 }
 
                 
-                const responsePerson = await createPerson(personParameters, token);
+                const responseEmployee = await createEmployee(employeeParameters, token);
 
-                if(responsePerson.status !== 201) {
+                if(responseEmployee.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -190,12 +190,10 @@ export default function EnrollPerson() {
                     <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
                         {
                             (stepper === 1) ? (
-                                <FormPerson />
-                            ) : (stepper === 2) ? (
+                                <FormEmployee />
+                            ) : (stepper === 2) && (
                                 <FormAddress />
-                            ) : (stepper === 3) && (
-                                <FormEnroll />
-                            )
+                            ) 
                         }
                     </div>
                 </div>
@@ -205,12 +203,12 @@ export default function EnrollPerson() {
                             (stepper === 2) ? (
                                 <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
                                     <button onClick={(e) => handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Matrícular</span>
+                                        <span relative="relative z-10">Cadastrar</span>
                                     </button>
                                 </div>
                             ) : (
                                 <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
-                                    <button onClick={() => setStepper((stepper === 3) ? 3 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                    <button onClick={() => setStepper((stepper === 2) ? 2 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                                         <span relative="relative z-10">Avançar</span>
                                     </button>
                                 </div>

@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { IMaskInput } from 'react-imask';
-import MainContext from '../../context/MainContext';
+import EmployeeContext from '../../context/EmployeeContext';
 
-export default function FormPerson() {
+export default function FormEmployee() {
 
     const {
         name, setName, email, setEmail,
         document, setDocument, phone, setPhone, birthday, setBirthday,
         gender, setGender, cref, setCref, occupation, setOccupation,
         observation, setObservation
-    } = useContext(MainContext);
+    } = useContext(EmployeeContext);
 
     return (
         <>
