@@ -7,6 +7,7 @@ import Sidebar from './layouts/Sidebar';
 import Dashboard from './pages/Dashboard';
 import AddPlans from './pages/AddPlans'
 import MyPlans from './pages/MyPlans';
+import RedefinePassword from './pages/RedefinePassword';
 import DashboardLayout from './layouts/DashboardLayout';
 import EnrollGymMember from './pages/EnrollGymMember';
 import RegisterEmployee from './pages/RegisterEmployee';
@@ -25,6 +26,7 @@ export const Routing = () => {
             <Route element={ <DashboardLayout page={ <MyPlans /> } /> } path="/academy-plans" exact />
             <Route element={ <DashboardLayout page={ <EnrollGymMember /> } /> } path="/gym-member/enroll/form" exact />
             <Route element={ <DashboardLayout page={ <RegisterEmployee /> } /> } path="/employee/register/form" exact /> 
+            <Route element={ <DashboardLayout page={ <RedefinePassword /> } /> } path='/redefine/password/form' exact />
 
         </Routes>
     )
