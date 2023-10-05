@@ -28,3 +28,18 @@ export const create = async (parameters, token) => {
         return false;
     }
 }
+
+export const get = async (token) => {
+    try {
+        const response = await axios.get(`${api}/gym-member`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+
+        return (response.status === 201) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
