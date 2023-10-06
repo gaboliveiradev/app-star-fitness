@@ -11,6 +11,7 @@ import RedefinePassword from './pages/RedefinePassword';
 import DashboardLayout from './layouts/DashboardLayout';
 import EnrollGymMember from './pages/EnrollGymMember';
 import RegisterEmployee from './pages/RegisterEmployee';
+import MyGymMembers from './pages/MyGymMembers';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -20,14 +21,17 @@ export const Routing = () => {
             {
                 !isAuthenticated && <Route path="/" element={<Navigate to="/login" />} />
             }
-            <Route element={ <Login /> } path="/login" exact />
-            <Route element={ <DashboardLayout page={ <Dashboard /> } /> } path="/" exact />
-            <Route element={ <DashboardLayout page={ <AddPlans /> } /> } path="/academy-plans/form" exact />
-            <Route element={ <DashboardLayout page={ <MyPlans /> } /> } path="/academy-plans" exact />
-            <Route element={ <DashboardLayout page={ <EnrollGymMember /> } /> } path="/gym-member/enroll/form" exact />
-            <Route element={ <DashboardLayout page={ <RegisterEmployee /> } /> } path="/employee/register/form" exact /> 
-            <Route element={ <DashboardLayout page={ <RedefinePassword /> } /> } path='/redefine/password/form' exact />
-
+            <Route element={<Login />} path="/login" exact />
+            <Route element={<DashboardLayout page={<Dashboard />} />} path="/" exact />
+            {/* @==== Plans ====@ */}
+            <Route element={<DashboardLayout page={<AddPlans />} />} path="/academy-plans/form" exact />
+            <Route element={<DashboardLayout page={<MyPlans />} />} path="/academy-plans" exact />
+            {/* @==== Gym Member ====@ */}
+            <Route element={<DashboardLayout page={<EnrollGymMember />} />} path="/gym-member/enroll/form" exact />
+            <Route element={<DashboardLayout page={<MyGymMembers />} />} path="/gym-member" exact />
+            <Route element={<DashboardLayout page={<RedefinePassword />} />} path='/redefine/password/form' exact />
+            {/* @==== Employee ====@ */}
+            <Route element={<DashboardLayout page={<RegisterEmployee />} />} path="/employee/register/form" exact />
         </Routes>
     )
 }

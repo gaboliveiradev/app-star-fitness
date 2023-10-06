@@ -3,6 +3,25 @@ function formatMoney(value) {
     return new Intl.NumberFormat("pt-br", { style: "currency", "currency": "BRL" }).format(result);
 };
 
+function formatCPF(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+    return cpf;
+}
+
+function formatPhone(phone) {
+    phone = phone.replace(/\D/g, '');
+
+    if (phone.length === 11) {
+        phone = phone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else {
+        phone = phone.replace(/(\d{5})(\d{4})/, '$1-$2');
+    }
+
+    return phone;
+}
+
 function getCurrentDate() {
     const dataAtual = new Date();
 
@@ -22,6 +41,8 @@ function add30Days(data) {
 
 export {
     formatMoney,
+    formatCPF,
+    formatPhone,
     getCurrentDate,
     add30Days
 }

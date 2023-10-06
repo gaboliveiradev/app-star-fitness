@@ -1,77 +1,26 @@
 import React, { useContext, useState, } from 'react';
 import DataTable from 'react-data-table-component';
 import AuthContext from '../context/AuthContext';
-import { formatMoney } from './../utils/format';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
 import MainContext from '../context/MainContext';
+import { formatCPF, formatPhone } from '../utils/format';
 
-export default function MyPlans() {
+export default function MyGymMembers() {
 
-    const { typeList, deleteType, token } = useContext(AuthContext);
+        
+    const { getGymMembers, token, gymMembersList } = useContext(AuthContext);
     const { setIsLoading, setIsLoadingText } = useContext(MainContext);
 
-    const [records, setRecords] = useState(typeList);
+    const [records, setRecords] = useState(gymMembersList);
     const [isFilterActive, setIsFilterActive] = useState(false);
     const [filterSelect, setFilterSelect] = useState('');
-
-    const handleClickDelete = async (e, row) => {
-        e.preventDefault();
-
-        Swal.fire({
-            title: 'Você tem Certeza?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Sim, deletar!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                setIsLoading(true);
-                setIsLoadingText('Excluindo Plano...');
-
-                try {
-                    const response = await deleteType(token, row.id);
-
-                    if (response.status === 200) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Plano Deletado',
-                            html: 'Ihuul... Parabéns, você <b>deletou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para reativar seu plano.'
-                        })
-
-                        return;
-                    }
-
-                    if (response.status !== 200) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
-                        })
-
-                        return;
-                    }
-                } catch {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
-                    })
-                } finally {
-                    setIsLoading(false);
-                    setIsLoadingText('');
-                }
-            }
-        })
-    }
 
     const handleFilterSearchText = async (event) => {
         const filterValue = event.target.value.toLowerCase();
 
-        const newData = typeList.filter(row => {
-            return row.name.toLowerCase().includes(filterValue);
+        const newData = gymMembersList.filter(row => {
+            return row.document.toLowerCase().includes(filterValue);
         })
 
         setRecords(newData);
@@ -80,7 +29,7 @@ export default function MyPlans() {
     const handleFilterSelect = async (event) => {
         const filterValue = event.target.value.toLowerCase();
 
-        const newData = typeList.filter(row => {
+        const newData = gymMembersList.filter(row => {
             return row.active.toString() === filterValue || (filterValue === 'true' && row.active === 1) || (filterValue === 'false' && row.active === 0);
         });
 
@@ -90,24 +39,28 @@ export default function MyPlans() {
 
     const handleClickClearFilter = async (event) => {
         setIsFilterActive(false);
-        setRecords(typeList);
+        setRecords(gymMembersList);
         setFilterSelect('');
+    }
+
+    const handleClickDelete = async (e, row) => {
+
     }
 
     const columns = [
         {
             name: <span className='font-bold text-[14px]'>Nome</span>,
-            selector: row => <span className='text-[14px]'>{row.name}</span>,
+            selector: row => <span className='text-[14px]'>{row.person.name}</span>,
             sortable: true
         },
         {
-            name: <span className='font-bold text-[14px]'>Preço</span>,
-            selector: row => <span className='text-[14px]'>{formatMoney(row.price)}</span>,
+            name: <span className='font-bold text-[14px]'>CPF</span>,
+            selector: row => <span className='text-[14px]'>{formatCPF(row.person.document)}</span>,
             sortable: true
         },
         {
-            name: <span className='font-bold text-[14px]'>Quantidade de Dias</span>,
-            selector: row => <span className='text-[14px]'>{row.number_of_days}x na Semana</span>,
+            name: <span className='font-bold text-[14px]'>Telefone</span>,
+            selector: row => <span className='text-[14px]'>{formatPhone(row.person.phone)}</span>,
             sortable: true
         },
         {
@@ -168,14 +121,14 @@ export default function MyPlans() {
         <article className="flex-auto h-full mx-auto rounded-md w-full">
             <div>
                 <div className="flex-auto pb-[14px]">
-                    <h1 class="title">{`Meus Planos (${records.length})`}
+                    <h1 class="title">{`Meus Alunos (${records.length})`}
                     </h1>
                     <ul class="breadcrumbs">
                         <li><a href="#">Principal</a></li>
                         <li class="divider">/</li>
-                        <li><a href="#" class="active">Planos da Academia</a></li>
+                        <li><a href="#" class="active">Aluno</a></li>
                         <li class="divider">/</li>
-                        <li><a href="#" class="active">Meus Planos</a></li>
+                        <li><a href="#" class="active">Matrículas e Alunos</a></li>
                     </ul>
                 </div>
             </div>

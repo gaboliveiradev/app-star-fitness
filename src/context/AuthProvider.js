@@ -160,7 +160,8 @@ export const AuthProvider = ({ children }) => {
         typeList, setTypeList,
         createType, getType, deleteType,
         createCity, createAddress, createGymMemberPerson,
-        createBilling, getGymMembers
+        createBilling, getGymMembers,
+        gymMembersList,
     };
 
     return (
