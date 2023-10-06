@@ -1,26 +1,32 @@
-import React, { useContext, useState, } from 'react';
+import React, { useCallback, useContext, useState, } from 'react';
 import DataTable from 'react-data-table-component';
 import AuthContext from '../context/AuthContext';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
 import MainContext from '../context/MainContext';
 import { formatCPF, formatPhone } from '../utils/format';
+import ExpandedeGymMembers from '../components/ExpandedGymMembers';
 
 export default function MyGymMembers() {
 
-        
     const { getGymMembers, token, gymMembersList } = useContext(AuthContext);
-    const { setIsLoading, setIsLoadingText } = useContext(MainContext);
+    const { setIsLoading, setIsLoadingText, setSelectedRow } = useContext(MainContext);
 
     const [records, setRecords] = useState(gymMembersList);
     const [isFilterActive, setIsFilterActive] = useState(false);
     const [filterSelect, setFilterSelect] = useState('');
+    const [selectedRows, setSelectedRows] = useState([]);
+
+    const handleSelectedRow = useCallback(state => {
+        setSelectedRows(state.selectedRows);
+        console.log(state.selectedRows);
+    }, [selectedRows]);
 
     const handleFilterSearchText = async (event) => {
         const filterValue = event.target.value.toLowerCase();
 
         const newData = gymMembersList.filter(row => {
-            return row.document.toLowerCase().includes(filterValue);
+            return row.person.name.toLowerCase().includes(filterValue);
         })
 
         setRecords(newData);
@@ -42,6 +48,15 @@ export default function MyGymMembers() {
         setRecords(gymMembersList);
         setFilterSelect('');
     }
+
+    const handleClickRow = async (row) => {
+        console.log('Dados da linha clicada:', row);
+    }
+
+    const handleClickExpandedComponenet = ({ data }) => {
+        setSelectedRow(data);
+        return <ExpandedeGymMembers />
+    };
 
     const handleClickDelete = async (e, row) => {
 
@@ -117,6 +132,10 @@ export default function MyGymMembers() {
         selectAllRowsItemText: 'Todos',
     };
 
+    const rowStyles = {
+        cursor: 'pointer',
+    };
+
     return (
         <article className="flex-auto h-full mx-auto rounded-md w-full">
             <div>
@@ -182,6 +201,16 @@ export default function MyGymMembers() {
                     pagination
                     selectableRows
                     paginationComponentOptions={options}
+                    onRowClicked={handleClickRow}
+                    onSelectedRowsChange={handleSelectedRow}
+                    expandableRows
+                    expandableRowsComponent={handleClickExpandedComponenet}
+                    conditionalRowStyles={[
+                        {
+                            when: (row) => true,
+                            style: rowStyles,
+                        },
+                    ]}
                 />
             </div>
         </article>
