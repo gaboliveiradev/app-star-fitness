@@ -4,14 +4,14 @@ import AuthContext from '../context/AuthContext';
 import { formatMoney } from './../utils/format';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
+import MainContext from '../context/MainContext';
 
 export default function MyPlans() {
 
     const { typeList, deleteType, token } = useContext(AuthContext);
-    const [isLoader, setIsLoader] = useState(false);
+    const { setIsLoading, setIsLoadingText } = useContext(MainContext);
 
-    const [search, setSearch] = useState('');
-    const [filterStatus, setFilterStatus] = useState('');
+    const [records, setRecords] = useState(typeList);
 
     const handleClickDelete = async (e, row) => {
         e.preventDefault();
@@ -26,7 +26,8 @@ export default function MyPlans() {
             confirmButtonText: 'Sim, deletar!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                setIsLoader(true);
+                setIsLoading(true);
+                setIsLoadingText('Excluindo Plano...');
 
                 try {
                     const response = await deleteType(token, row.id);
@@ -57,24 +58,48 @@ export default function MyPlans() {
                         html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
                     })
                 } finally {
-                    setIsLoader(false);
+                    setIsLoading(false);
+                    setIsLoadingText('');
                 }
             }
         })
+    }
+
+    const handleFilterSearchText = async (event) => {
+        const filterValue = event.target.value.toLowerCase();
+
+        const newData = typeList.filter(row => {
+            return row.name.toLowerCase().includes(filterValue);
+        })
+
+        setRecords(newData);
+    }
+
+    const handleFilterSelect = async (event) => {
+        const filterValue = event.target.value.toLowerCase();
+
+        const newData = typeList.filter(row => {
+            return row.active.toString() === filterValue || (filterValue === 'true' && row.active === 1) || (filterValue === 'false' && row.active === 0);
+        });
+
+        setRecords(newData);
     }
 
     const columns = [
         {
             name: <span className='font-bold text-[14px]'>Nome</span>,
             selector: row => <span className='text-[14px]'>{row.name}</span>,
+            sortable: true
         },
         {
             name: <span className='font-bold text-[14px]'>Preço</span>,
             selector: row => <span className='text-[14px]'>{formatMoney(row.price)}</span>,
+            sortable: true
         },
         {
             name: <span className='font-bold text-[14px]'>Quantidade de Dias</span>,
             selector: row => <span className='text-[14px]'>{row.number_of_days}x na Semana</span>,
+            sortable: true
         },
         {
             name: 'Status',
@@ -87,6 +112,7 @@ export default function MyPlans() {
                     <span class="h-1.5 w-1.5 rounded-full bg-red-600"></span> Inativo
                 </span>
             ),
+            sortable: true
         },
         {
             name: 'Ações',
@@ -117,6 +143,7 @@ export default function MyPlans() {
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
+            sortable: true
         }
     ];
 
@@ -128,85 +155,60 @@ export default function MyPlans() {
         selectAllRowsItemText: 'Todos',
     };
 
-    console.log(filterStatus);
-
     return (
-        <>
-            {
-                (isLoader) && (
-                    <div class="z-10 absolute right-1/2 bottom-1/2  transform translate-x-1/2 translate-y-1/2 ">
-                        <div class="border-t-transparent border-solid animate-spin  rounded-full border-blue-400 border-8 h-64 w-64"></div>
-                    </div>
-                )
-            }
-            <article className="flex-auto h-full mx-auto rounded-md w-full">
-                <div>
-                    <div className="flex-auto pb-[14px]">
-                        <h1 class="title">{`Meus Planos` + " "}
-                            {`(${(search === '') ? typeList.length : typeList.filter(type => {
-                                const regex = new RegExp(`^${search}`, "i"); // "i" para tornar a correspondência não sensível a maiúsculas e minúsculas
-                                return regex.test(type.name);
-                            }).length})`}
-                        </h1>
-                        <ul class="breadcrumbs">
-                            <li><a href="#">Principal</a></li>
-                            <li class="divider">/</li>
-                            <li><a href="#" class="active">Planos da Academia</a></li>
-                            <li class="divider">/</li>
-                            <li><a href="#" class="active">Meus Planos</a></li>
-                        </ul>
-                    </div>
+
+        <article className="flex-auto h-full mx-auto rounded-md w-full">
+            <div>
+                <div className="flex-auto pb-[14px]">
+                    <h1 class="title">{`Meus Planos ${records.length}`}
+                    </h1>
+                    <ul class="breadcrumbs">
+                        <li><a href="#">Principal</a></li>
+                        <li class="divider">/</li>
+                        <li><a href="#" class="active">Planos da Academia</a></li>
+                        <li class="divider">/</li>
+                        <li><a href="#" class="active">Meus Planos</a></li>
+                    </ul>
                 </div>
-                <div className='mb-[5px]'>
-                    <div className='grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6 '>
-                        <div className="mt-1 sm:col-span-5">
-                            <input
-                                type="text"
-                                name="search"
-                                id="search"
-                                value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                }}
-                                placeholder='Digite um nome de um plano para buscar-lo'
-                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-                            />
-                        </div>
-                        <div className="mt-1 sm:col-span-1">
-                            <select
-                                type="text"
-                                name="filter"
-                                id="filter"
-                                value={filterStatus}
-                                onChange={(e) => {
-                                    setFilterStatus(e.target.value);
-                                }}
-                                placeholder='Digite um nome de um plano para buscar-lo'
-                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-                            >
-                                <option value='' disabled selected>Selecione uma Opção</option>
-                                <option value={1}>Ativo</option>
-                                <option value={0}>Inativo</option>
-                            </select>
-                        </div>
+            </div>
+            <div className='mb-[5px]'>
+                <div className='grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6 '>
+                    <div className="mt-1 sm:col-span-5">
+                        <input
+                            type="text"
+                            name="search"
+                            id="search"
+                            onChange={(e) => handleFilterSearchText(e)}
+                            placeholder='Digite um nome de um plano para buscar-lo'
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                        />
+                    </div>
+                    <div className="mt-1 sm:col-span-1">
+                        <select
+                            type="text"
+                            name="filter"
+                            id="filter"
+                            onChange={(e) => handleFilterSelect(e)}
+                            placeholder='Digite um nome de um plano para buscar-lo'
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                        >
+                            <option value='' disabled selected>Selecione uma Opção</option>
+                            <option value={1}>Ativo</option>
+                            <option value={0}>Inativo</option>
+                        </select>
                     </div>
                 </div>
-                <div className="flex-auto pb-[30px]">
-                    <DataTable
-                        columns={columns}
-                        // "i" para tornar a correspondência não sensível a maiúsculas e minúsculas new RegExp(`^${search}`, "i")
-                        data={
-                            (search === '' && filterStatus === '') ? typeList 
-                            : (search !== '') ? typeList.filter(type => { const regex = new RegExp(`^${search}`, "i"); return regex.test(type.name); })
-                            : (filterStatus === '0') ? typeList.filter(type => type.active === 0)
-                            : (filterStatus === '1') ? typeList.filter(type => type.active === 1)
-                            : ''
-                        }
-                        pagination
-                        paginationComponentOptions={options}
-                    />
-                </div>
-            </article>
-        </>
+            </div>
+            <div className="flex-auto pb-[30px]">
+                <DataTable
+                    columns={columns}
+                    data={records}
+                    pagination
+                    selectableRows
+                    paginationComponentOptions={options}
+                    className='dark-table'
+                />
+            </div>
+        </article>
     )
 }
