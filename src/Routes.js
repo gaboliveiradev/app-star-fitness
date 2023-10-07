@@ -12,6 +12,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 import EnrollGymMember from './pages/EnrollGymMember';
 import RegisterEmployee from './pages/RegisterEmployee';
 import MyGymMembers from './pages/MyGymMembers';
+import EmployeeManagement from './pages/EmployeeManagement';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -32,6 +33,7 @@ export const Routing = () => {
             <Route element={<DashboardLayout page={<RedefinePassword />} />} path='/redefine/password/form' exact />
             {/* @==== Employee ====@ */}
             <Route element={<DashboardLayout page={<RegisterEmployee />} />} path="/employee/register/form" exact />
+            <Route element={<DashboardLayout page={<EmployeeManagement />} />} path="/employee-management" />
         </Routes>
     )
 }
