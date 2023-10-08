@@ -130,15 +130,7 @@ export default function FormPersonDataGymMember() {
                 </label>
                 <div className="mt-1">
                     <IMaskInput
-                        mask="num cm"
-                        blocks={{
-                            num: {
-                                mask: Number,
-                                scale: 2,
-                                max: 238, // Maior homem do mundo
-                                radix: ',',
-                            },
-                        }}
+                        mask='0.00 cm'
                         lazy={false}
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}
@@ -165,7 +157,7 @@ export default function FormPersonDataGymMember() {
                                 max: 600,
                             },
                         }}
-                        lazy={false} // True = Aplica a mascará após tirar o focus do input
+                        lazy={false}
                         value={weight}
                         onChange={(e) => setWeight(e.target.value)}
                         type="text"

@@ -10,7 +10,7 @@ import ExpandedeGymMembers from '../components/ExpandedGymMembers';
 export default function MyGymMembers() {
 
     const { getGymMembers, token, gymMembersList } = useContext(AuthContext);
-    const { setIsLoading, setIsLoadingText, setSelectedRow } = useContext(MainContext);
+    const { setIsLoading, setIsLoadingText } = useContext(MainContext);
 
     const [records, setRecords] = useState(gymMembersList);
     const [isFilterActive, setIsFilterActive] = useState(false);
@@ -54,8 +54,7 @@ export default function MyGymMembers() {
     }
 
     const handleClickExpandedComponenet = ({ data }) => {
-        setSelectedRow(data);
-        return <ExpandedeGymMembers />
+        return <ExpandedeGymMembers data={data} />
     };
 
     const handleClickDelete = async (e, row) => {
@@ -194,6 +193,7 @@ export default function MyGymMembers() {
                     </div>
                 </div>
             </div>
+
             <div className="flex-auto pb-[30px]">
                 <DataTable
                     columns={columns}
