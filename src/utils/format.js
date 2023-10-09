@@ -1,3 +1,6 @@
+import moment from 'moment-timezone';
+import 'moment/locale/pt-br';
+
 function formatMoney(value) {
     const result = Number(value)
     return new Intl.NumberFormat("pt-br", { style: "currency", "currency": "BRL" }).format(result);
@@ -14,13 +17,13 @@ function formatCEP(cep) {
     cep = cep.replace(/\D/g, '');
 
     if (cep.length !== 8) {
-      return "CEP inválido";
+        return "CEP inválido";
     }
 
     cep = cep.slice(0, 5) + '-' + cep.slice(5);
-  
+
     return cep;
-  }
+}
 
 function formatPhone(phone) {
     phone = phone.replace(/\D/g, '');
@@ -51,11 +54,30 @@ function add30Days(data) {
     return dataNova.toISOString().split('T')[0];
 }
 
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function formatCreatedAt(timestamp) {
+    const formatoDesejado = 'DD/MMM/YY à[s] HH[h]mm[m]';
+    moment.locale('pt-br');
+
+    const momentoUtc = moment.utc(timestamp, 'YYYY-MM-DD HH:mm:ss');
+    const momentoBrasilia = momentoUtc.tz('America/Sao_Paulo');
+
+    const resultado = momentoBrasilia.format(formatoDesejado);
+
+    return resultado;
+}
+
+
 export {
     formatMoney,
     formatCPF,
     formatPhone,
     formatCEP,
+    formatCreatedAt,
+    capitalizeFirstLetter,
     getCurrentDate,
     add30Days
 }
