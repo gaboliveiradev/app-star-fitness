@@ -10,6 +10,18 @@ function formatCPF(cpf) {
     return cpf;
 }
 
+function formatCEP(cep) {
+    cep = cep.replace(/\D/g, '');
+
+    if (cep.length !== 8) {
+      return "CEP inválido";
+    }
+
+    cep = cep.slice(0, 5) + '-' + cep.slice(5);
+  
+    return cep;
+  }
+
 function formatPhone(phone) {
     phone = phone.replace(/\D/g, '');
 
@@ -43,6 +55,7 @@ export {
     formatMoney,
     formatCPF,
     formatPhone,
+    formatCEP,
     getCurrentDate,
     add30Days
 }

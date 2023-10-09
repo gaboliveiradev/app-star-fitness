@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { formatCPF, formatPhone } from './../utils/format';
+import { formatCEP, formatCPF, formatPhone } from './../utils/format';
 import MainContext from './../context/MainContext';
 
 export default function ExpandedeGymMembers({ data }) {
@@ -7,9 +7,9 @@ export default function ExpandedeGymMembers({ data }) {
     return (
         <section>
             {/* =======@ DESKTOP @======= */}
-            <article className='bg-white max-w-[862px] py-[30px] rounded-xl px-[30px] hidden lg:block'>
+            <article className='bg-white max-w-screen py-[30px] rounded-xl px-[30px] hidden lg:block'>
                 <h1 className='text-[18px] font-bold'>Dados Pessoais</h1>
-                <div class="flex flex-row p-6 text-gray-600">
+                <div class="flex flex-wrap flex-row justify-between p-6 text-gray-600">
                     <div className='pr-6'>
                         <div class="flex flex-row text-sm">
                             <span class="mr-3">
@@ -34,7 +34,7 @@ export default function ExpandedeGymMembers({ data }) {
                                     <path d="M12 4l1.465 1.638a2 2 0 1 1 -3.015 .099l1.55 -1.737z"></path>
                                 </svg>
                             </span>
-                            <p class="flex items-center  text-gray-500">
+                            <p class="flex items-center text-gray-500">
                                 <span class="font-semibold mr-2 text-xs uppercase">Data de Nascimento:</span>
                                 <span>{data.person.birthday}</span>
                             </p>
@@ -123,7 +123,7 @@ export default function ExpandedeGymMembers({ data }) {
                             </span>
                             <p class="flex items-center  text-gray-500">
                                 <span class="font-semibold mr-2 text-xs uppercase">Altura:</span>
-                                <span>{data.height_cm}</span>
+                                <span>{(data.height_cm !== null) ? `${data.height_cm} cm` : 'Não Informado.'}</span>
                             </p>
                         </div>
                         <div class="flex flex-row text-sm">
@@ -136,7 +136,77 @@ export default function ExpandedeGymMembers({ data }) {
                             </span>
                             <p class="flex items-center  text-gray-500">
                                 <span class="font-semibold mr-2 text-xs uppercase">Peso:</span>
-                                <span>{formatCPF(data.weight_kg)}</span>
+                                <span>{(data.weight_kg !== null) ? `${data.weight_kg} kg` : 'Não Informado.'}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 className='text-[18px] font-bold'>Dados de Endereço</h1>
+                <div class="flex flex-wrap flex-row justify-between p-6 text-gray-600">
+                    <div className='pr-6'>
+                        <div class="flex flex-row text-sm">
+                            <span class="mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                    <path d="M11.87 21.48a1.992 1.992 0 0 1 -1.283 -.58l-4.244 -4.243a8 8 0 1 1 13.355 -3.474"></path>
+                                    <path d="M15 19l2 2l4 -4"></path>
+                                </svg>
+                            </span>
+                            <p class="flex items-center  text-gray-500">
+                                <span class="font-semibold mr-2 text-xs uppercase">Logradouro:</span>
+                                <span>{`${data.person.address.street}, ${data.person.address.number} - ${data.person.address.district}`}</span>
+                            </p>
+                        </div>
+
+                        <div class="flex flex-row text-sm">
+                            <span class="mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-123" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M3 10l2 -2v8"></path>
+                                    <path d="M9 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3"></path>
+                                    <path d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5"></path>
+                                </svg>
+                            </span>
+                            <p class="flex items-center  text-gray-500">
+                                <span class="font-semibold mr-2 text-xs uppercase">CEP/CIDADE:</span>
+                                <span>{`${formatCEP(data.person.address.zip_code)} / ${data.person.address.city.name}-${data.person.address.city.state}`}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 className='text-[18px] font-bold'>Dados da Matrícula</h1>
+                <div class="flex flex-wrap flex-row justify-between p-6 text-gray-600">
+                    <div className='pr-6'>
+                        <div class="flex flex-row text-sm">
+                            <span class="mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                    <path d="M11.87 21.48a1.992 1.992 0 0 1 -1.283 -.58l-4.244 -4.243a8 8 0 1 1 13.355 -3.474"></path>
+                                    <path d="M15 19l2 2l4 -4"></path>
+                                </svg>
+                            </span>
+                            <p class="flex items-center  text-gray-500">
+                                <span class="font-semibold mr-2 text-xs uppercase">Logradouro:</span>
+                                <span>{`${data.person.address.street}, ${data.person.address.number} - ${data.person.address.district}`}</span>
+                            </p>
+                        </div>
+
+                        <div class="flex flex-row text-sm">
+                            <span class="mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-123" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M3 10l2 -2v8"></path>
+                                    <path d="M9 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3"></path>
+                                    <path d="M17 8h2.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1 -1.5 1.5h-2.5"></path>
+                                </svg>
+                            </span>
+                            <p class="flex items-center  text-gray-500">
+                                <span class="font-semibold mr-2 text-xs uppercase">CEP/CIDADE:</span>
+                                <span>{`${formatCEP(data.person.address.zip_code)} / ${data.person.address.city.name}-${data.person.address.city.state}`}</span>
                             </p>
                         </div>
                     </div>
