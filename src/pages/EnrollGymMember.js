@@ -170,7 +170,7 @@ export default function EnrollGymMember() {
                 })
 
                 handleClickClearFields();
-                
+
 
                 return;
             }

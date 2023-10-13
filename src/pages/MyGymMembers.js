@@ -137,81 +137,87 @@ export default function MyGymMembers() {
 
     return (
         <article className="flex-auto h-full mx-auto rounded-md w-full">
+            {/* =====@ Header @===== */}
             <div>
-                <div className="flex-auto pb-[14px]">
-                    <h1 class="title">{`Meus Alunos (${records.length})`}
-                    </h1>
-                    <ul class="breadcrumbs">
-                        <li><a href="#">Principal</a></li>
-                        <li class="divider">/</li>
-                        <li><a href="#" class="active">Aluno</a></li>
-                        <li class="divider">/</li>
-                        <li><a href="#" class="active">Matrículas e Alunos</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div className='mb-[5px]'>
-                <div className='grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6 '>
-                    <div className="mt-1 sm:col-span-5">
-                        <input
-                            type="text"
-                            name="search"
-                            id="search"
-                            onChange={(e) => {
-                                handleFilterSearchText(e);
-                            }}
-                            placeholder='Digite um nome de um plano para buscar-lo'
-                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-                        />
+                <div>
+                    <div className="flex-auto pb-[14px]">
+                        <h1 class="title">{`Meus Alunos (${records.length})`}
+                        </h1>
+                        <ul class="breadcrumbs">
+                            <li><a href="#">Principal</a></li>
+                            <li class="divider">/</li>
+                            <li><a href="#" class="active">Aluno</a></li>
+                            <li class="divider">/</li>
+                            <li><a href="#" class="active">Matrículas e Alunos</a></li>
+                        </ul>
                     </div>
-                    <div className="mt-1 sm:col-span-1 flex justify-center items-center">
-                        <select
-                            type="text"
-                            name="filter"
-                            id="filter"
-                            value={filterSelect}
-                            onChange={(e) => {
-                                handleFilterSelect(e);
-                                setFilterSelect(e.target.value);
-                            }}
-                            placeholder='Digite um nome de um plano para buscar-lo'
-                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-                        >
-                            <option value='' disabled selected>Selecione uma Opção</option>
-                            <option value={1}>Ativo</option>
-                            <option value={0}>Inativo</option>
-                        </select>
-                        {
-                            (isFilterActive) && (
-                                <button className='pl-[12px]' onClick={(e) => handleClickClearFilter(e)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            )
-                        }
+                </div>
+                <div className='mb-[5px]'>
+                    <div className='grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6 '>
+                        <div className="mt-1 sm:col-span-5">
+                            <input
+                                type="text"
+                                name="search"
+                                id="search"
+                                onChange={(e) => {
+                                    handleFilterSearchText(e);
+                                }}
+                                placeholder='Digite um nome de um plano para buscar-lo'
+                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                            />
+                        </div>
+                        <div className="mt-1 sm:col-span-1 flex justify-center items-center">
+                            <select
+                                type="text"
+                                name="filter"
+                                id="filter"
+                                value={filterSelect}
+                                onChange={(e) => {
+                                    handleFilterSelect(e);
+                                    setFilterSelect(e.target.value);
+                                }}
+                                placeholder='Digite um nome de um plano para buscar-lo'
+                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:placeholder-white dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                            >
+                                <option value='' disabled selected>Selecione uma Opção</option>
+                                <option value={1}>Ativo</option>
+                                <option value={0}>Inativo</option>
+                            </select>
+                            {
+                                (isFilterActive) && (
+                                    <button className='pl-[12px]' onClick={(e) => handleClickClearFilter(e)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex-auto pb-[30px]">
-                <DataTable
-                    columns={columns}
-                    data={records}
-                    pagination
-                    selectableRows
-                    paginationComponentOptions={options}
-                    onRowClicked={handleClickRow}
-                    onSelectedRowsChange={handleSelectedRow}
-                    expandableRows
-                    expandableRowsComponent={handleClickExpandedComponenet}
-                    conditionalRowStyles={[
-                        {
-                            when: (row) => true,
-                            style: rowStyles,
-                        },
-                    ]}
-                />
+            {/* =====@ Body @===== */}
+            <div className="flex-1">
+                <div className="flex-auto pb-[30px]">
+                    <DataTable
+                        columns={columns}
+                        data={records}
+                        pagination
+                        selectableRows
+                        paginationComponentOptions={options}
+                        onRowClicked={handleClickRow}
+                        onSelectedRowsChange={handleSelectedRow}
+                        expandableRows
+                        expandableRowsComponent={handleClickExpandedComponenet}
+                        conditionalRowStyles={[
+                            {
+                                when: (row) => true,
+                                style: rowStyles,
+                            },
+                        ]}
+                    />
+                </div>
             </div>
         </article>
     )

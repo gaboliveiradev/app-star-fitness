@@ -22,13 +22,14 @@ export default function DashboardLayout(props) {
               {/* <!-- ===== Sidebar End ===== --> */}
 
               {/* <!-- ===== Content Area Start ===== --> */}
-              <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+              <div className="relative flex flex-1 flex-col h-[100%] overflow-hidden">
                 {/* <!-- ===== Header Start ===== --> */}
                 <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 {/* <!-- ===== Header End ===== --> */}
 
                 {/* <!-- ===== Main Content Start ===== --> */}
-                <main className='h-full'>
+                {/* Retirar h-[100%] overflow-auto para voltar ao normal (porém layout buga, tem que arrumar) */}
+                <main className='h-full h-[100%] overflow-auto'>
                   <div className="overflow-auto w-screen-2xl h-full p-4 md:p-6 2xl:p-10 bg-white dark:bg-boxdark duration-300 ease-linear rounded-xl shadow-xl">
                     {props.page}
                   </div>
