@@ -1,22 +1,37 @@
 import React, { useContext, useState } from 'react';
 import FormAddress from '../components/FormAddress';
-import FormEnroll from '../components/FormEnroll';
 import MainContext from '../context/MainContext';
 import Swal from 'sweetalert2'
 import EmployeeContext from '../context/EmployeeContext';
 import FormEmployee from '../components/employee/FormEmployee';
+import PersonContext from '../context/PersonContext';
+import AddressContext from '../context/AddressContext';
 
 
 export default function RegisterEmployee() {
 
-    const {  
-        name, setName, email, setEmail, document, setDocument, phone, setPhone, 
-        birthday, setBirthday, gender, setGender, cref, setCref, occupation, setOccupation,
-        observation, setObservation, zipCode, setZipCode,
-        street, setStreet, district, setDistrict,
-        number, setNumber, city, setCity,
-        state, setState,setIsLoading, setIsLoadingText,
+    const {
+        setIsLoading, setIsLoadingText
     } = useContext(MainContext);
+
+    const {  
+        name, setName, email, setEmail, document, 
+        setDocument, phone, setPhone, 
+        birthday, setBirthday, gender, setGender
+    } = useContext(PersonContext);
+
+    const {
+        cref, setCref,
+        occupation, setOccupation,
+        observation, setObservation
+    } = useContext(EmployeeContext);
+
+    const {
+        zipCode, setZipCode,
+        street, setStreet,district, setDistrict,
+        number, setNumber,city, setCity,
+        state, setState
+    } = useContext(AddressContext);
 
     const { createCity, createAddress, createEmployee, token } = useContext(EmployeeContext);
 
@@ -96,6 +111,7 @@ export default function RegisterEmployee() {
                     birthday: birthday,
                     gender: gender,
                     cref: cref.replace(/[^0-9]/g, ''),
+                    occupation: occupation,
                     observation:observation,
                     id_address: responseAddress.data.data.id,
                 }

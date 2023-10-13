@@ -1,7 +1,7 @@
 import React, { useContext, useState, } from 'react';
 import AuthContext from '../context/AuthContext';
 
-export default function EmployeeManagement() {
+export default function MyEmployee() {
 
     const { typeList, deleteType, token } = useContext(AuthContext);
     const [records, setRecords] = useState(typeList);
