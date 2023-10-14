@@ -13,6 +13,8 @@ import EnrollGymMember from './pages/EnrollGymMember';
 import RegisterEmployee from './pages/RegisterEmployee';
 import MyGymMembers from './pages/MyGymMembers';
 import MyEmployee from './pages/MyEmployee';
+import AccountSettings from './pages/AccountSettings';
+import MyProfile from './pages/MyProfile';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -34,6 +36,10 @@ export const Routing = () => {
             {/* @==== Employee ====@ */}
             <Route element={<DashboardLayout page={<RegisterEmployee />} />} path="/employee/register/form" exact />
             <Route element={<DashboardLayout page={<MyEmployee />} />} path="/employee-management" />
+            {/* @==== Account Settings ====@ */}
+            <Route element={<DashboardLayout page={<AccountSettings />} />} path='/account-settings' />
+            {/* @==== My Profile ====@ */}
+            <Route element={<DashboardLayout page={<MyProfile />} />} path='/profile' />
         </Routes>
     )
 }
