@@ -5,12 +5,14 @@ import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
 import MainContext from '../context/MainContext';
 import { formatCPF, formatPhone } from '../utils/format';
-import ExpandedeGymMembers from '../components/ExpandedGymMembers';
+import FullDataGymMemberModal from '../components/modals/FullDataGymMemberModal';
 
 export default function MyGymMembers() {
 
     const { getGymMembers, token, gymMembersList } = useContext(AuthContext);
-    const { setIsLoading, setIsLoadingText } = useContext(MainContext);
+
+    const { setIsLoading, setIsLoadingText, setGymMemberModal } = useContext(MainContext);
+    const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal } = useContext(MainContext);
 
     const [records, setRecords] = useState(gymMembersList);
     const [isFilterActive, setIsFilterActive] = useState(false);
@@ -50,12 +52,9 @@ export default function MyGymMembers() {
     }
 
     const handleClickRow = async (row) => {
-        console.log('Dados da linha clicada:', row);
+        setIsOpenFullDataGymMemberModal(true);
+        setGymMemberModal(row);
     }
-
-    const handleClickExpandedComponenet = ({ data }) => {
-        return <ExpandedeGymMembers data={data} />
-    };
 
     const handleClickDelete = async (e, row) => {
 
@@ -63,8 +62,12 @@ export default function MyGymMembers() {
 
     const columns = [
         {
-            name: <span className='font-bold text-[14px]'>Nome</span>,
-            selector: row => <span className='text-[14px]'>{row.person.name}</span>,
+            name: <span className='font-bold text-[14px]'>Aluno</span>,
+            selector: (row) =>
+                <div className="flex justify-center items-center">
+                    <img className="w-10 rounded-full" src={row.person.photo_url} alt={`photo-url-${row.person.name}`} />
+                    <a className='text-[14px] pl-[5px]'>{row.person.name}</a>
+                </div>,
             sortable: true
         },
         {
@@ -137,6 +140,12 @@ export default function MyGymMembers() {
 
     return (
         <article className="flex-auto h-full mx-auto rounded-md w-full">
+            {
+                (isOpenFullDataGymMemberModal) && (
+                    <FullDataGymMemberModal />
+                )
+            }
+
             {/* =====@ Header @===== */}
             <div>
                 <div>
@@ -208,8 +217,6 @@ export default function MyGymMembers() {
                         paginationComponentOptions={options}
                         onRowClicked={handleClickRow}
                         onSelectedRowsChange={handleSelectedRow}
-                        expandableRows
-                        expandableRowsComponent={handleClickExpandedComponenet}
                         conditionalRowStyles={[
                             {
                                 when: (row) => true,
