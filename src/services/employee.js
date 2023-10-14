@@ -14,7 +14,7 @@ export const create = async (parameters, token) => {
             cref: parameters.cref,
             occupation: parameters.occupation,
             observation: parameters.observation,
-            id_addres: parameters.id_addres
+            id_address: parameters.id_address
 
         }, {
             headers: {
