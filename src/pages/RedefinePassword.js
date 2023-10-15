@@ -79,7 +79,8 @@ export default function RedefinePassword() {
                   id="password"
                   className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear ${
                     isChecked ? 'opacity-50' : '' // Adicione a classe de opacidade se isChecked for verdadeiro
-                  }`}                  value={password}
+                  }`} 
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isChecked}
                 />

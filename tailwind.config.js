@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     fontFamily: {
       satoshi: ['Satoshi', 'sans-serif'],
-      Gabarito: ['Gabarito', 'sans-serif']
+      Gabarito: ['Gabarito', 'sans-serif'],
+      Arimo: ['Arimo', 'sans-serif']
     },
     colors: {
       blueProfile: '#3D3ADC',
