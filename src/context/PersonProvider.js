@@ -11,13 +11,16 @@ export const PersonProvider = ({ children }) => {
     const [birthday, setBirthday] = useState("");
     const [gender, setGender] = useState("");
 
+    const [password, setPassword] = useState("");
+
     const context = {
         name, setName,
         email, setEmail,
         document, setDocument,
         phone, setPhone,
         birthday, setBirthday,
-        gender, setGender
+        gender, setGender,
+        password, setPassword
     };
 
     return (

@@ -10,6 +10,11 @@ export default function RedefinePassword() {
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+
+    // Se o checkbox estiver marcado, limpe o campo de senha
+    if (!isChecked) {
+      setPassword(""); // Limpar a senha
+    }
   };
 
   return (
@@ -46,7 +51,7 @@ export default function RedefinePassword() {
                 placeholder="999.999.999-99"
                 lazy={true}
                 value={document}
-                //onChange={(e) => setDocument(e.target.value)}
+                onChange={(e) => setDocument(e.target.value)}
                 type="text"
                 name="document"
                 id="document"
@@ -61,7 +66,7 @@ export default function RedefinePassword() {
           <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-6">
               <label
-                htmlFor="document"
+                htmlFor="password"
                 className="block font-bold text-[16px] text-black-700"
               >
                 Senha *
@@ -72,7 +77,12 @@ export default function RedefinePassword() {
                   type="password"
                   name="password"
                   id="password"
-                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                  className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear ${
+                    isChecked ? 'opacity-50' : '' // Adicione a classe de opacidade se isChecked for verdadeiro
+                  }`} 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={isChecked}
                 />
               </div>
             </div>
@@ -100,7 +110,6 @@ export default function RedefinePassword() {
           <div className="sm:col-span-6 flex justify-between">
             <div className="m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer">
               <button
-                //onClick={() => setStepper(stepper === 3 ? 3 : stepper + 1)}
                 class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40"
               >
                 <span relative="relative z-10">Redefinir Senha</span>
