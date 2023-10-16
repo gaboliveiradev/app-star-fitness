@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
-import axios from 'axios';
+import React, { useContext, useRef } from 'react';
+import axios from 'axios'; // Importe o módulo axios
 import { IMaskInput } from 'react-imask';
 import AddressContext from '../context/AddressContext';
 import Swal from 'sweetalert2'
 import { Toast } from './../common/Toast';
 
 export default function FormAddress() {
+
+      // Create a ref for the number input field
+      const numberInputRef = useRef(null);
 
     const {
         zipCode, setZipCode,
@@ -47,6 +50,8 @@ export default function FormAddress() {
                                 icon: 'success',
                                 title: 'CEP ENCONTRADO!'
                             })
+
+                            numberInputRef.current.focus();
                         }
                     })
             } catch {
@@ -132,6 +137,7 @@ export default function FormAddress() {
                         type="text"
                         name="number"
                         id="number"
+                        ref={numberInputRef} 
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     />
                 </div>
