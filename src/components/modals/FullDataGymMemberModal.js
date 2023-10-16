@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import MainContext from '../../context/MainContext';
-import { formatCPF, formatCreatedAt, formatPhone } from './../../utils/format';
+import { formatBirthday, formatCPF, formatCreatedAt, formatPhone } from './../../utils/format';
 
 export default function FullDataGymMemberModal() {
     const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal, gymMemberModal } = useContext(MainContext);
@@ -66,7 +66,7 @@ export default function FullDataGymMemberModal() {
                                     <p className='text-center pt-[10px] font-bold text-[24px]'>{gymMemberModal.person.name}</p>
                                 </div>
                             </div>
-                            <div className='flex justify-between flex-grow bg-gray-200 rounded-md shadow-md p-[20px]'>
+                            <div className='flex justify-between flex-grow bg-gray-200 rounded-md shadow-md p-[20px] overflow-auto'>
                                 <div className="w-1/2 m-[10px] flex flex-col justify-around">
                                     {/* ======@ DOCUMENT @====== */}
                                     <div className='flex justify-start bg-gray-300 p-[5px] rounded-md'>
@@ -79,7 +79,7 @@ export default function FullDataGymMemberModal() {
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cake" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 20h18v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8z"></path><path d="M3 14.803c.312 .135 .654 .204 1 .197a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1a2.4 2.4 0 0 0 2 -1a2.4 2.4 0 0 1 2 -1a2.4 2.4 0 0 1 2 1a2.4 2.4 0 0 0 2 1c.35 .007 .692 -.062 1 -.197"></path><path d="M12 4l1.465 1.638a2 2 0 1 1 -3.015 .099l1.55 -1.737z"></path>
                                         </svg>
-                                        <span className='pl-[5px]'>{gymMemberModal.person.birthday}</span>
+                                        <span className='pl-[5px]'>{formatBirthday(gymMemberModal.person.birthday)}</span>
                                     </div>
                                     <div className='flex justify-start bg-gray-300 p-[5px] rounded-md'>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -113,13 +113,13 @@ export default function FullDataGymMemberModal() {
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-scale-outline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 3m0 4a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z"></path><path d="M12 7c1.956 0 3.724 .802 5 2.095l-2.956 2.904a3 3 0 0 0 -2.038 -.799a3 3 0 0 0 -2.038 .798l-2.956 -2.903a6.979 6.979 0 0 1 5 -2.095z"></path>
                                         </svg>
-                                        <span className='pl-[5px]'>{`${gymMemberModal.weight_kg} kg`}</span>
+                                        <span className='pl-[5px]'>{(gymMemberModal.weight_kg === null) ? 'Peso Não Informado' : `${gymMemberModal.weight_kg} kg`}</span>
                                     </div>
                                     <div className='flex justify-start bg-gray-300 p-[5px] rounded-md'>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-line-height" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 8l3 -3l3 3"></path><path d="M3 16l3 3l3 -3"></path><path d="M6 5l0 14"></path><path d="M13 6l7 0"></path><path d="M13 12l7 0"></path><path d="M13 18l7 0"></path>
                                         </svg>
-                                        <span className='pl-[5px]'>{`${gymMemberModal.height_cm} cm`}</span>
+                                        <span className='pl-[5px]'>{(gymMemberModal.height_cm === null) ? 'Altura Não Informada' : `${gymMemberModal.height_cm} cm`}</span>
                                     </div>
                                     <div className='flex justify-start bg-gray-300 p-[5px] rounded-md'>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-star" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
