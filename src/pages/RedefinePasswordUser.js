@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { IMaskInput } from "react-imask";
-import PersonContext from "./../context/PersonContext";
+import PersonContext from "../context/PersonContext";
 
-export default function RedefinePassword() {
+export default function RedefinePasswordUser() {
   const { document, setDocument, password, setPassword } =
     useContext(PersonContext);
 

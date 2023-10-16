@@ -11,6 +11,8 @@ export default function MyGymMembers() {
 
     const { getGymMembers, token, gymMembersList } = useContext(AuthContext);
 
+    const {deleteType} = useContext(AuthContext);
+
     const { setIsLoading, setIsLoadingText, setGymMemberModal } = useContext(MainContext);
     const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal } = useContext(MainContext);
 
@@ -51,13 +53,63 @@ export default function MyGymMembers() {
         setFilterSelect('');
     }
 
+    
+
     const handleClickRow = async (row) => {
         setIsOpenFullDataGymMemberModal(true);
         setGymMemberModal(row);
     }
 
     const handleClickDelete = async (e, row) => {
+        e.preventDefault();
 
+        Swal.fire({
+            title: 'Você tem Certeza?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sim, deletar!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setIsLoading(true);
+                setIsLoadingText('Excluindo Plano...');
+
+                try {
+                    const response = await deleteType(token, row.id);
+
+                    if (response.status === 200) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Plano Deletado',
+                            html: 'Ihuul... Parabéns, você <b>deletou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para reativar seu plano.'
+                        })
+
+                        return;
+                    }
+
+                    if (response.status !== 200) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
+                        })
+
+                        return;
+                    }
+                } catch {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
+                    })
+                } finally {
+                    setIsLoading(false);
+                    setIsLoadingText('');
+                }
+            }
+        })
     }
 
     const columns = [
