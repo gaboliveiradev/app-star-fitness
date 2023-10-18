@@ -1,16 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
+import AuthContext from './../context/AuthContext';
+import { capitalizeFirstLetter } from "../utils/format";
 
 export default function MyProfile() {
-  useEffect(() => {
-    // Quando o componente é montado, oculta a barra de rolagem padrão do body
-    document.body.style.overflow = "hidden";
 
-    // Lembre-se de restaurar a barra de rolagem padrão quando o componente for desmontado
-    return () => {
-      document.body.style.overflow = "visible";
-    };
-  }, []);
+  const { user } = useContext(AuthContext);
 
+  console.log(user);
 
   return (
     <body className="m-0 font-sans antialiased font-normal dark:bg-slate-900 text-base leading-default bg-white text-slate-500">
@@ -20,7 +16,7 @@ export default function MyProfile() {
             <div className="flex-none w-auto max-w-full px-3">
               <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
                 <img
-                  src=""
+                  src={user.photo_url}
                   alt="profile_image"
                   className="w-full shadow-2xl rounded-xl"
                 />
@@ -28,9 +24,9 @@ export default function MyProfile() {
             </div>
             <div className="flex-none w-auto max-w-full px-3 my-auto">
               <div className="h-full">
-                <h5 className="mb-1 text-white font-medium">Jonatan Oliveira</h5>
+                <h5 className="mb-1 text-white font-medium">{user.name}</h5>
                 <p class="mb-0 font-semibold leading-normal text-white dark:opacity-60 text-sm">
-                  Proprietário
+                  {capitalizeFirstLetter(user.employee.occupation)}
                 </p>
               </div>
             </div>
@@ -63,7 +59,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="username"
-                        value="Jonatan Oliveira"
+                        value={user.name}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
