@@ -8,7 +8,8 @@ module.exports = {
     fontFamily: {
       satoshi: ['Satoshi', 'sans-serif'],
       Gabarito: ['Gabarito', 'sans-serif'],
-      Arimo: ['Arimo', 'sans-serif']
+      Arimo: ['Arimo', 'sans-serif'],
+      Merriweather: ['Merriweather', 'serif']
     },
     colors: {
       blueProfile: '#3D3ADC',

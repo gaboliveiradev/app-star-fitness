@@ -83,7 +83,7 @@ export default function MyGymMembers() {
                         Swal.fire({
                             icon: 'success',
                             title: 'Plano Deletado',
-                            html: 'Ihuul... Parabéns, você <b>deletou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para reativar seu plano.'
+                            html: 'Ihuul... Parabéns, você <b>deletou</b> um aluno cadastrado.'
                         })
 
                         return;
