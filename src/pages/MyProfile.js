@@ -1,9 +1,8 @@
-import React, {useContext, useEffect} from "react";
-import AuthContext from './../context/AuthContext';
+import React, { useContext, useEffect } from "react";
+import AuthContext from "./../context/AuthContext";
 import { capitalizeFirstLetter } from "../utils/format";
 
 export default function MyProfile() {
-
   const { user } = useContext(AuthContext);
 
   console.log(user);
@@ -38,9 +37,14 @@ export default function MyProfile() {
         <div className="flex flex-wrap -mx-3">
           <div className="w-full max-w-full px-3 shrink-0 md:w-8/15 md:flex-0">
             <div className="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-            <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
-               <div class="flex items-center">
-                  <button type="button" class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Editar</button>
+              <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
+                <div class="flex items-center">
+                  <button
+                    type="button"
+                    class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"
+                  >
+                    Editar
+                  </button>
                 </div>
               </div>
               <div className="flex-auto p-6">
@@ -144,7 +148,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="last name"
-                        value={(user.gender === "M") ? 'Masculino' : 'Feminino'}
+                        value={user.gender === "M" ? "Masculino" : "Feminino"}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -186,7 +190,7 @@ export default function MyProfile() {
                   </div>
                 </div>
                 <div className="mt-[30px] ml-[10px]  leading-normal  dark:text-white dark:opacity-60 text-sm">
-                <p className="uppercase"> Endereço </p> 
+                  <p className="uppercase"> Endereço </p>
                   <div className="flex flex-wrap -mx-3">
                     <div className="mt-[20px] w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
                       <div class="mb-4">
@@ -228,7 +232,7 @@ export default function MyProfile() {
                           for="country"
                           class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
                         >
-                          Nº 
+                          Nº
                         </label>
                         <input
                           type="text"

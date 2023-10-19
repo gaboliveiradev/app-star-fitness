@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function StaticsInfoData() {
+    
     return (
         <div class="w-full">
             <div class="grid grid-cols-12 gap-4">
@@ -48,6 +49,11 @@ export default function StaticsInfoData() {
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div>
+            <canvas id="chart-tooltips-formatting-example"></canvas>
+
             </div>
         </div>
     )

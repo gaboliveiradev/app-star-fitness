@@ -72,7 +72,7 @@ export default function FullDataGymMemberModal() {
 
                         </div>
                     </div>
-                    <div class="flex flex-row items-center justify-between pt-5 bg-transparent border-t border-gray-200 rounded-bl-lg rounded-br-lg">
+                    <div class="mt-[50px] flex flex-row items-center justify-between pt-5 bg-transparent border-t border-gray-200 rounded-bl-lg rounded-br-lg">
                         <button onClick={(e) => handleClickCloseModal(e)} class="px-4 py-2 text-white font-semibold bg-tertiary-red rounded">
                             Fechar
                         </button>
