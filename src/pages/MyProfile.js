@@ -9,7 +9,7 @@ export default function MyProfile() {
   console.log(user);
 
   return (
-    <body className="m-0 font-sans antialiased font-normal dark:bg-slate-900 text-base leading-default bg-white text-slate-500">
+    <body className="m-0 font-sans sidebar-hidden overflow-hidden antialiased font-normal dark:bg-slate-900 text-base leading-default bg-white text-slate-500">
       <div className="relative w-full mx-auto">
         <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-tertiary-blue border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
           <div className="flex flex-wrap -mx-3">
@@ -44,7 +44,7 @@ export default function MyProfile() {
                 </div>
               </div>
               <div className="flex-auto p-6">
-                <p className="leading-normal font-Merriweather uppercase dark:text-white text-sm">
+                <p className="leading-normal uppercase dark:text-white text-sm">
                   Informações de Usuário
                 </p>
                 <div className="flex flex-wrap -mx-3 mt-[20px]">
@@ -76,7 +76,7 @@ export default function MyProfile() {
                       <input
                         type="email"
                         name="email"
-                        value="jonatan@teste.com"
+                        value={user.email}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -93,7 +93,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="first name"
-                        value="999.999.999-99"
+                        value={user.document}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -110,7 +110,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="last name"
-                        value="20/09/1980"
+                        value={user.birthday}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -127,7 +127,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="last name"
-                        value="000000-G/XX"
+                        value={user.employee.cref}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -144,7 +144,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="last name"
-                        value="Masculino"
+                        value={(user.gender === "M") ? 'Masculino' : 'Feminino'}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -161,7 +161,7 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="last name"
-                        value="(99) 99999-9999"
+                        value={user.phone}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
@@ -178,15 +178,15 @@ export default function MyProfile() {
                       <input
                         type="text"
                         name="last name"
-                        value="Proprietário"
+                        value={user.employee.occupation}
                         disabled
                         class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                       />
                     </div>
                   </div>
                 </div>
-                <p className="mt-[30px] ml-[10px] font-Merriweather leading-normal uppercase dark:text-white dark:opacity-60 text-sm">
-                  Endereço
+                <div className="mt-[30px] ml-[10px]  leading-normal  dark:text-white dark:opacity-60 text-sm">
+                <p className="uppercase"> Endereço </p> 
                   <div className="flex flex-wrap -mx-3">
                     <div className="mt-[20px] w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
                       <div class="mb-4">
@@ -228,7 +228,7 @@ export default function MyProfile() {
                           for="country"
                           class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
                         >
-                          Número
+                          Nº 
                         </label>
                         <input
                           type="text"
@@ -245,7 +245,7 @@ export default function MyProfile() {
                           for="country"
                           class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
                         >
-                          CEP
+                          Cep
                         </label>
                         <input
                           type="text"
@@ -256,7 +256,7 @@ export default function MyProfile() {
                       </div>
                     </div>
                   </div>
-                </p>
+                </div>
               </div>
             </div>
           </div>
