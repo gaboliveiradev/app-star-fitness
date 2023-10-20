@@ -43,7 +43,7 @@ export default function PersonDataModalPageGymMember() {
           </div>
         </div>
       </div>
-      <div className="flex justify-between flex-grow overflow-y ">
+      <div className="p-4 relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
         <div className="flex-auto">
           <div className="flex flex-wrap -mx-3 mt-[20px]">
             <div className="w-full max-w-full px-3 shrink-0 md:w-12/12 md:flex-0">
