@@ -58,8 +58,8 @@ export default function FullDataGymMemberModal() {
                     </div>
                 </div>
                 <div class="flex flex-col px-6 py-5 bg-gray-50">
-                    <div className="h-[500px] mt-[-6px] pb-8 flex flex-col">
-                        <div className='flex flex-col h-[500px]'>
+                    <div className="flex flex-col">
+                        <div className='flex flex-col h-full'>
                             {
                                 (index === 0) ? (
                                     <PersonDataModalPageGymMember />
@@ -72,7 +72,7 @@ export default function FullDataGymMemberModal() {
 
                         </div>
                     </div>
-                    <div class="mt-[100px] flex flex-row items-center justify-between pt-5 bg-transparent border-t border-gray-200 rounded-bl-lg rounded-br-lg">
+                    <div class="flex flex-row items-center justify-between pt-5 border-gray-200 rounded-bl-lg rounded-br-lg">
                         <button onClick={(e) => handleClickCloseModal(e)} class="px-4 py-2 text-white font-semibold bg-tertiary-red rounded">
                             Fechar
                         </button>
