@@ -5,7 +5,7 @@ import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
 import MainContext from '../context/MainContext';
 import { formatCPF, formatPhone } from '../utils/format';
-import FullDataGymMemberModal from '../components/modals/FullDataGymMemberModal';
+import GymMemberInfoModal from '../components/modals/GymMemberInfoModal';
 
 export default function MyGymMembers() {
 
@@ -194,7 +194,7 @@ export default function MyGymMembers() {
         <article className="flex-auto h-full mx-auto rounded-md w-full">
             {
                 (isOpenFullDataGymMemberModal) && (
-                    <FullDataGymMemberModal />
+                    <GymMemberInfoModal />
                 )
             }
 

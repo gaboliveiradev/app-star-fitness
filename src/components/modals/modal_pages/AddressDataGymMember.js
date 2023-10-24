@@ -5,7 +5,7 @@ import {
   formatCPF,
   formatCreatedAt,
   formatPhone,
-} from "./../../../utils/format";
+} from "../../../utils/format";
 
 export default function AddressDataModalPageGymMember() {
   const { gymMemberModal } = useContext(MainContext);
