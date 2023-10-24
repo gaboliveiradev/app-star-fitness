@@ -131,7 +131,7 @@ export default function Login() {
                         onClick={() =>
                           setStepper(stepper === 2 ? 2 : stepper + 1)
                         } // Alterna para o formulário de recuperação de senha
-                        class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
+                        class="cursor-pointer text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
                       >
                         Esqueceu sua senha?
                       </a>
@@ -227,7 +227,7 @@ export default function Login() {
                 </form>
               ) : (
                 <div className="">
-                  <div className="relative flex flex-col justify-center overflow-hidden bg-gray-50 py-12">
+                  <div className="relative flex flex-col justify-center overflow-hidden bg-gray-50">
                     <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
                       <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
                         <div className="flex flex-col items-center justify-center text-center space-y-2">
@@ -248,7 +248,8 @@ export default function Login() {
                               <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
                                 {verificationCodes.map((code, index) => (
                                   <div className="w-16 h-16 " key={index}>
-                                    <input
+                                    <input 
+                                      maxLength={1}
                                       className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
                                       type="text"
                                       name={`code-${index}`}
