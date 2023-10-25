@@ -15,6 +15,7 @@ import MyGymMembers from './pages/MyGymMembers';
 import MyEmployee from './pages/MyEmployee';
 import AccountSettings from './pages/AccountSettings';
 import MyProfile from './pages/MyProfile';
+import AddExercises from './pages/AddExercises';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -40,6 +41,8 @@ export const Routing = () => {
             <Route element={<DashboardLayout page={<AccountSettings />} />} path='/account-settings' />
             {/* @==== My Profile ====@ */}
             <Route element={<DashboardLayout page={<MyProfile />} />} path='/profile' />
+            {/* @==== My Profile ====@ */}
+            <Route element={<DashboardLayout page={<AddExercises />} />} path='/exercises/form' />
         </Routes>
     )
 }
