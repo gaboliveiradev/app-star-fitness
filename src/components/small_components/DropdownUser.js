@@ -53,8 +53,8 @@ export default function DropdownUser() {
           <span className="block text-xs">{user.employee.occupation}</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+        <span className="h-12 w-12 ">
+          <img src={user.photo_url} className="rounded-full" />
         </span>
 
         <svg
