@@ -13,9 +13,24 @@ export default function RedefinePasswordUser() {
 
     // Se o checkbox estiver marcado, limpe o campo de senha
     if (!isChecked) {
-      setPassword(""); // Limpar a senha
+      const randomPassword = generateRandomPassword();
+      setPassword(randomPassword);
     }
   };
+
+  const generateRandomPassword = () => {
+    const length = 12; // Defina o comprimento desejado da senha
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@"; // Caracteres disponíveis para a senha
+    let randomPassword = "";
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      randomPassword += charset[randomIndex];
+    }
+
+    return randomPassword;
+  };
+
 
   return (
     <>
