@@ -152,6 +152,16 @@ export const AuthProvider = ({ children }) => {
         return response;
     }
 
+    async function deleteGymMember(idGymMember, token) {
+        const response = await gymMemberPerson.deleteGymMember(idGymMember, token);
+
+        if (response.status !== 200) return false;
+
+        await getGymMembers(token);
+
+        return response;
+    }
+
     const context = {
         login,
         token, setToken,
@@ -161,7 +171,7 @@ export const AuthProvider = ({ children }) => {
         createType, getType, deleteType,
         createCity, createAddress, createGymMemberPerson,
         createBilling, getGymMembers,
-        gymMembersList,
+        gymMembersList, deleteGymMember,
     };
 
     return (

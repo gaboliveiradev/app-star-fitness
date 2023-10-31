@@ -9,9 +9,9 @@ import GymMemberInfoModal from '../components/modals/GymMemberInfoModal';
 
 export default function MyGymMembers() {
 
-    const { getGymMembers, token, gymMembersList } = useContext(AuthContext);
+    const { token, gymMembersList } = useContext(AuthContext);
 
-    const {deleteType} = useContext(AuthContext);
+    const { deleteGymMember } = useContext(AuthContext);
 
     const { setIsLoading, setIsLoadingText, setGymMemberModal } = useContext(MainContext);
     const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal } = useContext(MainContext);
@@ -74,15 +74,15 @@ export default function MyGymMembers() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 setIsLoading(true);
-                setIsLoadingText('Excluindo Plano...');
+                setIsLoadingText('Excluindo Aluno...');
 
                 try {
-                    const response = await deleteType(token, row.id);
+                    const response = await deleteGymMember(row.id, token);
 
                     if (response.status === 200) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Plano Deletado',
+                            title: 'Aluno Deletado',
                             html: 'Ihuul... Parabéns, você <b>deletou</b> um aluno cadastrado.'
                         })
 
@@ -93,7 +93,7 @@ export default function MyGymMembers() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
+                            html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este aluno.'
                         })
 
                         return;

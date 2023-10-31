@@ -53,7 +53,7 @@ export default function FormPersonDataGymMember() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="document" className="block font-bold text-[16px] text-black-700">
-                    Documento *
+                    Documento/CPF *
                 </label>
                 <div className="mt-1">
                     <IMaskInput
@@ -126,11 +126,11 @@ export default function FormPersonDataGymMember() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="height" className="block font-bold text-[16px] text-black-700">
-                    Altura 
+                    Altura
                 </label>
                 <div className="mt-1">
                     <IMaskInput
-                        mask='0.00 cm'
+                        mask='0,00 cm'
                         lazy={false}
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}
@@ -154,7 +154,7 @@ export default function FormPersonDataGymMember() {
                                 mask: Number,
                                 scale: 2,
                                 radix: ',',
-                                max: 600,
+                                max: 300,
                             },
                         }}
                         lazy={false}

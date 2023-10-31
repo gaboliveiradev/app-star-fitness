@@ -29,6 +29,21 @@ export const create = async (parameters, token) => {
     }
 }
 
+export const deleteGymMember = async (idGymMember, token) => {
+    try {
+        const response = await axios.delete(`${api}/gym-member/${idGymMember}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 export const get = async (token) => {
     try {
         const response = await axios.get(`${api}/gym-member`, {
