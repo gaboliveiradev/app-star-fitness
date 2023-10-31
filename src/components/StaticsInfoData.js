@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 export default function StaticsInfoData() {
+    const { gymMembersList } = useContext(AuthContext);
     
     return (
         <div class="w-full">
@@ -12,7 +14,7 @@ export default function StaticsInfoData() {
                         </div>
                         <div class="flex flex-col flex-grow ml-4">
                             <div class="text-sm text-gray-500">Alunos Ativos</div>
-                            <div class="font-bold text-lg">1259</div>
+                            <div class="font-bold text-lg">{gymMembersList.length}</div>
                         </div>
                     </div>
                 </div>
@@ -23,7 +25,7 @@ export default function StaticsInfoData() {
                         </div>
                         <div class="flex flex-col flex-grow ml-4">
                             <div class="text-sm text-gray-500">Mensalidades em Atraso</div>
-                            <div class="font-bold text-lg">230</div>
+                            <div class="font-bold text-lg">0</div>
                         </div>
                     </div>
                 </div>
@@ -34,7 +36,7 @@ export default function StaticsInfoData() {
                         </div>
                         <div class="flex flex-col flex-grow ml-4">
                             <div class="text-sm text-gray-500">Novos Alunos</div>
-                            <div class="font-bold text-lg">190</div>
+                            <div class="font-bold text-lg">+2</div>
                         </div>
                     </div>
                 </div>
@@ -45,7 +47,7 @@ export default function StaticsInfoData() {
                         </div>
                         <div class="flex flex-col flex-grow ml-4">
                             <div class="text-sm text-gray-500">Receita Mensal</div>
-                            <div class="font-bold text-lg">R$ 32.000,00</div>
+                            <div class="font-bold text-lg">R$ 2.000,00</div>
                         </div>
                     </div>
                 </div>
