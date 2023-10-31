@@ -27,6 +27,7 @@ export default function EnrollGymMember() {
     const {
         height, setHeight, weight, setWeight,
         observation, setObservation, idPlan, setIdPlan,
+        isUpdate
     } = useContext(GymMemberContext);
 
     const {
@@ -63,6 +64,43 @@ export default function EnrollGymMember() {
         setIdPlan('');
         setInvoiceDate(getCurrentDate());
         setDueDate(add30Days(getCurrentDate()));
+    }
+
+    const handleClickUpdate = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
+            && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+                setIsLoading(true);
+                setIsLoadingText("Atualizando Cidade...");
+
+                const cityParameters = {
+                    name: city,
+                    state: state,
+                }
+                const responseCity = await createCity(cityParameters, token);
+
+                if (responseCity.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>cidade existente</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+            }
+        } catch {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: 'Ocorreu um erro inesperado, ao <b>tentar atualizar</b> um <b>ALUNO</b> tente novamente mais tarde.'
+            })
+        } finally {
+            setIsLoading(false);
+            setIsLoadingText("");
+        }
     }
 
     const handleClickCreateEnroll = async (e) => {
@@ -197,7 +235,7 @@ export default function EnrollGymMember() {
             <article className="flex-auto h-full mx-auto rounded-md w-full">
                 <div className='flex flex-col md:flex-row'>
                     <div className="flex-auto pb-[14px]">
-                        <h1 class="title">Novo Aluno</h1>
+                        <h1 class="title">{isUpdate ? 'Atualizar Aluno' : 'Novo Aluno'}</h1>
                         <ul class="breadcrumbs">
                             <li><a href="#">Links Rápidos</a></li>
                             <li class="divider">/</li>
@@ -260,8 +298,8 @@ export default function EnrollGymMember() {
                         {
                             (stepper === 3) ? (
                                 <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
-                                    <button onClick={(e) => handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Matrícular</span>
+                                    <button onClick={(e) => (isUpdate) ? handleClickUpdate(e) : handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                        <span relative="relative z-10">{isUpdate ? 'Atualizar' : 'Matrícular'}</span>
                                     </button>
                                 </div>
                             ) : (
@@ -274,10 +312,16 @@ export default function EnrollGymMember() {
                         }
 
                         {
-                            (stepper !== 1) && (
+                            (stepper !== 1) ? (
                                 <div className='m-[20px] absolute left-[20px] bottom-[20px] hover:cursor-pointer'>
                                     <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
                                         <span relative="relative z-10">Voltar</span>
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className='m-[20px] absolute left-[20px] bottom-[20px] hover:cursor-pointer'>
+                                    <button onClick={(e) => handleClickClearFields(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
+                                        <span relative="relative z-10">Limpar</span>
                                     </button>
                                 </div>
                             )

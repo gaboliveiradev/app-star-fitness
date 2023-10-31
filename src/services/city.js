@@ -18,3 +18,7 @@ export const create = async (parameters, token) => {
         return false;
     }
 }
+
+export const update = async (parameters, token, idCity) => {
+    
+}

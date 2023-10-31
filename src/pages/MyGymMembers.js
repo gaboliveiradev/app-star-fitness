@@ -1,13 +1,19 @@
 import React, { useCallback, useContext, useState, } from 'react';
 import DataTable from 'react-data-table-component';
 import AuthContext from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
 import MainContext from '../context/MainContext';
 import { formatCPF, formatPhone } from '../utils/format';
 import GymMemberInfoModal from '../components/modals/GymMemberInfoModal';
+import PersonContext from '../context/PersonContext';
+import GymMemberContext from '../context/GymMemberContext';
+import AddressContext from '../context/AddressContext';
+import BillingContext from '../context/BillingContext';
 
 export default function MyGymMembers() {
+    const navigate = useNavigate();
 
     const { token, gymMembersList } = useContext(AuthContext);
 
@@ -16,10 +22,71 @@ export default function MyGymMembers() {
     const { setIsLoading, setIsLoadingText, setGymMemberModal } = useContext(MainContext);
     const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal } = useContext(MainContext);
 
+    const {
+        setName, setEmail,
+        setDocument, setPhone,
+        setBirthday, setGender,
+    } = useContext(PersonContext);
+
+    const {
+        setHeight, setWeight,
+        setIdPlan, setIsUpdate,
+        setObservation,
+    } = useContext(GymMemberContext);
+
+    const {
+        setZipCode, setStreet,
+        setDistrict, setNumber,
+        setCity, setState,
+        setIdAddress, setIdCity,
+    } = useContext(AddressContext);
+
+    const {
+        setInvoiceDate, setDueDate,
+    } = useContext(BillingContext)
+
     const [records, setRecords] = useState(gymMembersList);
     const [isFilterActive, setIsFilterActive] = useState(false);
     const [filterSelect, setFilterSelect] = useState('');
     const [selectedRows, setSelectedRows] = useState([]);
+
+    const handleClickAlterUpdate = async (e, row) => {
+        e.preventDefault();
+
+        console.log(row);
+
+        // Person
+        setName(row.person.name);
+        setEmail(row.person.email);
+        setDocument(row.person.document);
+        setPhone(row.person.phone);
+        setBirthday(row.person.birthday);
+        setGender(row.person.gender);
+
+        // GymMember
+        setHeight(row.height_cm);
+        setWeight(row.weight_kg);
+        setObservation(row.observation);
+        setIdPlan(row.id_type_enrollment);
+
+        // Address
+        setIdAddress(row.person.id_address);
+        setIdCity(row.person.address.id_city);
+        setZipCode(row.person.address.zip_code);
+        setStreet(row.person.address.street);
+        setDistrict(row.person.address.district);
+        setNumber(row.person.address.number);
+        setCity(row.person.address.city.name);
+        setState(row.person.address.city.state);
+
+        // Billing
+        setInvoiceDate(row.billing[0].invoice_date);
+        setDueDate(row.billing[0].due_date);
+
+        setIsUpdate(true);
+
+        //navigate('/gym-member/enroll/form');
+    }
 
     const handleSelectedRow = useCallback(state => {
         setSelectedRows(state.selectedRows);
@@ -52,8 +119,6 @@ export default function MyGymMembers() {
         setRecords(gymMembersList);
         setFilterSelect('');
     }
-
-    
 
     const handleClickRow = async (row) => {
         setIsOpenFullDataGymMemberModal(true);
@@ -149,7 +214,7 @@ export default function MyGymMembers() {
             name: 'Ações',
             cell: (row) => (
                 <>
-                    <button className="mr-5">
+                    <button onClick={(e) => handleClickAlterUpdate(e, row)} className="mr-5">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                         </svg>

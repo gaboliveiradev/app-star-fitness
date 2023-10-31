@@ -108,7 +108,7 @@ export default function DropdownUser() {
                   fill=""
                 />
               </svg>
-              My Profile
+              Meu Perfil
             </Link>
           </li>
           <li>
@@ -129,7 +129,7 @@ export default function DropdownUser() {
                   fill=""
                 />
               </svg>
-              My Contacts
+              Meus Contatos
             </Link>
           </li>
           <li>
@@ -154,7 +154,7 @@ export default function DropdownUser() {
                   fill=""
                 />
               </svg>
-              Account Settings
+              Configurações
             </Link>
           </li>
         </ul>
@@ -180,7 +180,7 @@ export default function DropdownUser() {
                 fill=""
               />
             </svg>
-            Log Out
+            Sair
           </Link>
         </button>
       </div>

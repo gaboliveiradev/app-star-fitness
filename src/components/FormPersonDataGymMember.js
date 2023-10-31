@@ -130,7 +130,7 @@ export default function FormPersonDataGymMember() {
                 </label>
                 <div className="mt-1">
                     <IMaskInput
-                        mask='0,00 cm'
+                        mask='000 cm'
                         lazy={false}
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}

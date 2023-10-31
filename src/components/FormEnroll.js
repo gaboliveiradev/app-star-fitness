@@ -80,7 +80,7 @@ export default function FormEnroll() {
 
             <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
 
-            <span className='font-bold text-[24px]'>Total: R$89,90</span>
+            <span className='font-bold text-[24px]'>Total: {typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</span>
         </>
     )
 }

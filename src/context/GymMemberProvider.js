@@ -8,11 +8,14 @@ export const GymMemberProvider = ({ children }) => {
     const [observation, setObservation] = useState("");
     const [idPlan, setIdPlan] = useState("");
 
+    const [isUpdate, setIsUpdate] = useState(false);
+
     const context = {
         height, setHeight,
         weight, setWeight,
         observation, setObservation,
         idPlan, setIdPlan,
+        isUpdate, setIsUpdate,
     };
 
     return (
