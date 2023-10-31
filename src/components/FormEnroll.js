@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import GymMemberContext from '../context/GymMemberContext';
 import BillingContext from '../context/BillingContext';
+import { formatMoney } from '../utils/format';
 
 export default function FormEnroll() {
     const { typeList } = useContext(AuthContext);
@@ -68,6 +69,18 @@ export default function FormEnroll() {
                     />
                 </div>
             </div>
+
+            <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
+
+            <div>
+                <p className='text-[20px]'><span className='font-bold'>Item: </span>{typeList.filter(type => type.id === idPlan).map(type => type.name)}</p>
+                <p className='text-[20px]'><span className='font-bold'>Dias: </span>{typeList.filter(type => type.id === idPlan).map(type => `${type.number_of_days}/7`)}</p>
+                <p className='text-[20px]'><span className='font-bold'>Valor: </span>{typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</p>
+            </div>
+
+            <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
+
+            <span className='font-bold text-[24px]'>Total: R$89,90</span>
         </>
     )
 }
