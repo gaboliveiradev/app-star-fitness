@@ -1,7 +1,6 @@
 import React from 'react';
 import StaticsInfoData from '../components/StaticsInfoData';
-import DashboardCard04 from '../components/GraphInfo01/DashboardCard04';
-import DashboardCard08 from '../components/GraphInfo02/DashboardCard08';
+
 
 export default function Dashboard() {
     return (
@@ -18,12 +17,6 @@ export default function Dashboard() {
             <div className='pt-[20px]'>
                 <StaticsInfoData />
             </div>
-
-            <div className="pt-[40px] grid grid-cols-12 gap-6">
-                <DashboardCard04 />
-                <DashboardCard08 />
-            </div>
-           
             
         </section>
     )
