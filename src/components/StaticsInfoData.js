@@ -53,10 +53,6 @@ export default function StaticsInfoData() {
                 </div>
             </div>
             
-            <div>
-            <canvas id="chart-tooltips-formatting-example"></canvas>
-
-            </div>
         </div>
     )
 }
