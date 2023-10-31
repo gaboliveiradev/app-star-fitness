@@ -19,6 +19,7 @@
     "axios": "^1.4.0",
     "boostrap": "^2.0.0",
     "boxicons": "^2.1.4",
+    "chart.js": "^4.4.0",
     "chartjs-adapter-moment": "^1.0.1",
     "flowbite": "^1.5.5",
     "flowbite-react": "^0.3.7",
