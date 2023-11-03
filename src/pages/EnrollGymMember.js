@@ -45,7 +45,9 @@ export default function EnrollGymMember() {
 
     const [stepper, setStepper] = useState(1);
 
-    const handleClickClearFields = async () => {
+    const handleClickClearFields = async (e) => {
+        e.preventDefault();
+
         setName('');
         setEmail('');
         setDocument('');
@@ -173,7 +175,7 @@ export default function EnrollGymMember() {
                     html: 'Ihuul... Parabéns, você <b>matriculou</b> um novo aluno na academia. Acompanhe os alunos da sua academia acessando <b>Aluno/Matrículas e Alunos.</b>'
                 })
 
-                handleClickClearFields();
+                handleClickClearFields(e);
 
                 return;
             }
@@ -269,7 +271,21 @@ export default function EnrollGymMember() {
                                 </div>
                             ) : (
                                 <div className='my-[16px] hover:cursor-pointer'>
-                                    <button onClick={(e) => handleClickClearFields(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
+                                    <button onClick={(e) => {
+                                        Swal.fire({
+                                            title: 'Você tem Certeza?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            cancelButtonText: 'Cancelar',
+                                            confirmButtonText: 'Sim, Limpar!'
+                                        }).then(async (result) => {
+                                            if (result.isConfirmed) {
+                                                handleClickClearFields(e)
+                                            }
+                                        })
+                                    }} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
                                         <span relative="relative z-10">Limpar</span>
                                     </button>
                                 </div>
@@ -278,7 +294,32 @@ export default function EnrollGymMember() {
                         {
                             (stepper === 3) ? (
                                 <div className='my-[16px] hover:cursor-pointer'>
-                                    <button onClick={(e) => (isUpdate) ? handleClickUpdate(e) : handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                    <button onClick={(e) => {
+                                        if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
+                                            && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+                                            Swal.fire({
+                                                title: 'Você tem Certeza?',
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#3085d6',
+                                                cancelButtonColor: '#d33',
+                                                cancelButtonText: 'Cancelar',
+                                                confirmButtonText: `${(isUpdate) ? 'Sim, Atualizar!' : 'Sim, Matricular!'}`
+                                            }).then(async (result) => {
+                                                if (result.isConfirmed) {
+                                                    (isUpdate) ? handleClickUpdate(e) : handleClickCreateEnroll(e)
+                                                }
+                                            })
+
+                                            return;
+                                        }
+
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Campos Vazio!',
+                                            html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+                                        })
+                                    }} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
                                         <span relative="relative z-10">{isUpdate ? 'Atualizar' : 'Matrícular'}</span>
                                     </button>
                                 </div>

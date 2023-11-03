@@ -9,19 +9,19 @@ export default function AddTraining() {
             <h1 class="title">Planejar Treino</h1>
             <ul class="breadcrumbs">
               <li>
-                <a href="#">Principal</a>
+                <span>Principal</span>
               </li>
               <li class="divider">/</li>
               <li>
-                <a href="#" class="active">
+                <span class="active">
                   Ficha de Treino
-                </a>
+                </span>
               </li>
               <li class="divider">/</li>
               <li>
-                <a href="#" class="active">
+                <span class="active">
                   Planejar Treino
-                </a>
+                </span>
               </li>
             </ul>
           </div>
