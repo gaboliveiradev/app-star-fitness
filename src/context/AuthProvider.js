@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as auth from './../services/auth';
 import * as type from './../services/type';
-import * as city from './../services/city';
 import * as address from './../services/address';
 import * as gymMemberPerson from './../services/gymMemberPerson';
 import * as billing from './../services/billing';
@@ -96,12 +95,6 @@ export const AuthProvider = ({ children }) => {
         return (response.status === 201) ? response : false;
     }
 
-    async function createCity(parameters, token) {
-        const response = await city.create(parameters, token);
-
-        return (response.status === 201) ? response : false;
-    }
-
     async function createAddress(parameters, token) {
         const response = await address.create(parameters, token);
 
@@ -169,7 +162,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated, setIsAuthenticated,
         typeList, setTypeList,
         createType, getType, deleteType,
-        createCity, createAddress, createGymMemberPerson,
+        createAddress, createGymMemberPerson,
         createBilling, getGymMembers,
         gymMembersList, deleteGymMember,
     };

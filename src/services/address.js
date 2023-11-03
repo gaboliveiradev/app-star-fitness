@@ -8,7 +8,8 @@ export const create = async (parameters, token) => {
             district: parameters.district,
             number: parameters.number,
             zip_code: parameters.zipCode,
-            id_city: parameters.idCity
+            city: parameters.city,
+            state: parameters.state
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`,

@@ -9,14 +9,11 @@ export const AddressProvider = ({ children }) => {
     const [street, setStreet] = useState("");
     const [district, setDistrict] = useState("");
     const [number, setNumber] = useState("");
-
-    const [idCity, setIdCity] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
 
     const context = {
         idAddress, setIdAddress,
-        idCity, setIdCity,
         zipCode, setZipCode,
         street, setStreet,
         district, setDistrict,

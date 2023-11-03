@@ -72,24 +72,7 @@ export default function EnrollGymMember() {
         try {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
             && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
-                setIsLoading(true);
-                setIsLoadingText("Atualizando Cidade...");
-
-                const cityParameters = {
-                    name: city,
-                    state: state,
-                }
-                const responseCity = await createCity(cityParameters, token);
-
-                if (responseCity.status !== 200) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>cidade existente</b>. Por favor, verifique e tente novamente.'
-                    })
-
-                    return;
-                }
+                alert('atualizar');
             }
         } catch {
             Swal.fire({
@@ -110,24 +93,6 @@ export default function EnrollGymMember() {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 setIsLoading(true);
-                setIsLoadingText("Criando Cidade...");
-
-                const cityParameters = {
-                    name: city,
-                    state: state,
-                }
-                const responseCity = await createCity(cityParameters, token);
-
-                if (responseCity.status !== 201) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>nova cidade</b>. Por favor, verifique e tente novamente.'
-                    })
-
-                    return;
-                }
-
                 setIsLoadingText("Criando Endereço...");
 
                 const addressParameters = {
@@ -135,7 +100,8 @@ export default function EnrollGymMember() {
                     district: district,
                     number: number,
                     zipCode: zipCode.replace(/[^0-9]/g, ''),
-                    idCity: responseCity.data.data.id
+                    city: city,
+                    state: state
                 }
 
                 const responseAddress = await createAddress(addressParameters, token);
@@ -183,6 +149,7 @@ export default function EnrollGymMember() {
                 const billingParameters = {
                     invoice_date: invoiceDate,
                     due_date: dueDate,
+                    id_type_enrollment: idPlan,
                     id_gym_member: responseGymMemberPerson.data.data.id
                 }
                 const responseBilling = await createBilling(billingParameters, token);
@@ -207,7 +174,6 @@ export default function EnrollGymMember() {
                 })
 
                 handleClickClearFields();
-
 
                 return;
             }
