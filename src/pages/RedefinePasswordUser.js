@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { IMaskInput } from "react-imask";
-import PersonContext from "../context/PersonContext";
+import { PersonContext } from "../context/Person";
 
 export default function RedefinePasswordUser() {
   const { document, setDocument, password, setPassword } =
@@ -92,9 +92,8 @@ export default function RedefinePasswordUser() {
                   type="password"
                   name="password"
                   id="password"
-                  className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear ${
-                    isChecked ? 'opacity-50' : '' // Adicione a classe de opacidade se isChecked for verdadeiro
-                  }`} 
+                  className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear ${isChecked ? 'opacity-50' : '' // Adicione a classe de opacidade se isChecked for verdadeiro
+                    }`}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isChecked}

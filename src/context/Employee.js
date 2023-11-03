@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import EmployeeContext from './EmployeeContext';
+import React, { createContext, useState } from 'react';
+
+export const EmployeeContext = createContext();
 
 export const EmployeeProvider = ({ children }) => {
 

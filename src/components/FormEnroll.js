@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
 import { AuthContext } from '../context/Auth';
-import GymMemberContext from '../context/GymMemberContext';
-import BillingContext from '../context/BillingContext';
+import { GymMemberContext } from '../context/GymMember';
+import { BillingContext } from '../context/Billing';
 import { formatMoney } from '../utils/format';
 
 export default function FormEnroll() {

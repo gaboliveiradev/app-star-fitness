@@ -4,7 +4,7 @@ import { AuthContext } from '../context/Auth';
 import { formatMoney } from './../utils/format';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
-import MainContext from '../context/MainContext';
+import { MainContext } from '../context/Main';
 
 export default function MyPlans() {
 

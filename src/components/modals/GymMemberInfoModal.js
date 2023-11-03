@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import MainContext from '../../context/MainContext';
+import { MainContext } from '../../context/Main';
 import PersonDataGymMember from './modal_pages/PersonDataGymMember';
 import AddressDataGymMember from './modal_pages/AddressDataGymMember';
 

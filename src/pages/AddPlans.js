@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { IMaskInput } from 'react-imask';
 import Swal from 'sweetalert2'
-import MainContext from "../context/MainContext";
+import { MainContext } from "../context/Main";
 
 export default function AddNewAcademyPlans() {
 

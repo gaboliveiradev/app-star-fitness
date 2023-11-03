@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { IMaskInput } from 'react-imask';
 
-import PersonContext from '../context/PersonContext';
-import GymMemberContext from '../context/GymMemberContext';
+import { PersonContext } from '../context/Person';
+import { GymMemberContext } from '../context/GymMember';
 
 export default function FormPersonDataGymMember() {
 

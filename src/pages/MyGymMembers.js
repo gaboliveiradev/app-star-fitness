@@ -4,13 +4,13 @@ import { AuthContext } from '../context/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
-import MainContext from '../context/MainContext';
+import { MainContext } from '../context/Main';
 import { formatCPF, formatPhone } from '../utils/format';
 import GymMemberInfoModal from '../components/modals/GymMemberInfoModal';
-import PersonContext from '../context/PersonContext';
-import GymMemberContext from '../context/GymMemberContext';
+import { PersonContext } from '../context/Person';
+import { GymMemberContext } from '../context/GymMember';
 import { AddressContext } from '../context/Address';
-import BillingContext from '../context/BillingContext';
+import { BillingContext } from '../context/Billing';
 
 export default function MyGymMembers() {
     const navigate = useNavigate();

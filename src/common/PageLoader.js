@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './style.css';
-import MainContext from '../context/MainContext';
+import { MainContext } from '../context/Main';
 
 export default function PageLoader() {
     const { isLoadingText } = useContext(MainContext);

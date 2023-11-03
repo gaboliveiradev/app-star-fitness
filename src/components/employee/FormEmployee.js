@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { IMaskInput } from 'react-imask';
 
-import EmployeeContext from '../../context/EmployeeContext';
-import PersonContext from '../../context/PersonContext';
+import { EmployeeContext } from '../../context/Employee';
+import { PersonContext } from '../../context/Person';
 
 export default function FormEmployee() {
-    
 
     const {
         cref, setCref, occupation, setOccupation,
@@ -15,7 +14,7 @@ export default function FormEmployee() {
     const {
         name, setName, email, setEmail,
         document, setDocument, phone, setPhone, birthday, setBirthday,
-        gender, setGender, 
+        gender, setGender,
     } = useContext(PersonContext);
 
     return (
@@ -35,7 +34,7 @@ export default function FormEmployee() {
                     />
                 </div>
             </div>
-            
+
 
             <div className="sm:col-span-3">
                 <label htmlFor="email" className="block font-bold text-[16px] text-black-700">

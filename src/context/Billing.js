@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import BillingContext from './BillingContext';
+import React, { createContext, useState } from 'react';
 import { getCurrentDate, add30Days } from '../utils/format';
+
+export const BillingContext = createContext();
 
 export const BillingProvider = ({ children }) => {
 

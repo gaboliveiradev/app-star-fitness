@@ -2,15 +2,15 @@ import React, { useContext, useState } from 'react';
 import FormPersonDataGymMember from '../components/FormPersonDataGymMember';
 import FormAddress from '../components/FormAddress';
 import FormEnroll from '../components/FormEnroll';
-import MainContext from '../context/MainContext';
+import { MainContext } from '../context/Main';
 import { getCurrentDate, add30Days } from './../utils/format';
 import Swal from 'sweetalert2'
 
 import { AuthContext } from '../context/Auth';
-import PersonContext from './../context/PersonContext';
-import GymMemberContext from './../context/GymMemberContext';
+import { PersonContext } from './../context/Person';
+import { GymMemberContext } from './../context/GymMember';
 import { AddressContext } from './../context/Address';
-import BillingContext from './../context/BillingContext';
+import { BillingContext } from './../context/Billing';
 
 export default function EnrollGymMember() {
 
@@ -71,7 +71,7 @@ export default function EnrollGymMember() {
 
         try {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
-            && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+                && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 alert('atualizar');
             }
         } catch {

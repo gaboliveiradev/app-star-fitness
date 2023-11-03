@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import MainContext from './../context/MainContext';
+import { MainContext } from './../context/Main';
 import PageLoader from '../common/PageLoader';
 
 export default function DashboardLayout(props) {

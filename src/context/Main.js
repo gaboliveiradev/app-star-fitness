@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import MainContext from './MainContext';
+import React, { createContext, useState } from 'react';
+
+export const MainContext = createContext();
 
 export const MainProvider = ({ children }) => {
 

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import GymMemberContext from './GymMemberContext';
+import React, { useState, createContext } from 'react';
+
+export const GymMemberContext = createContext();
 
 export const GymMemberProvider = ({ children }) => {
 

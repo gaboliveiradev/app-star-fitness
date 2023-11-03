@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import FormAddress from '../components/FormAddress';
-import MainContext from '../context/MainContext';
+import { MainContext } from '../context/Main';
 import Swal from 'sweetalert2'
-import EmployeeContext from '../context/EmployeeContext';
+import { EmployeeContext } from '../context/Employee';
 import FormEmployee from '../components/employee/FormEmployee';
-import PersonContext from '../context/PersonContext';
+import { PersonContext } from '../context/Person';
 import { AddressContext } from '../context/Address';
 
 

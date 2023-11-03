@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import PersonContext from './PersonContext';
+import React, { createContext, useState } from 'react';
+
+export const PersonContext = createContext();
 
 export const PersonProvider = ({ children }) => {
 

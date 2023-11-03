@@ -1,12 +1,12 @@
 import Routing from './Routes';
-import { AddressProvider } from './context/Address';
 
+import { AddressProvider } from './context/Address';
 import { AuthProvider } from './context/Auth';
-import { BillingProvider } from './context/BillingProvider';
-import { EmployeeProvider } from './context/EmployeeProvider';
-import { GymMemberProvider } from './context/GymMemberProvider';
-import { MainProvider } from './context/MainProvider';
-import { PersonProvider } from './context/PersonProvider';
+import { BillingProvider } from './context/Billing';
+import { EmployeeProvider } from './context/Employee';
+import { GymMemberProvider } from './context/GymMember';
+import { MainProvider } from './context/Main';
+import { PersonProvider } from './context/Person';
 
 function App() {
   return (
