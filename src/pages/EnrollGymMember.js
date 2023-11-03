@@ -41,7 +41,7 @@ export default function EnrollGymMember() {
         invoiceDate, setInvoiceDate, dueDate, setDueDate,
     } = useContext(BillingContext);
 
-    const { getGymMembers, createCity, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
+    const { getGymMembers, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
 
@@ -202,9 +202,9 @@ export default function EnrollGymMember() {
                     <div className="flex-auto pb-[14px]">
                         <h1 class="title">{isUpdate ? 'Atualizar Aluno' : 'Novo Aluno'}</h1>
                         <ul class="breadcrumbs">
-                            <li><a href="#">Links Rápidos</a></li>
+                            <li><span>Links Rápidos</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#" class="active">Novo Aluno</a></li>
+                            <li><span class="active">Novo Aluno</span></li>
                         </ul>
                     </div>
                     <div className='accordion-body flex-auto'>

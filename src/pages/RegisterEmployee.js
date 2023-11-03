@@ -165,11 +165,11 @@ export default function RegisterEmployee() {
                     <div className="flex-auto pb-[14px]">
                         <h1 class="title">Novo Funcionário</h1>
                         <ul class="breadcrumbs">
-                            <li><a href="#">Principal</a></li>
+                            <li><span>Principal</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#">Funcionários</a></li>
+                            <li><span>Funcionários</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#" class="active">Cadastrar Funcionários</a></li>
+                            <li><span class="active">Cadastrar Funcionários</span></li>
                         </ul>
                     </div>
 

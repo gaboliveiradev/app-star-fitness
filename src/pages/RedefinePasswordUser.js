@@ -40,13 +40,11 @@ export default function RedefinePasswordUser() {
             <h1 className="title">Recuperar Acesso</h1>
             <ul className="breadcrumbs">
               <li>
-                <a href="#">Aluno</a>
+                <span>Aluno</span>
               </li>
               <li class="divider">/</li>
               <li>
-                <a href="#" class="active">
-                  Recuperar Acesso
-                </a>
+                <span class="active">Recuperar Acesso</span>
               </li>
             </ul>
           </div>
