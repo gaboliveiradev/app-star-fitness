@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthContext } from './context/Auth';
+import ProtectedRoutes from './ProtectedRoutes';
 
 import Login from './pages/Login';
-import Sidebar from './layouts/Sidebar';
+import './layouts/Sidebar';
 import Dashboard from './pages/Dashboard';
 import AddPlans from './pages/AddPlans'
 import MyPlans from './pages/MyPlans';
@@ -26,23 +27,68 @@ export const Routing = () => {
                 !isAuthenticated && <Route path="/" element={<Navigate to="/login" />} />
             }
             <Route element={<Login />} path="/login" exact />
-            <Route element={<DashboardLayout page={<Dashboard />} />} path="/" exact />
+            {/* @==== Dashboard ====@ */}
+            <Route path="/" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<Dashboard />} />
+                </ProtectedRoutes>
+            } />
             {/* @==== Plans ====@ */}
-            <Route element={<DashboardLayout page={<AddPlans />} />} path="/academy-plans/form" exact />
-            <Route element={<DashboardLayout page={<MyPlans />} />} path="/academy-plans" exact />
+            <Route path="/academy-plans/form" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<AddPlans />} />
+                </ProtectedRoutes>
+            } />
+            <Route path="/academy-plans" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<MyPlans />} />
+                </ProtectedRoutes>
+            } />
             {/* @==== Gym Member ====@ */}
-            <Route element={<DashboardLayout page={<EnrollGymMember />} />} path="/gym-member/enroll/form" exact />
-            <Route element={<DashboardLayout page={<MyGymMembers />} />} path="/gym-member" exact />
-            <Route element={<DashboardLayout page={<RedefinePasswordUser />} />} path='/redefine/password/user/form' exact />
+            <Route path="/gym-member/enroll/form" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<EnrollGymMember />} />
+                </ProtectedRoutes>
+            } />
+            <Route path="/gym-member" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<MyGymMembers />} />
+                </ProtectedRoutes>
+            } />
+            <Route path="/redefine/password/user/form" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<RedefinePasswordUser />} />
+                </ProtectedRoutes>
+            } />
             {/* @==== Employee ====@ */}
-            <Route element={<DashboardLayout page={<RegisterEmployee />} />} path="/employee/register/form" exact />
-            <Route element={<DashboardLayout page={<MyEmployee />} />} path="/employee-management" />
+            <Route path="/employee/register/form" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<RegisterEmployee />} />
+                </ProtectedRoutes>
+            } />
+            <Route path="/employee-management" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<MyEmployee />} />
+                </ProtectedRoutes>
+            } />
             {/* @==== Account Settings ====@ */}
-            <Route element={<DashboardLayout page={<AccountSettings />} />} path='/account-settings' />
+            <Route path="/account-settings" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<AccountSettings />} />
+                </ProtectedRoutes>
+            } />
             {/* @==== My Profile ====@ */}
-            <Route element={<DashboardLayout page={<MyProfile />} />} path='/profile' />
-            {/* @==== My Profile ====@ */}
-            <Route element={<DashboardLayout page={<AddExercises />} />} path='/exercises/form' />
+            <Route path="/profile" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<MyProfile />} />
+                </ProtectedRoutes>
+            } />
+            {/* @==== Exercises ====@ */}
+            <Route path="/exercises/form" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<AddExercises />} />
+                </ProtectedRoutes>
+            } />
         </Routes>
     )
 }
