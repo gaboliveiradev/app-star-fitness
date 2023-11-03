@@ -1,19 +1,14 @@
-import axios from 'axios';
-import { api } from './api';
+import api from './api';
 
 export const create = async (parameters, token) => {
     try {
-        const response = await axios.post(`${api}/address`, {
+        const response = await api.post(`/address`, {
             street: parameters.street,
             district: parameters.district,
             number: parameters.number,
             zip_code: parameters.zipCode,
             city: parameters.city,
             state: parameters.state
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
         })
 
         return (response.status === 201) ? response : false;

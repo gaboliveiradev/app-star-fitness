@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { api } from './api';
+import api from './api';
 
 export const create = async (parameters, token) => {
     try {
-        const response = await axios.post(`${api}/gym-member`, {
+        const response = await api.post(`/gym-member`, {
             name: parameters.name,
             email: parameters.email,
             password: parameters.password,
@@ -16,10 +15,6 @@ export const create = async (parameters, token) => {
             observation: parameters.observation,
             id_address: parameters.id_address,
             id_type_enrollment: parameters.id_type_enrollment
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
         })
 
         return (response.status === 201) ? response : false;
@@ -31,11 +26,7 @@ export const create = async (parameters, token) => {
 
 export const deleteGymMember = async (idGymMember, token) => {
     try {
-        const response = await axios.delete(`${api}/gym-member/${idGymMember}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        });
+        const response = await api.delete(`/gym-member/${idGymMember}`)
 
         return (response.status === 200) ? response : false;
     } catch (error) {
@@ -46,11 +37,7 @@ export const deleteGymMember = async (idGymMember, token) => {
 
 export const get = async (token) => {
     try {
-        const response = await axios.get(`${api}/gym-member`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        });
+        const response = await api.get(`/gym-member`);
 
         return (response.status === 200) ? response : false;
     } catch (error) {

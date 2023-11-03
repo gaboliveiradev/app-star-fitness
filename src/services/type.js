@@ -1,16 +1,11 @@
-import axios from 'axios';
-import { api } from './api';
+import api from './api';
 
 export const create = async (parameters, token) => {
     try {
-        const response = await axios.post(`${api}/type`, {
+        const response = await api.post(`/type`, {
             name: parameters.name,
             number_of_days: parameters.number_of_days,
             price: parameters.price
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
         })
 
         return (response.status === 201) ? response : false;
@@ -22,11 +17,7 @@ export const create = async (parameters, token) => {
 
 export const get = async (token) => {
     try {
-        const response = await axios.get(`${api}/type`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        })
+        const response = await api.get(`/type`)
 
         return (response.status === 200) ? response : false;
     } catch (error) {
@@ -37,11 +28,7 @@ export const get = async (token) => {
 
 export const del = async (token, idType) => {
     try {
-        const response = await axios.delete(`${api}/type/${idType}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        })
+        const response = await api.delete(`/type/${idType}`)
 
         return (response.status === 200) ? response : false;
     } catch (error) {
