@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import EmployeeContext from '../context/EmployeeContext';
 import FormEmployee from '../components/employee/FormEmployee';
 import PersonContext from '../context/PersonContext';
-import AddressContext from '../context/AddressContext';
+import { AddressContext } from '../context/Address';
 
 
 export default function RegisterEmployee() {
@@ -14,9 +14,9 @@ export default function RegisterEmployee() {
         setIsLoading, setIsLoadingText
     } = useContext(MainContext);
 
-    const {  
-        name, setName, email, setEmail, document, 
-        setDocument, phone, setPhone, 
+    const {
+        name, setName, email, setEmail, document,
+        setDocument, phone, setPhone,
         birthday, setBirthday, gender, setGender
     } = useContext(PersonContext);
 
@@ -28,8 +28,8 @@ export default function RegisterEmployee() {
 
     const {
         zipCode, setZipCode,
-        street, setStreet,district, setDistrict,
-        number, setNumber,city, setCity,
+        street, setStreet, district, setDistrict,
+        number, setNumber, city, setCity,
         state, setState
     } = useContext(AddressContext);
 
@@ -59,8 +59,8 @@ export default function RegisterEmployee() {
         e.preventDefault();
 
         try {
-            if(name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== "" 
-            && district !== "" && number !== "" && city !== "" && state !== "") {
+            if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
+                && district !== "" && number !== "" && city !== "" && state !== "") {
                 setIsLoading(true);
                 setIsLoadingText("Criando Cidade...");
 
@@ -70,7 +70,7 @@ export default function RegisterEmployee() {
                 }
                 const responseCity = await createCity(cityParameters, token);
 
-                if(responseCity.status !== 201) {
+                if (responseCity.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -91,7 +91,7 @@ export default function RegisterEmployee() {
                 }
                 const responseAddress = await createAddress(addressParameters, token);
 
-                if(responseAddress.status !== 201) {
+                if (responseAddress.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -112,14 +112,14 @@ export default function RegisterEmployee() {
                     gender: gender,
                     cref: cref.replace(/[^0-9]/g, ''),
                     occupation: occupation,
-                    observation:observation,
+                    observation: observation,
                     id_address: responseAddress.data.data.id,
                 }
 
-                
+
                 const responseEmployee = await createEmployee(employeeParameters, token);
 
-                if(responseEmployee.status !== 201) {
+                if (responseEmployee.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
@@ -209,37 +209,37 @@ export default function RegisterEmployee() {
                                 <FormEmployee />
                             ) : (stepper === 2) && (
                                 <FormAddress />
-                            ) 
+                            )
                         }
                     </div>
                 </div>
 
                 <div className="sm:col-span-6 flex justify-between">
-                {
-                            (stepper === 2) ? (
-                                <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
-                                    <button onClick={(e) => handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Cadastrar</span>
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
-                                    <button onClick={() => setStepper((stepper === 2) ? 2 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Avançar</span>
-                                    </button>
-                                </div>
-                            )
-                        }
-                    
-                {
-                    (stepper !== 1) && (
-                        <div className='m-[20px] absolute left-[20px] bottom-[20px] hover:cursor-pointer'>
-                            <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
-                                <span relative="relative z-10">Voltar</span>
-                            </button>
-                        </div>
-                    )
-                }     
+                    {
+                        (stepper === 2) ? (
+                            <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
+                                <button onClick={(e) => handleClickCreateEnroll(e)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                    <span relative="relative z-10">Cadastrar</span>
+                                </button>
+                            </div>
+                        ) : (
+                            <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer'>
+                                <button onClick={() => setStepper((stepper === 2) ? 2 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+                                    <span relative="relative z-10">Avançar</span>
+                                </button>
+                            </div>
+                        )
+                    }
+
+                    {
+                        (stepper !== 1) && (
+                            <div className='m-[20px] absolute left-[20px] bottom-[20px] hover:cursor-pointer'>
+                                <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
+                                    <span relative="relative z-10">Voltar</span>
+                                </button>
+                            </div>
+                        )
+                    }
                 </div>
             </article>
         </>

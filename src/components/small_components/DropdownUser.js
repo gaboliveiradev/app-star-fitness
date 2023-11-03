@@ -1,8 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-import UserOne from "./../../assets/boy.png";
-import AuthContext from "../../context/AuthContext";
+import { AuthContext } from "../../context/Auth";
 
 export default function DropdownUser() {
   const { user } = useContext(AuthContext);

@@ -6,10 +6,10 @@ import MainContext from '../context/MainContext';
 import { getCurrentDate, add30Days } from './../utils/format';
 import Swal from 'sweetalert2'
 
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/Auth';
 import PersonContext from './../context/PersonContext';
 import GymMemberContext from './../context/GymMemberContext';
-import AddressContext from './../context/AddressContext';
+import { AddressContext } from './../context/Address';
 import BillingContext from './../context/BillingContext';
 
 export default function EnrollGymMember() {

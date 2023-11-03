@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/Auth';
 
 export default function StaticsInfoData() {
     const { gymMembersList } = useContext(AuthContext);

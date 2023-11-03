@@ -1,7 +1,7 @@
 import Routing from './Routes';
-import { AddressProvider } from './context/AddressProvider';
+import { AddressProvider } from './context/Address';
 
-import { AuthProvider } from './context/AuthProvider';
+import { AuthProvider } from './context/Auth';
 import { BillingProvider } from './context/BillingProvider';
 import { EmployeeProvider } from './context/EmployeeProvider';
 import { GymMemberProvider } from './context/GymMemberProvider';

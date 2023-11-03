@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import AddressContext from './AddressContext';
+import { createContext } from 'react';
+
+export const AddressContext = createContext();
 
 export const AddressProvider = ({ children }) => {
-
     // Address Data
     const [idAddress, setIdAddress] = useState("");
     const [zipCode, setZipCode] = useState("");

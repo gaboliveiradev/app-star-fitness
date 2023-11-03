@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import axios from 'axios'; // Importe o módulo axios
 import { IMaskInput } from 'react-imask';
-import AddressContext from '../context/AddressContext';
+import { AddressContext } from '../context/Address';
 import Swal from 'sweetalert2'
 import { Toast } from './../common/Toast';
 

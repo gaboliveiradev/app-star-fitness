@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'boxicons';
 import logo from './../assets/logo.png';
 import './style.css';
-import AuthContext from './../context/AuthContext';
+import { AuthContext } from './../context/Auth';
 
 export default function Sidebar({ page, dashboard = null, new_gym_member = null, late_tuition = null, gym_member = null, training_sheet = null, exercise = null, academy_plans = null, employee = null }) {
   const navigate = useNavigate();

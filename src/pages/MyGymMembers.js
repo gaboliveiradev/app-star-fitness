@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState, } from 'react';
 import DataTable from 'react-data-table-component';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/Auth';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
@@ -9,7 +9,7 @@ import { formatCPF, formatPhone } from '../utils/format';
 import GymMemberInfoModal from '../components/modals/GymMemberInfoModal';
 import PersonContext from '../context/PersonContext';
 import GymMemberContext from '../context/GymMemberContext';
-import AddressContext from '../context/AddressContext';
+import { AddressContext } from '../context/Address';
 import BillingContext from '../context/BillingContext';
 
 export default function MyGymMembers() {

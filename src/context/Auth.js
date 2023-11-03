@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-
+import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as auth from './../services/auth';
-import * as type from './../services/type';
-import * as address from './../services/address';
-import * as gymMemberPerson from './../services/gymMemberPerson';
-import * as billing from './../services/billing';
-import AuthContext from './AuthContext';
+import * as auth from '../services/auth';
+import * as type from '../services/type';
+import * as address from '../services/address';
+import * as gymMemberPerson from '../services/gymMemberPerson';
+import * as billing from '../services/billing';
+
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();

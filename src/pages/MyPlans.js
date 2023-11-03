@@ -1,6 +1,6 @@
 import React, { useContext, useState, } from 'react';
 import DataTable from 'react-data-table-component';
-import AuthContext from '../context/AuthContext';
+import { AuthContext } from '../context/Auth';
 import { formatMoney } from './../utils/format';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
