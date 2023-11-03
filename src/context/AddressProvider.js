@@ -15,6 +15,8 @@ export const AddressProvider = ({ children }) => {
     const [state, setState] = useState("");
 
     const context = {
+        idAddress, setIdAddress,
+        idCity, setIdCity,
         zipCode, setZipCode,
         street, setStreet,
         district, setDistrict,

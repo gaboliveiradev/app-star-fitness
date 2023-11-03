@@ -53,8 +53,6 @@ export default function MyGymMembers() {
     const handleClickAlterUpdate = async (e, row) => {
         e.preventDefault();
 
-        console.log(row);
-
         // Person
         setName(row.person.name);
         setEmail(row.person.email);

@@ -166,7 +166,6 @@ export default function EnrollGymMember() {
                     id_type_enrollment: idPlan,
                 }
 
-
                 const responseGymMemberPerson = await createGymMemberPerson(personGymMemberParameters, token);
 
                 if (responseGymMemberPerson.status !== 201) {

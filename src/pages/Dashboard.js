@@ -27,9 +27,9 @@ export default function Dashboard() {
       </div>
       <div className="pt-[80px] grid grid-cols-3 gap-6">
         
-        <GraphicArea />
+        {/*<GraphicArea />
         <GraphicColumn />
-        <PieChart />
+        <PieChart />*/}
       </div>
     </section>
   );
