@@ -17,6 +17,7 @@ import MyEmployee from './pages/MyEmployee';
 import AccountSettings from './pages/AccountSettings';
 import MyProfile from './pages/MyProfile';
 import AddExercises from './pages/AddExercises';
+import AddTraining from './pages/AddTraining';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -87,6 +88,12 @@ export const Routing = () => {
             <Route path="/exercises/form" exact element={
                 <ProtectedRoutes>
                     <DashboardLayout page={<AddExercises />} />
+                </ProtectedRoutes>
+            } />
+            {/* @==== Exercises ====@ */}
+            <Route path='/training/form' exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<AddTraining />} />
                 </ProtectedRoutes>
             } />
         </Routes>
