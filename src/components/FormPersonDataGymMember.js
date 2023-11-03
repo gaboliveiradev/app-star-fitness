@@ -129,14 +129,22 @@ export default function FormPersonDataGymMember() {
                     Altura
                 </label>
                 <div className="mt-1">
-                    <IMaskInput
-                        mask='000 cm'
+                <IMaskInput
+                        mask="num cm"
+                        blocks={{
+                            num: {
+                                mask: Number,
+                                scale: 2,
+                                radix: ',',
+                                max: 300,
+                            },
+                        }}
                         lazy={false}
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}
                         type="text"
-                        name="height"
-                        id="height"
+                        name="weight"
+                        id="weight"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     />
                 </div>
