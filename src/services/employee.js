@@ -24,3 +24,25 @@ export const create = async (parameters, token) => {
     }
 
 }
+
+export const get = async (token) => {
+    try {
+        const response = await api.get(`/employee`);
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export const deleteEmployee = async (idEmployee, token) => {
+    try {
+        const response = await api.delete(`/employee/${idEmployee}`)
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}

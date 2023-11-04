@@ -8,9 +8,13 @@ export const EmployeeProvider = ({ children }) => {
     const [occupation, setOccupation] = useState("");
     const [observation, setObservation] = useState("");
 
+    const [isUpdate, setIsUpdate] = useState(false);
+
     const context = {
         cref, setCref, occupation, setOccupation,
         observation, setObservation,
+        isUpdate, setIsUpdate,
+
     };
 
     return (
