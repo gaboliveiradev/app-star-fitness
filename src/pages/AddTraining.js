@@ -1,4 +1,5 @@
 import React from "react";
+import Search from "../components/Search";
 
 export default function AddTraining() {
   return (
@@ -13,17 +14,16 @@ export default function AddTraining() {
               </li>
               <li class="divider">/</li>
               <li>
-                <span class="active">
-                  Ficha de Treino
-                </span>
+                <span class="active">Ficha de Treino</span>
               </li>
               <li class="divider">/</li>
               <li>
-                <span class="active">
-                  Planejar Treino
-                </span>
+                <span class="active">Planejar Treino</span>
               </li>
             </ul>
+          </div>
+          <div className="pt-[20px]">
+            <Search />
           </div>
         </div>
       </article>
