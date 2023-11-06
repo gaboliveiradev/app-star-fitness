@@ -75,11 +75,11 @@ export default function AddNewAcademyPlans() {
                     <div className="flex-auto pb-[14px]">
                         <h1 class="title">Adicionar Plano</h1>
                         <ul class="breadcrumbs">
-                            <li><a href="#">Principal</a></li>
+                            <li><span>Principal</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#" class="active">Planos da Academia</a></li>
+                            <li><span class="active">Planos da Academia</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#" class="active">Adicionar Plano</a></li>
+                            <li><span class="active">Adicionar Plano</span></li>
                         </ul>
                     </div>
                 </div>

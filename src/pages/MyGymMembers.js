@@ -268,11 +268,11 @@ export default function MyGymMembers() {
                         <h1 class="title">{`Meus Alunos (${records.length})`}
                         </h1>
                         <ul class="breadcrumbs">
-                            <li><a href="#">Principal</a></li>
+                            <li><span>Principal</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#" class="active">Aluno</a></li>
+                            <li><span class="active">Aluno</span></li>
                             <li class="divider">/</li>
-                            <li><a href="#" class="active">Matrículas e Alunos</a></li>
+                            <li><span class="active">Matrículas e Alunos</span></li>
                         </ul>
                     </div>
                 </div>

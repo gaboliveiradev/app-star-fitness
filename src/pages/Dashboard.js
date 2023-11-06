@@ -11,13 +11,13 @@ export default function Dashboard() {
         <h1 class="title">Dashboard</h1>
         <ul class="breadcrumbs">
           <li>
-            <a href="#">Home</a>
+            <span>Home</span>
           </li>
           <li class="divider">/</li>
           <li>
-            <a href="#" class="active">
+            <span class="active">
               Dashboard
-            </a>
+            </span>
           </li>
         </ul>
       </div>
