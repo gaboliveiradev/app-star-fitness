@@ -13,13 +13,13 @@ export default function MyEmployee() {
           <h1 class="title">{`Gestão de Funcionários (${records.length})`}</h1>
           <ul className="breadcrumbs">
             <li>
-              <a href="#">Funcionários</a>
+              <span>Funcionários</span>
             </li>
             <li class="divider">/</li>
             <li>
-              <a href="#" class="active">
+              <span class="active">
                 Gestão de Funcionários
-              </a>
+              </span>
             </li>
           </ul>
         </div>

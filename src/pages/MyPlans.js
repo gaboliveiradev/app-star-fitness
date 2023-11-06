@@ -171,11 +171,11 @@ export default function MyPlans() {
                     <h1 class="title">{`Meus Planos (${records.length})`}
                     </h1>
                     <ul class="breadcrumbs">
-                        <li><a href="#">Principal</a></li>
+                        <li><span>Principal</span></li>
                         <li class="divider">/</li>
-                        <li><a href="#" class="active">Planos da Academia</a></li>
+                        <li><span class="active">Planos da Academia</span></li>
                         <li class="divider">/</li>
-                        <li><a href="#" class="active">Meus Planos</a></li>
+                        <li><span class="active">Meus Planos</span></li>
                     </ul>
                 </div>
             </div>

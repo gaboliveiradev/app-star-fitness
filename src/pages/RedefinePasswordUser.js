@@ -11,6 +11,7 @@ export default function RedefinePasswordUser() {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
 
+    console.log(password)
     // Se o checkbox estiver marcado, limpe o campo de senha
     if (!isChecked) {
       const randomPassword = generateRandomPassword();
@@ -56,7 +57,7 @@ export default function RedefinePasswordUser() {
               htmlFor="document"
               className="block font-bold text-[16px] text-black-700"
             >
-              Documento *
+              Documento/CPF *
             </label>
             <div className="mt-1">
               <IMaskInput

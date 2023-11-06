@@ -9,19 +9,17 @@ export default function AddExercises() {
             <h1 class="title">Adicionar Exercícios</h1>
             <ul class="breadcrumbs">
               <li>
-                <a href="#">Principal</a>
+                <span>Principal</span>
               </li>
               <li class="divider">/</li>
               <li>
-                <a href="#" class="active">
-                  Exercícios
-                </a>
+                <span class="active">Exercícios</span>
               </li>
               <li class="divider">/</li>
               <li>
-                <a href="#" class="active">
+                <span class="active">
                   Adicionar Exercícios
-                </a>
+                </span>
               </li>
             </ul>
           </div>
