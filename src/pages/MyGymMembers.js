@@ -26,12 +26,13 @@ export default function MyGymMembers() {
         setName, setEmail,
         setDocument, setPhone,
         setBirthday, setGender,
+        setIdPerson,
     } = useContext(PersonContext);
 
     const {
         setHeight, setWeight,
         setIdPlan, setIsUpdate,
-        setObservation,
+        setObservation, setIdGymMember,
     } = useContext(GymMemberContext);
 
     const {
@@ -53,7 +54,10 @@ export default function MyGymMembers() {
     const handleClickAlterUpdate = async (e, row) => {
         e.preventDefault();
 
-        // Person
+        console.log(row);
+
+        // Person;
+        setIdPerson(row.person.id);
         setName(row.person.name);
         setEmail(row.person.email);
         setDocument(row.person.document);
@@ -62,6 +66,7 @@ export default function MyGymMembers() {
         setGender(row.person.gender);
 
         // GymMember
+        setIdGymMember(row.id);
         setHeight(row.height_cm);
         setWeight(row.weight_kg);
         setObservation(row.observation);
@@ -69,13 +74,12 @@ export default function MyGymMembers() {
 
         // Address
         setIdAddress(row.person.id_address);
-        setIdCity(row.person.address.id_city);
         setZipCode(row.person.address.zip_code);
         setStreet(row.person.address.street);
         setDistrict(row.person.address.district);
         setNumber(row.person.address.number);
-        setCity(row.person.address.city.name);
-        setState(row.person.address.city.state);
+        setCity(row.person.address.city);
+        setState(row.person.address.state);
 
         // Billing
         setInvoiceDate(row.billing[0].invoice_date);
@@ -83,7 +87,7 @@ export default function MyGymMembers() {
 
         setIsUpdate(true);
 
-        //navigate('/gym-member/enroll/form');
+        navigate('/gym-member/enroll/form');
     }
 
     const handleSelectedRow = useCallback(state => {

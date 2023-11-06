@@ -90,7 +90,7 @@ export const Routing = () => {
                     <DashboardLayout page={<AddExercises />} />
                 </ProtectedRoutes>
             } />
-            {/* @==== Exercises ====@ */}
+            {/* @==== Workout Routine ====@ */}
             <Route path='/training/form' exact element={
                 <ProtectedRoutes>
                     <DashboardLayout page={<AddTraining />} />

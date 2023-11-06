@@ -5,6 +5,7 @@ export const PersonContext = createContext();
 export const PersonProvider = ({ children }) => {
 
     // Person Data
+    const [idPerson, setIdPerson] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [document, setDocument] = useState("");
@@ -15,6 +16,7 @@ export const PersonProvider = ({ children }) => {
     const [password, setPassword] = useState("");
 
     const context = {
+        idPerson, setIdPerson,
         name, setName,
         email, setEmail,
         document, setDocument,
