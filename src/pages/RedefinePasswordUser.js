@@ -11,6 +11,7 @@ export default function RedefinePasswordUser() {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
 
+    console.log(password)
     // Se o checkbox estiver marcado, limpe o campo de senha
     if (!isChecked) {
       const randomPassword = generateRandomPassword();
