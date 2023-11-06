@@ -54,7 +54,7 @@ export default function FormEmployee() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="document" className="block font-bold text-[16px] text-black-700">
-                    Documento *
+                    Documento/CPF *
                 </label>
                 <div className="mt-1">
                     <IMaskInput
