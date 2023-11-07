@@ -32,8 +32,8 @@ export default function MyPlans() {
 
         setIdType(row.id);
         setNameType(row.name);
-        setNumberOfDays(parseInt(row.number_of_days));
-        setPrice(row.price);
+        setNumberOfDays(row.number_of_days.toString());
+        setPrice(row.price.toString().replace('.', ','));
 
         setIsUpdateType(true);
 
