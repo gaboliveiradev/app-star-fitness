@@ -84,7 +84,7 @@ export default function EnrollGymMember() {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 setIsLoading(true);
-                setIsLoadingText("Cadastrando Endereço...");
+                setIsLoadingText("Cadastrando/Atualizando Endereço...");
 
                 const addressParameters = {
                     idAddress: idAddress,
@@ -108,7 +108,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Cadastrando Aluno...");
+                setIsLoadingText("Cadastrando/Atualizando Aluno...");
 
                 const personParameters = {
                     idPerson: idPerson,

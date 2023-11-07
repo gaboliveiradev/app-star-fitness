@@ -1,6 +1,5 @@
 import React, { createContext, useState } from 'react';
 import * as type from './../services/type';
-import { Type } from 'lucide-react';
 
 export const TypeContext = createContext();
 
@@ -13,12 +12,20 @@ export const TypeProvider = ({ children }) => {
 
     const [isUpdateType, setIsUpdateType] = useState(false);
 
+    async function updateType(parameters) {
+        const response = await type.update(parameters);
+
+        return (response.status === 200) ? response : false;
+    }
+
     const context = {
         idType, setIdType,
         nameType, setNameType,
         numberOfDays, setNumberOfDays,
         price, setPrice,
         isUpdateType, setIsUpdateType,
+        //methods
+        updateType
     };
 
     return (

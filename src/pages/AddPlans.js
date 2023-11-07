@@ -15,13 +15,67 @@ export default function AddNewAcademyPlans() {
         nameType, setNameType,
         numberOfDays, setNumberOfDays,
         price, setPrice, setIsUpdateType,
-        isUpdateType
+        isUpdateType,
+        //methods
+        updateType
     } = useContext(TypeContext)
 
     const handleClickUpdate = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setIsLoadingText('Cadastrando/Atualizando Plano...');
 
-        alert('Atualizar');
+        try {
+            if(nameType !== "" && numberOfDays !== "" && price !== "") {
+                const parameters = {
+                    idType: idType,
+                    name: nameType,
+                    number_of_days: numberOfDays,
+                    price: parseFloat(price.replace("R$", "").replace(",", "."))
+                }
+    
+                const response = await updateType(parameters);
+    
+                if (response.status === 200) {
+                    await getType(token);
+    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Plano Atualizado',
+                        html: 'Ihuul... Parabéns, você <b>atualizou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
+                    })
+    
+                    handleClickClearFields(e);
+    
+                    return;
+                }
+    
+                if (response.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível atualizar um plano.'
+                    })
+    
+                    return;
+                }
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vazio!',
+                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+            })
+        } catch {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar um novo plano.'
+            })
+        } finally {
+            setIsLoading(false);
+            setIsLoadingText("");
+        }
     }
 
     const handleClickSave = async (e) => {

@@ -15,6 +15,21 @@ export const create = async (parameters, token) => {
     }
 }
 
+export const update = async (parameters) => {
+    try {
+        const response = await api.put(`/type/${parameters.idType}`, {
+            name: parameters.name,
+            number_of_days: parameters.number_of_days,
+            price: parameters.price
+        })
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 export const get = async (token) => {
     try {
         const response = await api.get(`/type`)
