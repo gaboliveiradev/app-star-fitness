@@ -53,7 +53,7 @@ export default function Sidebar(props) {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-sidebar duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${props.sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-auto bg-sidebar duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${props.sidebarOpen ? 'translate-x-0' : '-translate-x-full'
     }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
@@ -72,7 +72,7 @@ export default function Sidebar(props) {
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
 
-      <div className="h-screen flex flex-col overflow-y-auto max-h-[calc(100vh-65px)] duration-300 ease-linear">
+      <div className="h-screen flex flex-col max-h-[calc(100vh-65px)] duration-300 ease-linear">
         {/* <!-- Sidebar Menu --> */}
         <nav className="bg-sidebar dark:bg-boxdark duration-300 ease-linear h-full py-4 px-4 flex flex-col justify-start items-start">
 

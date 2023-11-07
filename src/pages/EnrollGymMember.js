@@ -22,19 +22,26 @@ export default function EnrollGymMember() {
         name, setName, email, setEmail,
         document, setDocument, phone, setPhone,
         birthday, setBirthday, gender, setGender,
+        idPerson,
+        //methods
+        updatePerson
     } = useContext(PersonContext);
 
     const {
         height, setHeight, weight, setWeight,
         observation, setObservation, idPlan, setIdPlan,
-        isUpdate
+        isUpdate, setIsUpdate, idGymMember, 
+        //methods
+        updateGymMember
     } = useContext(GymMemberContext);
 
     const {
         zipCode, setZipCode,
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
-        state, setState,
+        state, setState, idAddress,
+        // methods
+        updateAddress
     } = useContext(AddressContext);
 
     const {
@@ -66,6 +73,8 @@ export default function EnrollGymMember() {
         setIdPlan('');
         setInvoiceDate(getCurrentDate());
         setDueDate(add30Days(getCurrentDate()));
+
+        setIsUpdate(false);
     }
 
     const handleClickUpdate = async (e) => {
@@ -74,14 +83,101 @@ export default function EnrollGymMember() {
         try {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
-                alert('atualizar');
+                setIsLoading(true);
+                setIsLoadingText("Cadastrando/Atualizando Endereço...");
+
+                const addressParameters = {
+                    idAddress: idAddress,
+                    street: street,
+                    district: district,
+                    number: number,
+                    zipCode: zipCode.replace(/[^0-9]/g, ''),
+                    city: city,
+                    state: state
+                }
+
+                const responseAddress = await updateAddress(addressParameters);
+
+                if (responseAddress.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>endereço</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Cadastrando/Atualizando Aluno...");
+
+                const personParameters = {
+                    idPerson: idPerson,
+                    name: name,
+                    email: email,
+                    document: document.replace(/[^0-9]/g, ''),
+                    phone: phone.replace(/[^0-9]/g, ''),
+                    birthday: birthday,
+                    gender: gender,
+                }
+
+                const responsePerson = await updatePerson(personParameters);
+
+                if (responsePerson.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>pessoa</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                const gymMemberParameters = {
+                    idGymMember: idGymMember,
+                    height_cm: height !== null ? height.replace(/[^0-9]/g, '') : null,
+                    weight_kg: weight !== null ? weight.replace(/[^0-9]/g, '') : null,
+                    observation: observation,
+                    id_type_enrollment: idPlan,
+                }
+
+                const responseGymMember = await updateGymMember(gymMemberParameters);
+
+                if (responseGymMember.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>aluno</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Atualizando Alunos...");
+                await getGymMembers(token);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Aluno Atualizado.',
+                    html: 'Ihuul... Parabéns, você <b>atualizou</b> um aluno com sucesso. Acompanhe os alunos da sua academia acessando <b>Aluno/Matrículas e Alunos.</b>'
+                })
+
+                handleClickClearFields(e);
+
+                return;
             }
-        } catch {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vazio!',
+                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+            })
+        } catch (err) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 html: 'Ocorreu um erro inesperado, ao <b>tentar atualizar</b> um <b>ALUNO</b> tente novamente mais tarde.'
             })
+            console.log(err)
         } finally {
             setIsLoading(false);
             setIsLoadingText("");
@@ -95,7 +191,7 @@ export default function EnrollGymMember() {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 setIsLoading(true);
-                setIsLoadingText("Criando Endereço...");
+                setIsLoadingText("Cadastrando Endereço...");
 
                 const addressParameters = {
                     street: street,
@@ -118,7 +214,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Criando Aluno...");
+                setIsLoadingText("Cadastrando Aluno...");
 
                 const personGymMemberParameters = {
                     name: name,
@@ -146,7 +242,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Criando Cobrança...");
+                setIsLoadingText("Gerando Cobrança...");
 
                 const billingParameters = {
                     invoice_date: invoiceDate,

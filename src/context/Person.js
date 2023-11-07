@@ -1,5 +1,7 @@
 import React, { createContext, useState } from 'react';
 
+import * as person from './../services/person';
+
 export const PersonContext = createContext();
 
 export const PersonProvider = ({ children }) => {
@@ -15,6 +17,12 @@ export const PersonProvider = ({ children }) => {
 
     const [password, setPassword] = useState("");
 
+    async function updatePerson(parameters) {
+        const response = await person.update(parameters);
+
+        return (response.status === 200) ? response : false;
+    }
+
     const context = {
         idPerson, setIdPerson,
         name, setName,
@@ -23,7 +31,9 @@ export const PersonProvider = ({ children }) => {
         phone, setPhone,
         birthday, setBirthday,
         gender, setGender,
-        password, setPassword
+        password, setPassword,
+        //methods
+        updatePerson
     };
 
     return (

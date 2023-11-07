@@ -10,6 +10,7 @@ export default function FormEnroll() {
 
     const {
         idPlan, setIdPlan,
+        isUpdate,
     } = useContext(GymMemberContext);
 
     const {
@@ -47,6 +48,7 @@ export default function FormEnroll() {
                         value={invoiceDate}
                         onChange={(e) => setInvoiceDate(e.target.value)}
                         type="date"
+                        disabled={isUpdate}
                         name="invoiceDate"
                         id="invoiceDate"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
@@ -63,6 +65,7 @@ export default function FormEnroll() {
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                         type="date"
+                        disabled={isUpdate}
                         name="dueDate"
                         id="dueDate"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"

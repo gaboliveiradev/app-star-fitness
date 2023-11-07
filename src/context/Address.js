@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { createContext } from 'react';
 
+import * as address from './../services/address';
+
 export const AddressContext = createContext();
 
 export const AddressProvider = ({ children }) => {
@@ -13,6 +15,12 @@ export const AddressProvider = ({ children }) => {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
 
+    async function updateAddress(parameters) {
+        const response = await address.update(parameters);
+
+        return (response.status === 200) ? response : false;
+    }
+
     const context = {
         idAddress, setIdAddress,
         zipCode, setZipCode,
@@ -21,6 +29,8 @@ export const AddressProvider = ({ children }) => {
         number, setNumber,
         city, setCity,
         state, setState,
+        // methods
+        updateAddress
     };
 
     return (
