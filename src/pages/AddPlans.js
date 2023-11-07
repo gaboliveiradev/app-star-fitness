@@ -3,25 +3,29 @@ import { AuthContext } from "../context/Auth";
 import { IMaskInput } from 'react-imask';
 import Swal from 'sweetalert2'
 import { MainContext } from "../context/Main";
+import { TypeContext } from '../context/Type';
 
 export default function AddNewAcademyPlans() {
 
     const { token, createType, getType } = useContext(AuthContext);
     const { setIsLoading, setIsLoadingText } = useContext(MainContext);
 
-    const [plan, setPlan] = useState('');
-    const [days, setDays] = useState('');
-    const [price, setPrice] = useState('');
+    const {
+        idType,
+        nameType, setNameType,
+        numberOfDays, setNumberOfDays,
+        price, setPrice
+    } = useContext(TypeContext)
 
     const handleClickSave = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        setIsLoadingText('Criando Plano...');
+        setIsLoadingText('Cadastrando Plano...');
 
         try {
             const parameters = {
-                name: plan,
-                number_of_days: days,
+                name: nameType,
+                number_of_days: numberOfDays,
                 price: parseFloat(price.replace("R$", "").replace(",", "."))
             }
 
@@ -63,8 +67,8 @@ export default function AddNewAcademyPlans() {
     }
 
     const clearUseState = () => {
-        setPlan('');
-        setDays('');
+        setNameType('');
+        setNumberOfDays('');
         setPrice('');
     }
 
@@ -95,8 +99,8 @@ export default function AddNewAcademyPlans() {
                                     name="first-name"
                                     id="first-name"
                                     autoComplete="given-name"
-                                    value={plan}
-                                    onChange={(e) => setPlan(e.target.value)}
+                                    value={nameType}
+                                    onChange={(e) => setNameType(e.target.value)}
                                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                                 />
                             </div>
@@ -111,10 +115,11 @@ export default function AddNewAcademyPlans() {
                                     mask={Number}
                                     lazy={true}
                                     max={7}
+                                    type="text"
                                     name="number_of_days"
                                     id="number_of_days"
-                                    value={days}
-                                    onChange={(e) => setDays(e.target.value)}
+                                    value={numberOfDays}
+                                    onChange={(e) => setNumberOfDays(e.target.value)}
                                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                                 />
                             </div>

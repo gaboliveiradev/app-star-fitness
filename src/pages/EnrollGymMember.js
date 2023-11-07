@@ -30,7 +30,7 @@ export default function EnrollGymMember() {
     const {
         height, setHeight, weight, setWeight,
         observation, setObservation, idPlan, setIdPlan,
-        isUpdate, idGymMember, 
+        isUpdate, setIsUpdate, idGymMember, 
         //methods
         updateGymMember
     } = useContext(GymMemberContext);
@@ -73,6 +73,8 @@ export default function EnrollGymMember() {
         setIdPlan('');
         setInvoiceDate(getCurrentDate());
         setDueDate(add30Days(getCurrentDate()));
+
+        setIsUpdate(false);
     }
 
     const handleClickUpdate = async (e) => {
@@ -82,7 +84,7 @@ export default function EnrollGymMember() {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 setIsLoading(true);
-                setIsLoadingText("Atualizando Endereço...");
+                setIsLoadingText("Cadastrando Endereço...");
 
                 const addressParameters = {
                     idAddress: idAddress,
@@ -106,7 +108,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Atualizando Aluno...");
+                setIsLoadingText("Cadastrando Aluno...");
 
                 const personParameters = {
                     idPerson: idPerson,
@@ -132,8 +134,8 @@ export default function EnrollGymMember() {
 
                 const gymMemberParameters = {
                     idGymMember: idGymMember,
-                    height_cm: height.replace(/[^0-9]/g, ''),
-                    weight_kg: weight.replace(/[^0-9]/g, ''),
+                    height_cm: height !== null ? height.replace(/[^0-9]/g, '') : null,
+                    weight_kg: weight !== null ? weight.replace(/[^0-9]/g, '') : null,
                     observation: observation,
                     id_type_enrollment: idPlan,
                 }
@@ -163,12 +165,13 @@ export default function EnrollGymMember() {
 
                 return;
             }
-        } catch {
+        } catch (err) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 html: 'Ocorreu um erro inesperado, ao <b>tentar atualizar</b> um <b>ALUNO</b> tente novamente mais tarde.'
             })
+            console.log(err)
         } finally {
             setIsLoading(false);
             setIsLoadingText("");

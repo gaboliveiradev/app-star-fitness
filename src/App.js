@@ -7,6 +7,7 @@ import { EmployeeProvider } from './context/Employee';
 import { GymMemberProvider } from './context/GymMember';
 import { MainProvider } from './context/Main';
 import { PersonProvider } from './context/Person';
+import { TypeProvider } from './context/Type';
 
 function App() {
   return (
@@ -17,9 +18,11 @@ function App() {
           <PersonProvider>
             <GymMemberProvider>
               <BillingProvider>
-                <EmployeeProvider>
-                  <Routing />
-                </EmployeeProvider>
+                <TypeProvider>
+                  <EmployeeProvider>
+                    <Routing />
+                  </EmployeeProvider>
+                </TypeProvider>
               </BillingProvider>
             </GymMemberProvider>
           </PersonProvider>
