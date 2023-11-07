@@ -22,21 +22,26 @@ export default function EnrollGymMember() {
         name, setName, email, setEmail,
         document, setDocument, phone, setPhone,
         birthday, setBirthday, gender, setGender,
+        idPerson,
+        //methods
+        updatePerson
     } = useContext(PersonContext);
 
     const {
         height, setHeight, weight, setWeight,
         observation, setObservation, idPlan, setIdPlan,
-        isUpdate
+        isUpdate, idGymMember, 
+        //methods
+        updateGymMember
     } = useContext(GymMemberContext);
 
     const {
         zipCode, setZipCode,
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
-        state, setState,
+        state, setState, idAddress,
         // methods
-        update
+        updateAddress
     } = useContext(AddressContext);
 
     const {
@@ -80,6 +85,7 @@ export default function EnrollGymMember() {
                 setIsLoadingText("Atualizando Endereço...");
 
                 const addressParameters = {
+                    idAddress: idAddress,
                     street: street,
                     district: district,
                     number: number,
@@ -88,7 +94,7 @@ export default function EnrollGymMember() {
                     state: state
                 }
 
-                const responseAddress = await update(addressParameters);
+                const responseAddress = await updateAddress(addressParameters);
 
                 if (responseAddress.status !== 200) {
                     Swal.fire({
@@ -103,6 +109,7 @@ export default function EnrollGymMember() {
                 setIsLoadingText("Atualizando Aluno...");
 
                 const personParameters = {
+                    idPerson: idPerson,
                     name: name,
                     email: email,
                     document: document.replace(/[^0-9]/g, ''),
@@ -111,7 +118,7 @@ export default function EnrollGymMember() {
                     gender: gender,
                 }
 
-                const responsePerson = await update(personParameters);
+                const responsePerson = await updatePerson(personParameters);
 
                 if (responsePerson.status !== 200) {
                     Swal.fire({
@@ -124,11 +131,37 @@ export default function EnrollGymMember() {
                 }
 
                 const gymMemberParameters = {
+                    idGymMember: idGymMember,
                     height_cm: height.replace(/[^0-9]/g, ''),
                     weight_kg: weight.replace(/[^0-9]/g, ''),
                     observation: observation,
                     id_type_enrollment: idPlan,
                 }
+
+                const responseGymMember = await updateGymMember(gymMemberParameters);
+
+                if (responseGymMember.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>aluno</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Atualizando Alunos...");
+                await getGymMembers(token);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Aluno Atualizado.',
+                    html: 'Ihuul... Parabéns, você <b>atualizou</b> um aluno com sucesso. Acompanhe os alunos da sua academia acessando <b>Aluno/Matrículas e Alunos.</b>'
+                })
+
+                handleClickClearFields(e);
+
+                return;
             }
         } catch {
             Swal.fire({

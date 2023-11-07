@@ -15,8 +15,8 @@ export const AddressProvider = ({ children }) => {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
 
-    async function update(parameters) {
-        const response = address.update(parameters);
+    async function updateAddress(parameters) {
+        const response = await address.update(parameters);
 
         return (response.status === 200) ? response : false;
     }
@@ -30,7 +30,7 @@ export const AddressProvider = ({ children }) => {
         city, setCity,
         state, setState,
         // methods
-        update
+        updateAddress
     };
 
     return (

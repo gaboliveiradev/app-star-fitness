@@ -17,8 +17,8 @@ export const PersonProvider = ({ children }) => {
 
     const [password, setPassword] = useState("");
 
-    async function update(parameters) {
-        const response = person.update(parameters);
+    async function updatePerson(parameters) {
+        const response = await person.update(parameters);
 
         return (response.status === 200) ? response : false;
     }
@@ -33,7 +33,7 @@ export const PersonProvider = ({ children }) => {
         gender, setGender,
         password, setPassword,
         //methods
-        update
+        updatePerson
     };
 
     return (

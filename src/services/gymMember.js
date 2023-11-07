@@ -24,6 +24,22 @@ export const create = async (parameters, token) => {
     }
 }
 
+export const update = async (parameters) => {
+    try {
+        const response = await api.put(`/gym-member/${parameters.idGymMember}`, {
+            height_cm: parameters.height_cm,
+            weight_kg: parameters.weight_kg,
+            observation: parameters.observation,
+            id_type_enrollment: parameters.id_type_enrollment
+        })
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 export const deleteGymMember = async (idGymMember, token) => {
     try {
         const response = await api.delete(`/gym-member/${idGymMember}`)

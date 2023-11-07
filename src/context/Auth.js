@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as auth from '../services/auth';
 import * as type from '../services/type';
 import * as address from '../services/address';
-import * as gymMemberPerson from '../services/gymMemberPerson';
+import * as gymMemberPerson from '../services/gymMember';
 import * as billing from '../services/billing';
 
 export const AuthContext = createContext();
