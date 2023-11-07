@@ -35,6 +35,8 @@ export default function EnrollGymMember() {
         street, setStreet, district, setDistrict,
         number, setNumber, city, setCity,
         state, setState,
+        // methods
+        update
     } = useContext(AddressContext);
 
     const {
@@ -74,7 +76,40 @@ export default function EnrollGymMember() {
         try {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
-                alert('atualizar');
+                setIsLoading(true);
+                setIsLoadingText("Atualizando Endereço...");
+
+                const addressParameters = {
+                    street: street,
+                    district: district,
+                    number: number,
+                    zipCode: zipCode.replace(/[^0-9]/g, ''),
+                    city: city,
+                    state: state
+                }
+
+                const responseAddress = await update(addressParameters);
+
+                if (responseAddress.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>endereço</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Atualizando Aluno...");
+
+                const personParameters = {
+                    name: name,
+                    email: email,
+                    document: document.replace(/[^0-9]/g, ''),
+                    phone: phone.replace(/[^0-9]/g, ''),
+                    birthday: birthday,
+                    gender: gender,
+                }
             }
         } catch {
             Swal.fire({
@@ -95,7 +130,7 @@ export default function EnrollGymMember() {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
                 setIsLoading(true);
-                setIsLoadingText("Criando Endereço...");
+                setIsLoadingText("Cadastrando Endereço...");
 
                 const addressParameters = {
                     street: street,
@@ -118,7 +153,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Criando Aluno...");
+                setIsLoadingText("Cadastrando Aluno...");
 
                 const personGymMemberParameters = {
                     name: name,
@@ -146,7 +181,7 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Criando Cobrança...");
+                setIsLoadingText("Gerando Cobrança...");
 
                 const billingParameters = {
                     invoice_date: invoiceDate,
