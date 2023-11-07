@@ -110,6 +110,25 @@ export default function EnrollGymMember() {
                     birthday: birthday,
                     gender: gender,
                 }
+
+                const responsePerson = await update(personParameters);
+
+                if (responsePerson.status !== 200) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>pessoa</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                const gymMemberParameters = {
+                    height_cm: height.replace(/[^0-9]/g, ''),
+                    weight_kg: weight.replace(/[^0-9]/g, ''),
+                    observation: observation,
+                    id_type_enrollment: idPlan,
+                }
             }
         } catch {
             Swal.fire({
