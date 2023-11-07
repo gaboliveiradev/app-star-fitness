@@ -28,8 +28,6 @@ export default function MyPlans() {
     const handleClickAlterUpdate = async (e, row) => {
         e.preventDefault();
 
-        console.log(row);
-
         setIdType(row.id);
         setNameType(row.name);
         setNumberOfDays(row.number_of_days.toString());

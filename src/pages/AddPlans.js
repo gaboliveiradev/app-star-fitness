@@ -14,8 +14,15 @@ export default function AddNewAcademyPlans() {
         idType,
         nameType, setNameType,
         numberOfDays, setNumberOfDays,
-        price, setPrice
+        price, setPrice, setIsUpdateType,
+        isUpdateType
     } = useContext(TypeContext)
+
+    const handleClickUpdate = async (e) => {
+        e.preventDefault();
+
+        alert('Atualizar');
+    }
 
     const handleClickSave = async (e) => {
         e.preventDefault();
@@ -23,37 +30,45 @@ export default function AddNewAcademyPlans() {
         setIsLoadingText('Cadastrando Plano...');
 
         try {
-            const parameters = {
-                name: nameType,
-                number_of_days: numberOfDays,
-                price: parseFloat(price.replace("R$", "").replace(",", "."))
+            if(nameType !== "" && numberOfDays !== "" && price !== "") {
+                const parameters = {
+                    name: nameType,
+                    number_of_days: numberOfDays,
+                    price: parseFloat(price.replace("R$", "").replace(",", "."))
+                }
+    
+                const response = await createType(parameters, token);
+    
+                if (response.status === 201) {
+                    await getType(token);
+    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Plano Criado',
+                        html: 'Ihuul... Parabéns, você <b>criou</b> um novo plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
+                    })
+    
+                    handleClickClearFields(e);
+    
+                    return;
+                }
+    
+                if (response.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar um novo plano.'
+                    })
+    
+                    return;
+                }
             }
 
-            const response = await createType(parameters, token);
-
-            if (response.status === 201) {
-                await getType(token);
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Plano Criado',
-                    html: 'Ihuul... Parabéns, você <b>criou</b> um novo plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
-                })
-
-                clearUseState();
-
-                return;
-            }
-
-            if (response.status !== 201) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar um novo plano.'
-                })
-
-                return;
-            }
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vazio!',
+                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+            })
         } catch {
             Swal.fire({
                 icon: 'error',
@@ -66,10 +81,14 @@ export default function AddNewAcademyPlans() {
         }
     }
 
-    const clearUseState = () => {
+    const handleClickClearFields = (e) => {
+        e.preventDefault();
+
         setNameType('');
         setNumberOfDays('');
         setPrice('');
+
+        setIsUpdateType(false);
     }
 
     return (
@@ -77,13 +96,13 @@ export default function AddNewAcademyPlans() {
             <article className="flex-auto h-full mx-auto rounded-md w-full">
                 <div>
                     <div className="flex-auto pb-[14px]">
-                        <h1 class="title">Adicionar Plano</h1>
+                        <h1 class="title">{(isUpdateType) ? 'Atualizar' : 'Adicionar'} Plano</h1>
                         <ul class="breadcrumbs">
                             <li><span>Principal</span></li>
                             <li class="divider">/</li>
                             <li><span class="active">Planos da Academia</span></li>
                             <li class="divider">/</li>
-                            <li><span class="active">Adicionar Plano</span></li>
+                            <li><span class="active">{(isUpdateType) ? 'Atualizar' : 'Adicionar'} Plano</span></li>
                         </ul>
                     </div>
                 </div>
@@ -153,10 +172,31 @@ export default function AddNewAcademyPlans() {
                         </div>
                     </div>
 
-                    <div className="sm:col-span-6 flex justify-between">
-                        <div className='m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer' onClick={(e) => handleClickSave(e)}>
+                    <div className="mt-[16px] border-solid border-bottom border-2"></div>
+
+                    <div className="sm:col-span-6 flex justify-between flex-wrap">
+                        <div className='my-[16px] hover:cursor-pointer'>
+                            <button onClick={(e) => {
+                                Swal.fire({
+                                    title: 'Você tem Certeza?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    cancelButtonText: 'Cancelar',
+                                    confirmButtonText: 'Sim, Limpar!'
+                                }).then(async (result) => {
+                                    if (result.isConfirmed) {
+                                        handleClickClearFields(e)
+                                    }
+                                })
+                            }} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
+                                <span relative="relative z-10">Limpar</span>
+                            </button>
+                        </div>
+                        <div className='my-[16px] hover:cursor-pointer' onClick={(e) => (isUpdateType) ? handleClickUpdate(e) : handleClickSave(e)}>
                             <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                <span relative="relative z-10">Salvar</span>
+                                <span relative="relative z-10">{(isUpdateType) ? 'Atualizar' : 'Salvar'}</span>
                             </button>
                         </div>
                     </div>

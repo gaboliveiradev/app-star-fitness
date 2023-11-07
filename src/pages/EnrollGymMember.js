@@ -165,6 +165,12 @@ export default function EnrollGymMember() {
 
                 return;
             }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vazio!',
+                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+            })
         } catch (err) {
             Swal.fire({
                 icon: 'error',
