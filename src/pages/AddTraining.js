@@ -46,32 +46,19 @@ export default function AddTraining() {
           </div>
           <div class="grid gap-x-8 gap-y-4 grid-cols-3 mt-[30px]">
             <div>
-              <EcommerceCard />
+              <EcommerceCard
+              title="SEGUNDA-FEIRA" />
             </div>
             <div>
-              <EcommerceCard />
+              <EcommerceCard
+              title='TERÇA-FEIRA' />
             </div>
             <div>
-              <EcommerceCard />
-            </div>
-            <div>
-              <EcommerceCard />
-            </div>
-            <div>
-              <EcommerceCard />
-            </div>
-            <div>
-              <EcommerceCard />
+              <EcommerceCard 
+              title='QUARTA-FEIRA'/>
             </div>
           </div>
-          <div class="grid grid-cols-6 gap-4">
-            <div className="col-start-1 col-end-3">
-              <EcommerceCard />
-            </div>
-            <div className="col-end-7 col-span-2">
-              <EcommerceCard />
-            </div>
-          </div>
+          
         </div>
       </article>
     </>

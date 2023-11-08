@@ -10,7 +10,7 @@ import React, { Fragment, useState } from "react";
 
 import Modal from "./Modal";
 
-export function EcommerceCard() {
+export function EcommerceCard({title}) {
   const [open, setOpen] = useState(false);
 
 console.log(open)
@@ -24,7 +24,7 @@ console.log(open)
         <CardBody className="p-0">
           <div className="text-center relative">
             <h1 className="bg-blueProfile text-white rounded font-sans p-4 ">
-              SEGUNDA-FEIRA
+              {title}
             </h1>
           </div>
         </CardBody>

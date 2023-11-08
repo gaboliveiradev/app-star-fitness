@@ -2,6 +2,8 @@ import React from "react";
 import { IMaskInput } from "react-imask";
 
 export default function Modal({ isOpen }) {
+
+
   if (isOpen) {
     return (
       <div class="z-999 modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
@@ -90,7 +92,7 @@ export default function Modal({ isOpen }) {
           </div>
 
           <div class="flex flex-row items-center justify-between pb-6 pl-6 pr-6 bg-white border-gray-200 rounded-bl-lg rounded-br-lg">
-            <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-red-500 bg-red-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
+            <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-red-500 bg-red-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-red-500 hover:before:-translate-x-40">
               <span relative="relative z-10">Fechar</span>
             </button>
             <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
