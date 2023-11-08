@@ -39,7 +39,7 @@ console.log(open)
         </Button>**/}
             <svg
               onClick={() => setOpen(!open)}
-              className="h-8 w-8 text-blueProfile transition-transform hover:scale-150"
+              className="h-8 w-8 text-blueProfile transition-transform hover:scale-110"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
