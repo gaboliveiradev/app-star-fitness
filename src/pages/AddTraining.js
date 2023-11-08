@@ -44,11 +44,33 @@ export default function AddTraining() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6 w-full max-w-full px-3 shrink-0 md:w-12/12 md:flex-0 mt-[20px]">
-            <div className="sm:col-span-1 mt-[15px]">
+          <div class="grid gap-x-8 gap-y-4 grid-cols-3 mt-[30px]">
+            <div>
               <EcommerceCard />
             </div>
-            
+            <div>
+              <EcommerceCard />
+            </div>
+            <div>
+              <EcommerceCard />
+            </div>
+            <div>
+              <EcommerceCard />
+            </div>
+            <div>
+              <EcommerceCard />
+            </div>
+            <div>
+              <EcommerceCard />
+            </div>
+          </div>
+          <div class="grid grid-cols-6 gap-4">
+            <div className="col-start-1 col-end-3">
+              <EcommerceCard />
+            </div>
+            <div className="col-end-7 col-span-2">
+              <EcommerceCard />
+            </div>
           </div>
         </div>
       </article>
