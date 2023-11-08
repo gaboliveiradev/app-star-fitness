@@ -75,7 +75,7 @@ export default function Login() {
           class="hidden bg-cover lg:block lg:w-2/3"
           style={{
             backgroundImage:
-              "url(https://img.freepik.com/fotos-gratis/homem-forte-treinando-na-academia_1303-23478.jpg)",
+              "url(https://imgur.com/0g9Dnk1.png)",
           }}
         >
           <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
