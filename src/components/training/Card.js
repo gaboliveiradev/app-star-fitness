@@ -30,13 +30,6 @@ console.log(open)
         </CardBody>
         <CardFooter className="pt-0">
           <div className="flex items-center justify-center mt-[20px]">
-            {/**<Button
-          ripple={false}
-          fullWidth={true}
-          className="dark:text-white/80 bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-        >
-          Adicionar Exercício
-        </Button>**/}
             <svg
               onClick={() => setOpen(!open)}
               className="h-8 w-8 text-blueProfile transition-transform hover:scale-110"
