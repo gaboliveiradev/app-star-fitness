@@ -44,7 +44,11 @@ export default function AddTraining() {
               />
             </div>
           </div>
-          <div class="grid gap-x-8 gap-y-4 grid-cols-3 mt-[30px]">
+          <div class="flex flex-row mt-[30px] overflow-x-scroll">
+            <div>
+              <EcommerceCard
+              title="DOMINGO" />
+            </div>
             <div>
               <EcommerceCard
               title="SEGUNDA-FEIRA" />
@@ -56,6 +60,18 @@ export default function AddTraining() {
             <div>
               <EcommerceCard 
               title='QUARTA-FEIRA'/>
+            </div>
+            <div>
+              <EcommerceCard 
+              title='QUINTA-FEIRA'/>
+            </div>
+            <div>
+              <EcommerceCard 
+              title='SEXTA-FEIRA'/>
+            </div>
+            <div>
+              <EcommerceCard 
+              title='SÁBADO'/>
             </div>
           </div>
           
