@@ -59,7 +59,7 @@ export default function AddressDataModalPageGymMember() {
                   for="username"
                   class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
                 >
-                  Cep
+                  CEP
                 </label>
                 <input
                   type="text"

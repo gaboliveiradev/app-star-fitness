@@ -73,7 +73,7 @@ export default function GymMemberInfoModal() {
                         <button onClick={(e) => handleClickCloseModal(e)} class="px-4 py-2 text-white font-semibold bg-red-500 rounded">
                             Fechar
                         </button>
-                        <button class="px-4 py-2 text-white font-semibold bg-blue-500 rounded">
+                        <button onClick={() => setIndex(index + 1)} class="px-4 py-2 text-white font-semibold bg-blue-500 rounded">
                             Avançar
                         </button>
                     </div>
