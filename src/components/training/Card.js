@@ -10,7 +10,7 @@ import React, { Fragment, useState } from "react";
 
 import Modal from "./Modal";
 
-export function EcommerceCard({title}) {
+export function CardTraining({title}) {
   const [open, setOpen] = useState(false);
 
 console.log(open)

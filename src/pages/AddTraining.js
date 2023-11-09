@@ -1,6 +1,6 @@
 import React from "react";
 import Search from "../components/training/Search";
-import { EcommerceCard } from "../components/training/Card";
+import { CardTraining } from "../components/training/Card";
 
 export default function AddTraining() {
   return (
@@ -46,31 +46,31 @@ export default function AddTraining() {
           </div>
           <div class="flex flex-row mt-[30px] overflow-x-scroll">
             <div>
-              <EcommerceCard
+              <CardTraining
               title="DOMINGO" />
             </div>
             <div>
-              <EcommerceCard
+              <CardTraining
               title="SEGUNDA-FEIRA" />
             </div>
             <div>
-              <EcommerceCard
+              <CardTraining
               title='TERÇA-FEIRA' />
             </div>
             <div>
-              <EcommerceCard 
+              <CardTraining 
               title='QUARTA-FEIRA'/>
             </div>
             <div>
-              <EcommerceCard 
+              <CardTraining 
               title='QUINTA-FEIRA'/>
             </div>
             <div>
-              <EcommerceCard 
+              <CardTraining 
               title='SEXTA-FEIRA'/>
             </div>
             <div>
-              <EcommerceCard 
+              <CardTraining 
               title='SÁBADO'/>
             </div>
           </div>
