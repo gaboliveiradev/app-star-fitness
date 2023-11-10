@@ -16,10 +16,11 @@ code {
     monospace;
 }
 
-.sidebarConfig{
+.scrollbarConfig{
   scrollbar-width: none;
 }
 
-.sidebarConfig::-webkit-scrollbar {
+.scrollbarConfig::-webkit-scrollbar {
   display: none;
 }
+

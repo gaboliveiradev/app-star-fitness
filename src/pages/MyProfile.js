@@ -8,7 +8,7 @@ export default function MyProfile() {
   console.log(user);
 
   return (
-    <body className="m-0 font-sans bg-white dark:bg-boxdark overflow-hidden antialiased font-normal  text-base leading-default text-slate-500">
+    <body className=" m-0 font-sans bg-white dark:bg-boxdark overflow-hidden antialiased font-normal  text-base leading-default text-slate-500">
       <div className="relative w-full mx-auto">
         <div className="rounded relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-tertiary-blue border-0 ">
           <div className="flex flex-wrap -mx-3">
