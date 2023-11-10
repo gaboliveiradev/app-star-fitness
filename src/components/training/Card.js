@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import React, { Fragment, useState } from "react";
 
-import Modal from "./Modal";
+import Modal from "./ModalTraining";
 
 export function CardTraining({title}) {
   const [open, setOpen] = useState(false);

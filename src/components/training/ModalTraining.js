@@ -2,8 +2,6 @@ import React from "react";
 import { IMaskInput } from "react-imask";
 
 export default function Modal({ isOpen }) {
-
-
   if (isOpen) {
     return (
       <div class="z-999 modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
@@ -64,7 +62,7 @@ export default function Modal({ isOpen }) {
                         </label>
                         <div className="mt-1">
                           <IMaskInput
-                            mask='MM:SS'
+                            mask="MM:SS"
                             lazy={true}
                             max={7}
                             type="text"
