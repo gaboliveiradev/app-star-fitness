@@ -76,6 +76,25 @@ export default function Modal({ isOpen }) {
                       </div>
                       <div className="sm:col-span-6 mt-[15px]">
                         <label
+                          htmlFor="gender"
+                          className="block font-bold text-[16px] text-black-700"
+                        >
+                          Número de Séries *
+                        </label>
+                        <div className="mt-1">
+                          <IMaskInput
+                            mask={Number}
+                            lazy={true}
+                            max={7}
+                            type="number"
+                            name=""
+                            id=""
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                          />
+                        </div>
+                      </div>
+                      <div className="sm:col-span-6 mt-[15px]">
+                        <label
                           htmlFor="email"
                           className="block font-bold text-[16px] text-black-700"
                         >
