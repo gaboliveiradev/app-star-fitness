@@ -5,8 +5,6 @@ import { IMaskInput } from 'react-imask';
 export default function AddressDataModalPageGymMember() {
   const { gymMemberModal } = useContext(MainContext);
 
-  console.log(gymMemberModal);
-
   return (
     <div className="relative flex flex-col min-w-0 break-words border-0 dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
       <div className="mt-[10px]">

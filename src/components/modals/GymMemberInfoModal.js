@@ -4,6 +4,7 @@ import PersonDataGymMember from './modal_pages/PersonDataGymMember';
 import AddressDataGymMember from './modal_pages/AddressDataGymMember';
 
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline"
+import EnrollDataGymMember from './modal_pages/EnrollDataGymMember';
 
 export default function GymMemberInfoModal() {
     const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal, gymMemberModal } = useContext(MainContext);
@@ -40,7 +41,7 @@ export default function GymMemberInfoModal() {
                                 <path d="M19 18v.01"></path>
                             </svg>
                         </div>
-                        <div className='flex justify-center items-center p-6 border-r-2 border-slate-600'>
+                        <div onClick={() => setIndex(2)} className='flex justify-center items-center p-6 border-r-2 border-slate-600'>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-barbell" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M2 12h1"></path>
@@ -66,6 +67,8 @@ export default function GymMemberInfoModal() {
                                 <PersonDataGymMember />
                             ) : (index === 1) ? (
                                 <AddressDataGymMember />
+                            ) : (index === 2) ?(
+                                <EnrollDataGymMember />
                             ) : (
                                 ''
                             )
