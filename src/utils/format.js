@@ -83,6 +83,19 @@ function formatBirthday(data) {
     }
 }
 
+function formatDatePtBr(data) {
+    const partes = data.split('-'); // Dividir a data pelos hífens
+    if (partes.length === 3) {
+        const ano = partes[0];
+        const mes = partes[1];
+        const dia = partes[2];
+        const dataBrasil = `${dia}/${mes}/${ano}`;
+        return dataBrasil;
+    } else {
+        return 'Data Não Informada';
+    }
+}
+
 
 export {
     formatMoney,
@@ -91,6 +104,7 @@ export {
     formatCEP,
     formatCreatedAt,
     formatBirthday,
+    formatDatePtBr,
     capitalizeFirstLetter,
     getCurrentDate,
     add30Days

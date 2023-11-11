@@ -5,6 +5,7 @@ import AddressDataGymMember from './modal_pages/AddressDataGymMember';
 
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline"
 import EnrollDataGymMember from './modal_pages/EnrollDataGymMember';
+import BillingDataGymMember from './modal_pages/BillingDataGymMember';
 
 export default function GymMemberInfoModal() {
     const { isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal, gymMemberModal } = useContext(MainContext);
@@ -53,7 +54,7 @@ export default function GymMemberInfoModal() {
                                 <path d="M22 12h-1"></path>
                             </svg>
                         </div>
-                        <div className='flex justify-center items-center p-6'>
+                        <div onClick={() => setIndex(3)} className='flex justify-center items-center p-6'>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                                 <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2"></path>
@@ -69,8 +70,8 @@ export default function GymMemberInfoModal() {
                                 <AddressDataGymMember />
                             ) : (index === 2) ?(
                                 <EnrollDataGymMember />
-                            ) : (
-                                ''
+                            ) : (index === 3) && (
+                                <BillingDataGymMember />
                             )
                         }
                     </div>
@@ -82,7 +83,7 @@ export default function GymMemberInfoModal() {
                             <button disabled={index === 0} onClick={() => setIndex(index - 1)} class="mr-[5px] px-4 py-2 text-white font-semibold bg-blue-500 rounded">
                                 <ArrowLeftIcon className='w-5' />
                             </button>
-                            <button onClick={() => setIndex(index + 1)} class="px-4 py-2 text-white font-semibold bg-blue-500 rounded">
+                            <button disabled={index === 3} onClick={() => setIndex(index + 1)} class="px-4 py-2 text-white font-semibold bg-blue-500 rounded">
                                 <ArrowRightIcon className='w-5' />
                             </button>
                         </div>
