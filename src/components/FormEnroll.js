@@ -4,6 +4,7 @@ import { AuthContext } from '../context/Auth';
 import { GymMemberContext } from '../context/GymMember';
 import { BillingContext } from '../context/Billing';
 import { formatMoney } from '../utils/format';
+import { PaymentContext } from '../context/Payment';
 
 export default function FormEnroll() {
     const { typeList } = useContext(AuthContext);
@@ -16,6 +17,10 @@ export default function FormEnroll() {
     const {
         invoiceDate, setInvoiceDate, dueDate, setDueDate,
     } = useContext(BillingContext);
+
+    const {
+        paymentMethod, setPaymentMethod, setAmount
+    } = useContext(PaymentContext);
 
     return (
         <>
@@ -73,17 +78,41 @@ export default function FormEnroll() {
                 </div>
             </div>
 
-            <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
-
-            <div>
-                <p className='text-[20px]'><span className='font-bold'>Item: </span>{typeList.filter(type => type.id === idPlan).map(type => type.name)}</p>
-                <p className='text-[20px]'><span className='font-bold'>Dias: </span>{typeList.filter(type => type.id === idPlan).map(type => `${type.number_of_days}/7`)}</p>
-                <p className='text-[20px]'><span className='font-bold'>Valor: </span>{typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</p>
+            <div className="sm:col-span-6">
+                <label htmlFor="paymentMethod" className="block text-[16px] font-bold text-black-700">
+                    Forma de Pagamento
+                </label>
+                <div className="mt-1">
+                    <div class="flex flex-wrap -m-4 text-center">
+                        <div onClick={() => setPaymentMethod('CREDIT_CARD')} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
+                            <div class={`${paymentMethod === 'CREDIT_CARD' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
+                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(parseFloat(type.price) + parseFloat(4)))}</h2>
+                                <p class="leading-relaxed text-black-100 font-bold">Crédito <span className="text-green-500">(+ R$ 4,00)</span></p>
+                            </div>
+                        </div>
+                        <div onClick={() => setPaymentMethod('DEBIT_CARD')} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
+                            <div class={`${paymentMethod === 'DEBIT_CARD' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
+                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(parseFloat(type.price) + parseFloat(2.50)))}</h2>
+                                <p class="leading-relaxed text-black font-bold">Débito <span className="text-green-500">(+ R$ 2,50)</span></p>
+                            </div>
+                        </div>
+                        <div onClick={() => setPaymentMethod('PIX')} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
+                            <div class={`${paymentMethod === 'PIX' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
+                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</h2>
+                                <p class="leading-relaxed text-black font-bold">PIX</p>
+                            </div>
+                        </div>
+                        <div onClick={() => setPaymentMethod('MONEY')} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
+                            <div class={`${paymentMethod === 'MONEY' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
+                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</h2>
+                                <p class="leading-relaxed text-black font-bold">Dinheiro</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
-
-            <span className='font-bold text-[24px]'>Total: {typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</span>
         </>
     )
 }
