@@ -36,6 +36,23 @@ export default function BillingDataGymMember() {
           <div className="mt-[10px]">
             <p className="title">Outras Cobranças</p>
           </div>
+          <div className="flex flex-wrap mt-[10px]">
+            {
+              gymMemberModal.billing.map(charge => {
+                return (
+                  <div>
+                    <p>Data de Lançamento: {formatDatePtBr(charge.invoice_date)}</p>
+                    <p>Data de Vencimento: {formatDatePtBr(charge.due_date)}</p>
+                    <p>Status: {(charge.payment_date !== null)
+                      ? <span className="text-green-600 font-bold">Paga</span>
+                      : (charge.payment_date === null)
+                        ? <span className="text-yellow-600 font-bold">Em Aberto</span>
+                        : (getCurrentDate() > charge.due_date) && <span className="text-red-600 font-bold">Em Atraso</span>}</p>
+                  </div>
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     </div>
