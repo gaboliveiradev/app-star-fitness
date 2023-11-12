@@ -11,6 +11,7 @@ import { PersonContext } from './../context/Person';
 import { GymMemberContext } from './../context/GymMember';
 import { AddressContext } from './../context/Address';
 import { BillingContext } from './../context/Billing';
+import { PaymentContext } from '../context/Payment';
 
 export default function EnrollGymMember() {
 
@@ -48,6 +49,11 @@ export default function EnrollGymMember() {
         invoiceDate, setInvoiceDate, dueDate, setDueDate,
     } = useContext(BillingContext);
 
+    const {
+        paymentMethod, setPaymentMethod,
+        amount, setAmount,
+    } = useContext(PaymentContext);
+
     const { getGymMembers, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
@@ -73,6 +79,8 @@ export default function EnrollGymMember() {
         setIdPlan('');
         setInvoiceDate(getCurrentDate());
         setDueDate(add30Days(getCurrentDate()));
+        setAmount('');
+        setPaymentMethod('');
 
         setIsUpdate(false);
     }
