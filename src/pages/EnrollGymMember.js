@@ -52,6 +52,7 @@ export default function EnrollGymMember() {
     const {
         paymentMethod, setPaymentMethod,
         amount, setAmount,
+        createPayment,
     } = useContext(PaymentContext);
 
     const { getGymMembers, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
@@ -197,7 +198,7 @@ export default function EnrollGymMember() {
 
         try {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
-                && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+                && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '' && paymentMethod !== '' && amount !== '') {
                 setIsLoading(true);
                 setIsLoadingText("Cadastrando Endereço...");
 
@@ -250,21 +251,62 @@ export default function EnrollGymMember() {
                     return;
                 }
 
-                setIsLoadingText("Gerando Cobrança...");
+                setIsLoadingText("Gerando Cobranças...");
 
                 const billingParameters = {
                     invoice_date: invoiceDate,
                     due_date: dueDate,
+                    payment_date: invoiceDate,
                     id_type_enrollment: idPlan,
                     id_gym_member: responseGymMemberPerson.data.data.id
                 }
-                const responseBilling = await createBilling(billingParameters, token);
+
+                const responseBilling = await createBilling(billingParameters);
 
                 if (responseBilling.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
                         html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                const billingParameters1 = {
+                    invoice_date: dueDate,
+                    due_date: add30Days(dueDate),
+                    id_type_enrollment: idPlan,
+                    id_gym_member: responseGymMemberPerson.data.data.id
+                }
+
+                const responseBilling1 = await createBilling(billingParameters1);
+
+                if (responseBilling1.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Registrando Pagamento...");
+
+                const paymentParamerters = {
+                    idBilling: responseBilling.data.data.id,
+                    paymentMethod: paymentMethod,
+                    amount: amount,
+                }
+                
+                const responsePayment = await createPayment(paymentParamerters);
+
+                if (responsePayment.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>registrar</b> um <b>pagamento a um aluno</b>. Por favor, verifique e tente novamente.'
                     })
 
                     return;
@@ -289,7 +331,7 @@ export default function EnrollGymMember() {
                 title: 'Campos Vazio!',
                 html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
             })
-        } catch {
+        } catch (err) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

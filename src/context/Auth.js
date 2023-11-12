@@ -89,32 +89,32 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    async function createType(parameters, token) {
-        const response = await type.create(parameters, token);
+    async function createType(parameters) {
+        const response = await type.create(parameters);
 
         return (response.status === 201) ? response : false;
     }
 
-    async function createAddress(parameters, token) {
-        const response = await address.create(parameters, token);
+    async function createAddress(parameters) {
+        const response = await address.create(parameters);
 
         return (response.status === 201) ? response : false;
     }
 
-    async function createGymMemberPerson(parameters, token) {
-        const response = await gymMemberPerson.create(parameters, token);
+    async function createGymMemberPerson(parameters) {
+        const response = await gymMemberPerson.create(parameters);
 
         return (response.status === 201) ? response : false;
     }
 
-    async function createBilling(parameters, token) {
-        const response = await billing.create(parameters, token);
+    async function createBilling(parameters) {
+        const response = await billing.create(parameters);
 
         return (response.status === 201) ? response : false;
     }
 
-    async function getType(token) {
-        const response = await type.get(token);
+    async function getType() {
+        const response = await type.get();
 
         if (response.status !== 200) return false;
 
@@ -124,8 +124,8 @@ export const AuthProvider = ({ children }) => {
         return true;
     }
 
-    async function getGymMembers(token) {
-        const response = await gymMemberPerson.get(token);
+    async function getGymMembers() {
+        const response = await gymMemberPerson.get();
 
         console.log(response);
 
@@ -135,8 +135,8 @@ export const AuthProvider = ({ children }) => {
         return (response.status === 200) ? response : false;
     }
 
-    async function deleteType(token, idType) {
-        const response = await type.del(token, idType);
+    async function deleteType(idType) {
+        const response = await type.del(idType);
 
         if (response.status !== 200) return false;
 
@@ -145,8 +145,8 @@ export const AuthProvider = ({ children }) => {
         return response;
     }
 
-    async function deleteGymMember(idGymMember, token) {
-        const response = await gymMemberPerson.deleteGymMember(idGymMember, token);
+    async function deleteGymMember(idGymMember) {
+        const response = await gymMemberPerson.deleteGymMember(idGymMember);
 
         if (response.status !== 200) return false;
 

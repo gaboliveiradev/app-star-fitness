@@ -1,6 +1,6 @@
 import api from './api';
 
-export const create = async (parameters, token) => {
+export const create = async (parameters) => {
     try {
         const response = await api.post(`/employee`, {
             name: parameters.name,

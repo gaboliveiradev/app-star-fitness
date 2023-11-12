@@ -1,6 +1,6 @@
 import api from './api';
 
-export const create = async (parameters, token) => {
+export const create = async (parameters) => {
     try {
         const response = await api.post(`/gym-member`, {
             name: parameters.name,
@@ -40,7 +40,7 @@ export const update = async (parameters) => {
     }
 }
 
-export const deleteGymMember = async (idGymMember, token) => {
+export const deleteGymMember = async (idGymMember) => {
     try {
         const response = await api.delete(`/gym-member/${idGymMember}`)
 
@@ -51,7 +51,7 @@ export const deleteGymMember = async (idGymMember, token) => {
     }
 }
 
-export const get = async (token) => {
+export const get = async () => {
     try {
         const response = await api.get(`/gym-member`);
 
