@@ -54,7 +54,7 @@ export default function Sidebar(props) {
     <aside
       ref={sidebar}
       className={`scrollbarConfig absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-auto bg-sidebar duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${props.sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-    }`}
+        }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="margin-auto bg-sidebar dark:bg-boxdark duration-300 ease-linear flex items-center justify-center gap-2 px-6 py-5.5 ">
@@ -321,6 +321,27 @@ export default function Sidebar(props) {
                         </li>
                       </ul>
                     </div>
+                    {/* <!-- Dropdown Menu End --> */}
+                  </React.Fragment>
+                );
+              }}
+            </SidebarLinkGroup>
+            <SidebarLinkGroup activeCondition={pathname === '/ui' || pathname.includes('ui')}>
+              {(handleClick, open) => {
+                return (
+                  <React.Fragment>
+                    <NavLink to="/pdv/form" className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/ui' || pathname.includes('ui')) && 'bg-graydark dark:bg-meta-4'}`}
+
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+
+                      PDV
+
+                    </NavLink>
+                    {/* <!-- Dropdown Menu Start --> */}
+
                     {/* <!-- Dropdown Menu End --> */}
                   </React.Fragment>
                 );
