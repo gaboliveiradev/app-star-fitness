@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "./../context/Auth";
 import { capitalizeFirstLetter } from "../utils/format";
 
 import { IMaskInput } from 'react-imask';
+import { Edit } from "lucide-react";
 
 export default function MyProfile() {
   const { user } = useContext(AuthContext);
+
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <>
@@ -32,17 +35,25 @@ export default function MyProfile() {
       </div>
 
       <div className="flex flex-row justify-end pt-6">
-        <button class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+        <button onClick={() => setIsEdit(false)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
           </svg>
           Cancelar
         </button>
-        <button class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-          </svg>
-          Editar
+        <button onClick={() => setIsEdit(true)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          {
+            !isEdit ? (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            )
+          }
+          {!isEdit ? 'Editar' : 'Salvar'}
         </button>
       </div>
 
@@ -61,6 +72,7 @@ export default function MyProfile() {
               type="text"
               name="name"
               id="name"
+              disabled={!isEdit}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
             />
           </div>
@@ -77,6 +89,7 @@ export default function MyProfile() {
               type="text"
               name="email"
               id="email"
+              disabled={!isEdit}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
             />
           </div>
@@ -94,6 +107,7 @@ export default function MyProfile() {
               value={user.document}
               type="text"
               name="document"
+              disabled={!isEdit}
               id="document"
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
             />
@@ -107,6 +121,7 @@ export default function MyProfile() {
           <div className="mt-1">
             <IMaskInput
               lazy={true}
+              disabled={!isEdit}
               value={user.employee.cref}
               type="text"
               name="cref"
@@ -122,6 +137,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <IMaskInput
+              disabled={!isEdit}
               mask='(00) 00000-0000'
               placeholder='(99) 99999-9999'
               lazy={true}
@@ -140,6 +156,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <input
+              disabled={!isEdit}
               value={user.birthday}
               type="date"
               name="birthday"
@@ -155,6 +172,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <select
+              disabled={!isEdit}
               value={user.gender}
               name="gender"
               id="gender"
@@ -173,6 +191,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <textarea
+              disabled={!isEdit}
               value={user.employee.observation}
               type="text"
               rows={6}
@@ -196,6 +215,7 @@ export default function MyProfile() {
           <div className="mt-1 flex rounded-md shadow-sm mb-[20px]">
             <div className="relative flex flex-grow items-stretch focus-within:z-10">
               <IMaskInput
+                disabled={!isEdit}
                 mask='00000-000'
                 placeholder='99999-999'
                 type="text"
@@ -218,6 +238,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <input
+              disabled={!isEdit}
               type="text"
               name="street"
               id="street"
@@ -232,6 +253,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <input
+              disabled={!isEdit}
               type="text"
               name="district"
               id="district"
@@ -246,6 +268,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <input
+              disabled={!isEdit}
               type="text"
               name="number"
               id="number"
@@ -260,6 +283,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <input
+              disabled={!isEdit}
               type="text"
               name="city"
               id="city"
@@ -274,6 +298,7 @@ export default function MyProfile() {
           </label>
           <div className="mt-1">
             <input
+              disabled={!isEdit}
               type="text"
               name="state"
               id="state"
