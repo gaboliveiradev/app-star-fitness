@@ -17,7 +17,7 @@ console.log(open)
 
   return (
     <>
-      <Card className="mr-6 w-96 h-[450px] dark:bg-boxdark antialiased font-normal  text-base leading-default text-slate-500">
+      <Card className="mr-8 w-96 h-[400px] dark:bg-boxdark antialiased font-normal  text-base leading-default text-slate-500">
         {/**<CardHeader shadow={false} floated={false} className="h-96">
             
         </CardHeader>**/}
