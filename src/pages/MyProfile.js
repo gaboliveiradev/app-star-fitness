@@ -91,7 +91,7 @@ export default function MyProfile() {
               mask='000.000.000-00'
               placeholder='999.999.999-99'
               lazy={true}
-              value={user.setDocument}
+              value={user.document}
               type="text"
               name="document"
               id="document"
