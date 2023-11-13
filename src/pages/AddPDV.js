@@ -42,9 +42,24 @@ export default function AddPDV() {
                 </div>
                 <div className="mt-[30px] flex-auto pb-[30px]">
                     <Search />
-
                 </div>
-                <div className="sm:col-span-6">
+                <div className="relative flex flex-col min-w-0 break-words border-0 dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                    <div className="mt-[10px]">
+                        <p className="title">Dados do Aluno</p>
+                    </div>
+                    <div>
+                        <div class="flex-auto">
+                            <div className="flex flex-wrap mt-[10px]">
+                                <div>
+                                    <p className='font-bold'>Aluno:</p>
+                                    <p className='font-bold'>CPF:</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-[30px] sm:col-span-6">
                     <label htmlFor="paymentMethod" className="block text-[16px] font-bold text-black-700">
                         Forma de Pagamento
                     </label>
