@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { SearchIcon, XIcon, CheckIcon } from "@heroicons/react/solid";
 
 export default function Search() {
   const [searchText, setSearchText] = useState(""); // Estado para armazenar o texto da pesquisa
@@ -54,30 +55,45 @@ export default function Search() {
     }
   };
 
+  const clearSearch = () => {
+    setSearchText("");
+    setSearchResults([]);
+  };
+
   return (
     <>
       <form ref={searchRef}>
-        {/* ... Seu código de entrada de pesquisa existente ... */}
-        <input
-          type="search"
-          id="default-search"
-          className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Pesquise por nome do aluno ou cpf"
-          required
-          value={searchText}
-          onChange={handleSearchChange}
-        />
-
-        {/* O dropdown que mostra os resultados da pesquisa */}
-        {showDropdown && searchResults.length > 0 && (
-          <div className="mt-2 border border-gray-300 rounded-lg bg-white dark:bg-gray-800">
-            {searchResults.map((result) => (
-              <div key={result.id} className="p-2 hover:bg-gray-100 dark:hover-bg-gray-700">
-                {result.name} - {result.cpf}
-              </div>
-            ))}
-          </div>
-        )}
+        <label
+          htmlFor="default-search"
+          className="block font-bold text-[16px] text-black-700"
+        >
+          Nome do Aluno/CPF *
+        </label>
+        <div className="mt-1 relative">
+          <input
+            value={searchText}
+            onChange={handleSearchChange}
+            type="text"
+            name=""
+            id="default-search"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear pr-10"
+          />
+          {searchText && (
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+              onClick={clearSearch}
+            >
+              <XIcon className="h-5 w-5 text-red-500" />
+            </button>
+          )}
+          {searchResults.length > 0 && (
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <CheckIcon className="h-5 w-5 text-green-500" />
+            </div>
+          )}
+          
+        </div>
       </form>
     </>
   );

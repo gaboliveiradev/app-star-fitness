@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState } from 'react';
 import Search from "../components/training/Search";
 import { CardTraining } from "../components/training/Card";
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline"
+
 
 export default function AddTraining() {
+
+  const [startIndex, setStartIndex] = useState(0);
+
+  const handlePrevClick = () => {
+    setStartIndex((prevIndex) => Math.max(prevIndex - 4, 0));
+  };
+
+  const handleNextClick = () => {
+    setStartIndex((prevIndex) => prevIndex + 4);
+  };
+
+  const visibleCards = Array.from({ length: 3 }, (_, index) => (
+    <div key={index}>
+      <CardTraining title={['DOMINGO', 'SEGUNDA-FEIRA', 'TERÇA-FEIRA'][index + startIndex]} />
+    </div>
+  ));
+
+  const additionalCards = Array.from({ length: 4 }, (_, index) => (
+    <div key={index + 3}>
+      <CardTraining title={['QUARTA-FEIRA', 'QUINTA-FEIRA', 'SEXTA-FEIRA', 'SÁBADO'][index + startIndex]} />
+    </div>
+  ));
+
   return (
     <>
       <article className="flex-auto h-full mx-auto rounded-md w-full p-4">
@@ -44,37 +69,45 @@ export default function AddTraining() {
               />
             </div>
           </div>
-          <div class="flex flex-row mt-[30px] overflow-x-scroll">
+          <div className="mt-[20px] flex items-center justify-between">
+            <button id='Scroll' /**disabled={index === 0} onClick={() => setIndex(index - 1)}**/ class="mr-[5px] px-4 py-2 text-white font-semibold bg-blue-500 rounded">
+              <ArrowLeftIcon className='w-5' />
+            </button>
+            <button id='Scroll' /**disabled={index === 3} onClick={() => setIndex(index + 1)}**/ class="px-4 py-2 text-white font-semibold bg-blue-500 rounded">
+              <ArrowRightIcon className='w-5' />
+            </button>
+          </div>
+          <div class="pb-[20px] scrollbarConfig flex flex-row mt-[30px] overflow-x-scroll">
             <div>
               <CardTraining
-              title="DOMINGO" />
+                title="DOMINGO" />
             </div>
             <div>
               <CardTraining
-              title="SEGUNDA-FEIRA" />
+                title="SEGUNDA-FEIRA" />
             </div>
             <div>
               <CardTraining
-              title='TERÇA-FEIRA' />
+                title='TERÇA-FEIRA' />
             </div>
             <div>
-              <CardTraining 
-              title='QUARTA-FEIRA'/>
+              <CardTraining
+                title='QUARTA-FEIRA' />
             </div>
             <div>
-              <CardTraining 
-              title='QUINTA-FEIRA'/>
+              <CardTraining
+                title='QUINTA-FEIRA' />
             </div>
             <div>
-              <CardTraining 
-              title='SEXTA-FEIRA'/>
+              <CardTraining
+                title='SEXTA-FEIRA' />
             </div>
             <div>
-              <CardTraining 
-              title='SÁBADO'/>
+              <CardTraining
+                title='SÁBADO' />
             </div>
           </div>
-          
+
         </div>
       </article>
     </>
