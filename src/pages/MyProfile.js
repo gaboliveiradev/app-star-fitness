@@ -2,270 +2,183 @@ import React, { useContext } from "react";
 import { AuthContext } from "./../context/Auth";
 import { capitalizeFirstLetter } from "../utils/format";
 
+import { IMaskInput } from 'react-imask';
+
 export default function MyProfile() {
   const { user } = useContext(AuthContext);
 
-  console.log(user);
-
   return (
-    <body className=" m-0 font-sans bg-white dark:bg-boxdark overflow-hidden antialiased font-normal  text-base leading-default text-slate-500">
-      <div className="relative w-full mx-auto">
-        <div className="rounded relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-tertiary-blue border-0 ">
-          <div className="flex flex-wrap -mx-3">
-            <div className="flex-none w-auto max-w-full px-3">
-              <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
-                <img
-                  src={user.photo_url}
-                  alt="profile_image"
-                  className="w-full shadow-2xl rounded-xl"
-                />
-              </div>
+    <>
+      <div className="rounded-xl flex flex-col flex-auto min-w-0 overflow-hidden break-words bg-tertiary-blue border-0 ">
+        <div className="flex flex-wrap">
+          <div className="flex-none w-auto max-w-full p-6">
+            <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
+              <img
+                src={user.photo_url}
+                alt="profile_image"
+                className="w-full shadow-2xl rounded-xl"
+              />
             </div>
-            <div className="flex-none w-auto max-w-full px-3 my-auto">
-              <div className="h-full">
-                <h5 className="mb-1 text-white font-medium">{user.name}</h5>
-                <p class="mb-0 font-semibold leading-normal text-white dark:opacity-60 text-sm">
-                  {capitalizeFirstLetter(user.employee.occupation)}
-                </p>
-              </div>
+          </div>
+          <div className="flex-none w-auto max-w-full px-3 my-auto">
+            <div className="h-full">
+              <h5 className="mb-1 text-white font-medium">{user.name}</h5>
+              <p class="mb-0 font-semibold leading-normal text-white dark:opacity-60 text-sm">
+                {capitalizeFirstLetter(user.employee.occupation)}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full p-6 mx-auto ">
-        <div className="flex flex-wrap -mx-3">
-          <div className="w-full max-w-full px-3 shrink-0 md:w-8/15 md:flex-0 ">
-            <div className="relative flex flex-col min-w-0 break-words border-0 shadow-xl  dark:bg-boxdark">
-              <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0 bg-white dark:bg-boxdark">
-                <div class="flex items-center bg-white dark:bg-boxdark">
-                  <button
-                    type="button"
-                    class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center bg-white dark:bg-boxdark align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"
-                  >
-                    Editar
-                  </button>
-                </div>
-              </div>
-              <div className="flex-auto p-6 bg-white dark:bg-boxdark">
-                <p className="leading-normal uppercase bg-white dark:bg-boxdark text-sm ">
-                  Informações de Usuário
-                </p>
-                <div className="flex flex-wrap -mx-3 mt-[20px] bg-white dark:bg-boxdark">
-                  <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
-                    <div class="mb-4">
-                      <label
-                        for="username"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Nome Completo
-                      </label>
-                      <input
-                        type="text"
-                        name="username"
-                        value={user.name}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="email"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={user.email}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="first name"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Documento
-                      </label>
-                      <input
-                        type="text"
-                        name="first name"
-                        value={user.document}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="last name"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Data de Nascimento
-                      </label>
-                      <input
-                        type="text"
-                        name="last name"
-                        value={user.birthday}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="last name"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        CREF
-                      </label>
-                      <input
-                        type="text"
-                        name="last name"
-                        value={user.employee.cref}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="last name"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Sexo
-                      </label>
-                      <input
-                        type="text"
-                        name="last name"
-                        value={user.gender === "M" ? "Masculino" : "Feminino"}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="last name"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Telefone
-                      </label>
-                      <input
-                        type="text"
-                        name="last name"
-                        value={user.phone}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0 bg-white dark:bg-boxdark">
-                    <div class="mb-4">
-                      <label
-                        for="last name"
-                        class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                      >
-                        Ocupação
-                      </label>
-                      <input
-                        type="text"
-                        name="last name"
-                        value={user.employee.occupation}
-                        disabled
-                        class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-[30px]  leading-norma text-sm bg-white dark:bg-boxdark">
-                  <p className="uppercase"> Endereço </p>
-                  <div className="flex flex-wrap -mx-3">
-                    <div className="mt-[20px] w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
-                      <div class="mb-4">
-                        <label
-                          for="address"
-                          class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                        >
-                          Rua
-                        </label>
-                        <input
-                          type="text"
-                          name="address"
-                          value="15 de Novembro"
-                          disabled
-                          class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                    <div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
-                      <div class="mb-4">
-                        <label
-                          for="city"
-                          class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                        >
-                          Cidade
-                        </label>
-                        <input
-                          type="text"
-                          name="city"
-                          value="São Paulo"
-                          disabled
-                          class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                    <div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
-                      <div class="mb-4">
-                        <label
-                          for="country"
-                          class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                        >
-                          Nº
-                        </label>
-                        <input
-                          type="text"
-                          name="country"
-                          value="58"
-                          disabled
-                          class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                    <div class="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
-                      <div class="mb-4">
-                        <label
-                          for="country"
-                          class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80"
-                        >
-                          Cep
-                        </label>
-                        <input
-                          type="text"
-                          name="country"
-                          value="17230-020"
-                          class="focus:shadow-primary-outline  dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid dark:border-sidebar dark:bg-sidebar bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
+        <div className="sm:col-span-3">
+          <label htmlFor="name" className="block font-bold text-[16px] text-black-700">
+            Nome
+          </label>
+          <div className="mt-1">
+            <input
+              value={user.name}
+              type="text"
+              name="name"
+              id="name"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
+          </div>
+        </div>
+
+
+        <div className="sm:col-span-3">
+          <label htmlFor="email" className="block font-bold text-[16px] text-black-700">
+            Email
+          </label>
+          <div className="mt-1">
+            <input
+              value={user.email}
+              type="text"
+              name="email"
+              id="email"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-3">
+          <label htmlFor="document" className="block font-bold text-[16px] text-black-700">
+            Documento/CPF
+          </label>
+          <div className="mt-1">
+            <IMaskInput
+              mask='000.000.000-00'
+              placeholder='999.999.999-99'
+              lazy={true}
+              value={user.setDocument}
+              type="text"
+              name="document"
+              id="document"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-3">
+          <label htmlFor="cref" className="block font-bold text-[16px] text-black-700">
+            CREF
+          </label>
+          <div className="mt-1">
+            <IMaskInput
+              lazy={true}
+              value={user.employee.cref}
+              type="text"
+              name="cref"
+              id="cref"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-2">
+          <label htmlFor="phone" className="block font-bold text-[16px] text-black-700">
+            Telefone
+          </label>
+          <div className="mt-1">
+            <IMaskInput
+              mask='(00) 00000-0000'
+              placeholder='(99) 99999-9999'
+              lazy={true}
+              value={user.phone}
+              type="text"
+              name="phone"
+              id="phone"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-2">
+          <label htmlFor="birthday" className="block font-bold text-[16px] text-black-700">
+            Data de Nasc.
+          </label>
+          <div className="mt-1">
+            <input
+              value={user.birthday}
+              type="date"
+              name="birthday"
+              id="birthday"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-2">
+          <label htmlFor="gender" className="block font-bold text-[16px] text-black-700">
+            Sexo
+          </label>
+          <div className="mt-1">
+            <select
+              value={user.gender}
+              name="gender"
+              id="gender"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            >
+              <option value={""} selected disabled>Escolha</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="sm:col-span-6">
+          <label htmlFor="observation" className="block font-bold text-[16px] text-black-700">
+            Observação
+          </label>
+          <div className="mt-1">
+            <textarea
+              value={user.employee.observation}
+              type="text"
+              rows={6}
+              name="observation"
+              id="observation"
+              className="resize-none block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+            />
           </div>
         </div>
       </div>
-    </body>
+
+      <div className="flex flex-row justify-end pt-6">
+        <button class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+          </svg>
+          Cancelar
+        </button>
+        <button class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+          </svg>
+          Editar
+        </button>
+      </div>
+    </>
   );
 }
