@@ -63,9 +63,9 @@ export default function AddExercises() {
                   <option value={""} selected disabled>
                     Escolha
                   </option>
-                  <option value="">músculos do tórax e abdômen</option>
-                  <option value="">membros superiores</option>
-                  <option value="">membros inferiores</option>
+                  <option value="">Tórax e Abdômen</option>
+                  <option value="">Superiores</option>
+                  <option value="">Inferiores</option>
                 </select>
               </div>
             </div>
@@ -99,11 +99,10 @@ export default function AddExercises() {
                       />
                     </svg>
                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
+                      <span class="font-semibold">Clique para escolher um arquivo</span> ou arraste e solte
                     </p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      SVG, PNG, JPG ou GIF (MAX. 800x400px)
                     </p>
                   </div>
                   <input id="dropzone-file" type="file" class="hidden" />
@@ -140,11 +139,10 @@ export default function AddExercises() {
                       />
                     </svg>
                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
+                      <span class="font-semibold">Clique para escolher um arquivo</span> ou arraste e solte
                     </p>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      SVG, PNG, JPG ou GIF (MAX. 800x400px)
                     </p>
                   </div>
                   <input id="dropzone-file" type="file" class="hidden" />
@@ -152,10 +150,19 @@ export default function AddExercises() {
               </div>
             </div>
 
-            <div className="sm:col-span-6 flex justify-between">
-              <div className="m-[20px] absolute right-[20px] bottom-[20px] hover:cursor-pointer">
-                <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                  <span relative="relative z-10">Salvar</span>
+            <div className="sm:col-span-6 flex justify-end">
+              <div className="my-[20px] flex flex-row hover:cursor-pointer">
+                <button class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Cancelar
+                </button>
+                <button class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                  Salvar
                 </button>
               </div>
             </div>
