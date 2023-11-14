@@ -72,24 +72,22 @@ export default function AddPDC() {
         <div className="mt-[30px] flex-auto pb-[30px]">
           <Search />
         </div>
-        <div className="">
-          <div className="sm:col-span-6 border-t-2 border-gray-300"></div>
-          <div className="mt-[10px]">
-            <p className="title">Dados do Aluno</p>
-          </div>
-          <div>
-            <div class="flex-auto">
-              <div className="flex flex-wrap mt-[10px]">
-                <div>
-                  <p className="font-bold">Aluno:</p>
-                  <p className="font-bold">CPF:</p>
-                  <p className="font-bold">Plano de Matrícula:</p>
-                </div>
+        <div className="sm:col-span-6 border-t-2 border-gray-300"></div>
+        <div className="mt-[10px]">
+          <p className="title">Dados do Aluno</p>
+        </div>
+        <div>
+          <div class="flex-auto">
+            <div className="flex flex-wrap mt-[10px]">
+              <div>
+                <p className="font-bold">Aluno:</p>
+                <p className="font-bold">CPF:</p>
+                <p className="font-bold">Plano de Matrícula:</p>
               </div>
             </div>
           </div>
-          <div className="mt-[10px] sm:col-span-6 border-t-2 border-gray-300"></div>
         </div>
+        <div className="mt-[10px] sm:col-span-6 border-t-2 border-gray-300"></div>
         <div className="mt-[30px] sm:col-span-6">
           <label
             htmlFor="paymentMethod"
@@ -223,8 +221,7 @@ export default function AddPDC() {
                   className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                   type="text"
                   id="totalAmount"
-                  value={amount}
-                  onChange={handleChange}
+                  
                 />
               </div>
 
