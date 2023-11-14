@@ -19,6 +19,7 @@ import MyProfile from './pages/MyProfile';
 import AddExercises from './pages/AddExercises';
 import AddTraining from './pages/AddTraining';
 import AddPDC from './pages/AddPDC';
+import IntroductoryTraining from './pages/IntroductoryTraining';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -91,10 +92,15 @@ export const Routing = () => {
                     <DashboardLayout page={<AddExercises />} />
                 </ProtectedRoutes>
             } />
-            {/* @==== Workout Routine ====@ */}
+            {/* @==== Training  ====@ */}
             <Route path='/training/form' exact element={
                 <ProtectedRoutes>
                     <DashboardLayout page={<AddTraining />} />
+                </ProtectedRoutes>
+            } />
+            <Route path="/introductory-training" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<IntroductoryTraining />} />
                 </ProtectedRoutes>
             } />
             {/* @==== PDV ====@ */}

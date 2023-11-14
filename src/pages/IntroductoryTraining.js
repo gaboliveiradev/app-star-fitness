@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Search from "../components/training/Search";
+import { IntroductoryCard } from "../components/training/IntroductoryCard";
 import { CardTraining } from "../components/training/Card";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
+import IntroductoryModal from "../components/training/IntroductoryModal";
 
-export default function AddTraining() {
+export default function IntroductoryTraining() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleNextPage = () => {
@@ -14,8 +15,6 @@ export default function AddTraining() {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
-  
-
   const daysOfWeek = [
     "DOMINGO",
     "SEGUNDA-FEIRA",
@@ -25,13 +24,12 @@ export default function AddTraining() {
     "SEXTA-FEIRA",
     "SÁBADO",
   ];
-
   return (
     <>
       <article className="flex-auto h-full mx-auto rounded-md w-full p-4">
         <div>
           <div className="flex-auto pb-[14px]">
-            <h1 class="title">Planejar Treino</h1>
+            <h1 class="title">Treinos de Introdução</h1>
             <ul class="breadcrumbs">
               <li>
                 <span>Principal</span>
@@ -42,57 +40,20 @@ export default function AddTraining() {
               </li>
               <li class="divider">/</li>
               <li>
-                <span class="active">Planejar Treino</span>
+                <span class="active">Treinos de Introdução</span>
               </li>
             </ul>
-          </div>
-
-          <div className="pt-[20px]">
-            <Search />
-          </div>
-          <div className="flex">
-            <div class="flex items-center  dark:border-gray-700">
-              <input
-                id="bordered-radio-1"
-                type="radio"
-                value=""
-                name="bordered-radio"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              ></input>
-              <label
-                for="bordered-radio-1"
-                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Treino Personalizado
-              </label>
-            </div>
-            <div class="flex items-center ps-4 dark:border-gray-700">
-              <input
-                checked
-                id="bordered-radio-2"
-                type="radio"
-                value=""
-                name="bordered-radio"
-                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              ></input>
-              <label
-                for="bordered-radio-2"
-                class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Treino de Introdução
-              </label>
-            </div>
           </div>
           <div className="sm:col-span-6">
             <label
               htmlFor="email"
-              className="block font-bold text-[16px] text-black-700"
+              className="pt-[20px] block font-bold text-[16px] text-black-700"
             >
-              Nome da Ficha *
+              Nome da Ficha de Introdução*
             </label>
             <div className="mt-1">
               <input
-                value="Treino brabo"
+                value="Treino Iniciante"
                 type="text"
                 name="email"
                 id="email"
@@ -111,7 +72,7 @@ export default function AddTraining() {
                     : ""
                 }`}
               >
-                <CardTraining title={daysOfWeek[index]} />
+                <IntroductoryCard title={daysOfWeek[index]} />
               </div>
             ))}
           </div>
