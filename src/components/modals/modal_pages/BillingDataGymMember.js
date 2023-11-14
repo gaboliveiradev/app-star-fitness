@@ -13,7 +13,7 @@ export default function BillingDataGymMember() {
       <div className="mt-[10px]">
         <p className="title">Cobrança Atual</p>
       </div>
-      <div >
+      <div>
         <div class="flex-auto">
           <div className="flex flex-wrap mt-[10px]">
             {
