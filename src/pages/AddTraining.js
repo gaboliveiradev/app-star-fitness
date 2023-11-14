@@ -14,6 +14,8 @@ export default function AddTraining() {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
+  
+
   const daysOfWeek = [
     "DOMINGO",
     "SEGUNDA-FEIRA",
@@ -48,26 +50,8 @@ export default function AddTraining() {
           <div className="pt-[20px]">
             <Search />
           </div>
-          <div className="sm:col-span-6 mt-[15px]">
-            <label
-              htmlFor="email"
-              className="block font-bold text-[16px] text-black-700"
-            >
-              Nome da Ficha *
-            </label>
-            <div className="mt-1">
-              <input
-                value="Treino brabo"
-                type="text"
-                name="email"
-                id="email"
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-              />
-            </div>
-          </div>
-
           <div className="flex">
-            <div class="flex items-center   dark:border-gray-700">
+            <div class="flex items-center  dark:border-gray-700">
               <input
                 id="bordered-radio-1"
                 type="radio"
@@ -97,6 +81,23 @@ export default function AddTraining() {
               >
                 Treino de Introdução
               </label>
+            </div>
+          </div>
+          <div className="sm:col-span-6">
+            <label
+              htmlFor="email"
+              className="block font-bold text-[16px] text-black-700"
+            >
+              Nome da Ficha *
+            </label>
+            <div className="mt-1">
+              <input
+                value="Treino brabo"
+                type="text"
+                name="email"
+                id="email"
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+              />
             </div>
           </div>
           <div className="pb-[20px] scrollbarConfig flex flex-row flex-wrap justify-center items-center overflow-x-scroll">
@@ -129,7 +130,6 @@ export default function AddTraining() {
             >
               <ArrowRightIcon className="h-5 w-5" />
             </button>
-            
           </div>
         </div>
       </article>
