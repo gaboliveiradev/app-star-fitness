@@ -225,7 +225,6 @@ export default function AddPDC() {
                   id="totalAmount"
                   value={amount}
                   onChange={handleChange}
-                  placeholder="Digite o valor"
                 />
               </div>
 
