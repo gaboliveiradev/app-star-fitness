@@ -18,7 +18,7 @@ export default function AddNewAcademyPlans() {
         isUpdateType,
         //methods
         updateType
-    } = useContext(TypeContext)
+    } = useContext(TypeContext);
 
     const handleClickUpdate = async (e) => {
         e.preventDefault();

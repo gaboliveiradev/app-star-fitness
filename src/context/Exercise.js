@@ -10,9 +10,9 @@ export const ExerciseProvider = ({ children }) => {
     // Exercise Data
     const [nameExercise, setNameExercise] = useState("");
     const [exerciseGifUrl, setExerciseGifUrl] = useState("");
-    const [exerciseGif, setExerciseGif] = useState([]);
+    const [exerciseGif, setExerciseGif] = useState(null);
     const [equipamentImageUrl, setEquipamentImageUrl] = useState("");
-    const [equipmentGymImage, setEquipmentGymImage] = useState([]);
+    const [equipamentImage, setEquipamentImage] = useState(null);
     const [muscleGroup, setMuscleGroup] = useState("");
 
     const context = {
@@ -20,7 +20,7 @@ export const ExerciseProvider = ({ children }) => {
         exerciseGifUrl, setExerciseGifUrl,
         exerciseGif, setExerciseGif,
         equipamentImageUrl, setEquipamentImageUrl,
-        equipmentGymImage, setEquipmentGymImage,
+        equipamentImage, setEquipamentImage,
         muscleGroup, setMuscleGroup,
         //methods
         createExercise,
