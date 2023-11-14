@@ -56,9 +56,9 @@ export const AuthProvider = ({ children }) => {
             if (response.status !== 200) return false;
 
             const { token, user } = response.data;
-            const { id, name, email, document, phone, birthday, gender, photo_url, id_address, employee } = user;
+            const { id, name, email, document, phone, birthday, gender, photo_url, id_address, employee, address } = user;
 
-            setUser({ id: id, name: name, email: email, document: document, phone: phone, birthday: birthday, gender: gender, photo_url: photo_url, id_address: id_address, employee: employee });
+            setUser({ id: id, name: name, email: email, document: document, phone: phone, birthday: birthday, gender: gender, photo_url: photo_url, id_address: id_address, address: address, employee: employee });
             setToken(token);
             setIsAuthenticated(true);
 
@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }) => {
                 gender: gender,
                 photo_url: photo_url,
                 id_address: id_address,
+                address: address,
                 employee: employee
             }));
 
