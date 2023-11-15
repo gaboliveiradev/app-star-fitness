@@ -1,0 +1,47 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 100% da altura da viewport */
+  margin: 0; /* Remove margens padrão do corpo */
+}
+.container {
+  padding: 50px;
+  border: 2px solid #000;
+  text-align: center;
+}
+
+.img {
+  width: 100px;
+  height: auto;
+}
+
+.texto {
+  margin-left: 20px;
+  text-align: center;
+  margin-top: 10px;
+  font-family: "Open Sans", sans-serif;
+}
+
+.texto-1 {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+}
+
+
+.date {
+  font-size: 20px;
+  margin-top: 30px;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
+
+.texto-negrito{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+
