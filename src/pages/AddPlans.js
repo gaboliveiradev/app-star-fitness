@@ -26,37 +26,37 @@ export default function AddNewAcademyPlans() {
         setIsLoadingText('Cadastrando/Atualizando Plano...');
 
         try {
-            if(nameType !== "" && numberOfDays !== "" && price !== "") {
+            if (nameType !== "" && numberOfDays !== "" && price !== "") {
                 const parameters = {
                     idType: idType,
                     name: nameType,
                     number_of_days: numberOfDays,
                     price: parseFloat(price.replace("R$", "").replace(",", "."))
                 }
-    
+
                 const response = await updateType(parameters);
-    
+
                 if (response.status === 200) {
                     await getType(token);
-    
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Plano Atualizado',
                         html: 'Ihuul... Parabéns, você <b>atualizou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
                     })
-    
+
                     handleClickClearFields(e);
-    
+
                     return;
                 }
-    
+
                 if (response.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível atualizar um plano.'
                     })
-    
+
                     return;
                 }
             }
@@ -84,36 +84,36 @@ export default function AddNewAcademyPlans() {
         setIsLoadingText('Cadastrando Plano...');
 
         try {
-            if(nameType !== "" && numberOfDays !== "" && price !== "") {
+            if (nameType !== "" && numberOfDays !== "" && price !== "") {
                 const parameters = {
                     name: nameType,
                     number_of_days: numberOfDays,
                     price: parseFloat(price.replace("R$", "").replace(",", "."))
                 }
-    
+
                 const response = await createType(parameters, token);
-    
+
                 if (response.status === 201) {
                     await getType(token);
-    
+
                     Swal.fire({
                         icon: 'success',
                         title: 'Plano Criado',
                         html: 'Ihuul... Parabéns, você <b>criou</b> um novo plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
                     })
-    
+
                     handleClickClearFields(e);
-    
+
                     return;
                 }
-    
+
                 if (response.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar um novo plano.'
                     })
-    
+
                     return;
                 }
             }
@@ -224,34 +224,36 @@ export default function AddNewAcademyPlans() {
                                 />
                             </div>
                         </div>
-                    </div>
 
-                    <div className="mt-[16px] border-solid border-bottom border-2"></div>
-
-                    <div className="sm:col-span-6 flex justify-between flex-wrap">
-                        <div className='my-[16px] hover:cursor-pointer'>
-                            <button onClick={(e) => {
-                                Swal.fire({
-                                    title: 'Você tem Certeza?',
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    cancelButtonText: 'Cancelar',
-                                    confirmButtonText: 'Sim, Limpar!'
-                                }).then(async (result) => {
-                                    if (result.isConfirmed) {
-                                        handleClickClearFields(e)
-                                    }
-                                })
-                            }} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
-                                <span relative="relative z-10">Limpar</span>
-                            </button>
-                        </div>
-                        <div className='my-[16px] hover:cursor-pointer' onClick={(e) => (isUpdateType) ? handleClickUpdate(e) : handleClickSave(e)}>
-                            <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                <span relative="relative z-10">{(isUpdateType) ? 'Atualizar' : 'Salvar'}</span>
-                            </button>
+                        <div className="sm:col-span-6 flex justify-end">
+                            <div className="my-[20px] flex flex-row hover:cursor-pointer">
+                                <button onClick={(e) => {
+                                    Swal.fire({
+                                        title: 'Você tem Certeza?',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        cancelButtonText: 'Cancelar',
+                                        confirmButtonText: 'Sim, Limpar!'
+                                    }).then(async (result) => {
+                                        if (result.isConfirmed) {
+                                            handleClickClearFields(e)
+                                        }
+                                    })
+                                }} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    Cancelar
+                                </button>
+                                <button onClick={(e) => (isUpdateType) ? handleClickUpdate(e) : handleClickSave(e)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    {(isUpdateType) ? 'Atualizar' : 'Salvar'}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

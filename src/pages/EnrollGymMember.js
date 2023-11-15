@@ -31,7 +31,7 @@ export default function EnrollGymMember() {
     const {
         height, setHeight, weight, setWeight,
         observation, setObservation, idPlan, setIdPlan,
-        isUpdate, setIsUpdate, idGymMember, 
+        isUpdate, setIsUpdate, idGymMember,
         //methods
         updateGymMember
     } = useContext(GymMemberContext);
@@ -299,7 +299,7 @@ export default function EnrollGymMember() {
                     paymentMethod: paymentMethod,
                     amount: amount,
                 }
-                
+
                 const responsePayment = await createPayment(paymentParamerters);
 
                 if (responsePayment.status !== 201) {
@@ -405,78 +405,84 @@ export default function EnrollGymMember() {
                                 <FormEnroll />
                             )
                         }
-                    </div>
-
-                    <div className="flex justify-between flex-wrap">
-                        {
-                            (stepper !== 1) ? (
-                                <div className='my-[16px] hover:cursor-pointer'>
-                                    <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Voltar</span>
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className='my-[16px] hover:cursor-pointer'>
-                                    <button onClick={(e) => {
-                                        Swal.fire({
-                                            title: 'Você tem Certeza?',
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#3085d6',
-                                            cancelButtonColor: '#d33',
-                                            cancelButtonText: 'Cancelar',
-                                            confirmButtonText: 'Sim, Limpar!'
-                                        }).then(async (result) => {
-                                            if (result.isConfirmed) {
-                                                handleClickClearFields(e)
-                                            }
-                                        })
-                                    }} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-tertiary-red bg-tertiary-red text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-tertiary-red hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Limpar</span>
-                                    </button>
-                                </div>
-                            )
-                        }
-                        {
-                            (stepper === 3) ? (
-                                <div className='my-[16px] hover:cursor-pointer'>
-                                    <button onClick={(e) => {
-                                        if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
-                                            && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
-                                            Swal.fire({
-                                                title: 'Você tem Certeza?',
-                                                icon: 'warning',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#3085d6',
-                                                cancelButtonColor: '#d33',
-                                                cancelButtonText: 'Cancelar',
-                                                confirmButtonText: `${(isUpdate) ? 'Sim, Atualizar!' : 'Sim, Matricular!'}`
-                                            }).then(async (result) => {
-                                                if (result.isConfirmed) {
-                                                    (isUpdate) ? handleClickUpdate(e) : handleClickCreateEnroll(e)
-                                                }
-                                            })
-
-                                            return;
+                        <div className="sm:col-span-6 my-[20px] flex flex-row justify-between hover:cursor-pointer">
+                            <div>
+                                <button onClick={(e) => {
+                                    Swal.fire({
+                                        title: 'Você tem Certeza?',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        cancelButtonText: 'Cancelar',
+                                        confirmButtonText: 'Sim, Limpar!'
+                                    }).then(async (result) => {
+                                        if (result.isConfirmed) {
+                                            handleClickClearFields(e)
                                         }
+                                    })
+                                }} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    Cancelar
+                                </button>
+                            </div>
+                            <div className='flex flex-row'>
+                                {
+                                    (stepper !== 1) && (
+                                        <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+                                            </svg>
+                                            Voltar
+                                        </button>
+                                    )
+                                }
+                                {
+                                    (stepper === 3) ? (
+                                        <button onClick={(e) => {
+                                            if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
+                                                && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '') {
+                                                Swal.fire({
+                                                    title: 'Você tem Certeza?',
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: '#3085d6',
+                                                    cancelButtonColor: '#d33',
+                                                    cancelButtonText: 'Cancelar',
+                                                    confirmButtonText: `${(isUpdate) ? 'Sim, Atualizar!' : 'Sim, Matricular!'}`
+                                                }).then(async (result) => {
+                                                    if (result.isConfirmed) {
+                                                        (isUpdate) ? handleClickUpdate(e) : handleClickCreateEnroll(e)
+                                                    }
+                                                })
 
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Campos Vazio!',
-                                            html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
-                                        })
-                                    }} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                        <span relative="relative z-10">{isUpdate ? 'Atualizar' : 'Matrícular'}</span>
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className='my-[16px] hover:cursor-pointer'>
-                                    <button onClick={() => setStepper((stepper === 3) ? 3 : stepper + 1)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-                                        <span relative="relative z-10">Avançar</span>
-                                    </button>
-                                </div>
-                            )
-                        }
+                                                return;
+                                            }
+
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Campos Vazio!',
+                                                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+                                            })
+                                        }} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                            </svg>
+                                            Matricular
+                                        </button>
+                                    ) : (
+                                        <button onClick={() => setStepper((stepper === 3) ? 3 : stepper + 1)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                            Avançar
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                                            </svg>
+                                        </button>
+                                    )
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </article>
