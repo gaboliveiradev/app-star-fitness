@@ -115,13 +115,21 @@ export default function Modal() {
           </div>
         </div>
 
-        <div class="flex flex-row items-center justify-between pb-6 pl-6 pr-6 bg-white border-gray-200 rounded-bl-lg rounded-br-lg">
-          <button onClick={() => setIsOpenAddExerciseModal(false)} class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-red-500 bg-red-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-red-500 hover:before:-translate-x-40">
-            <span relative="relative z-10">Fechar</span>
-          </button>
-          <button class="rounded-md after:ease relative h-12 w-70 overflow-hidden border border-green-500 bg-green-500 text-white shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-green-500 hover:before:-translate-x-40">
-            <span relative="relative z-10">Salvar</span>
-          </button>
+        <div className="flex justify-end bg-white px-5">
+          <div className="my-[20px] flex flex-row hover:cursor-pointer">
+            <button onClick={() => setIsOpenAddExerciseModal(false)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Cancelar
+            </button>
+            <button onClick={() => setIsOpenAddExerciseModal(true)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Adicionar
+            </button>
+          </div>
         </div>
       </div>
     </div>
