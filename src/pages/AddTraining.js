@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Search from "../components/training/Search";
 import { CardTraining } from "../components/training/Card";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
+import { MainContext } from "../context/Main";
 
 export default function AddTraining() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,8 +14,6 @@ export default function AddTraining() {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
-  
 
   const daysOfWeek = [
     "DOMINGO",

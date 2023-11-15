@@ -1,19 +1,15 @@
 import {
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Typography,
-  Button,
 } from "@material-tailwind/react";
-import React, { Fragment, useState } from "react";
-
+import React, { useContext } from "react";
 import Modal from "./ModalTraining";
+import { MainContext } from "../../context/Main";
 
-export function CardTraining({title}) {
-  const [open, setOpen] = useState(false);
+export function CardTraining({ title }) {
 
-console.log(open)
+  const { isOpenAddExerciseModal, setIsOpenAddExerciseModal } = useContext(MainContext);
 
   return (
     <>
@@ -28,7 +24,7 @@ console.log(open)
         <CardFooter className="pt-0">
           <div className="flex items-center justify-center mt-[20px]">
             <svg
-              onClick={() => setOpen(!open)}
+              onClick={() => setIsOpenAddExerciseModal(true)}
               className="h-8 w-8 text-blueProfile transition-transform hover:scale-110"
               viewBox="0 0 24 24"
               fill="none"
@@ -45,7 +41,11 @@ console.log(open)
           </div>
         </CardFooter>
       </Card>
-      <Modal isOpen={open}/>
-      </>
+      {
+        (isOpenAddExerciseModal) && (
+          <Modal />
+        )
+      }
+    </>
   );
 }

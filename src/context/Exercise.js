@@ -14,6 +14,8 @@ export const ExerciseProvider = ({ children }) => {
     const [equipamentImage, setEquipamentImage] = useState(null);
     const [muscleGroup, setMuscleGroup] = useState("");
 
+    const [idExercise, setIdExercise] = useState('');
+
     async function createExercise(parameters) {
         const response = await exercise.create(parameters);
 
@@ -27,6 +29,8 @@ export const ExerciseProvider = ({ children }) => {
         equipamentImageUrl, setEquipamentImageUrl,
         equipamentImage, setEquipamentImage,
         muscleGroup, setMuscleGroup,
+        //others
+        idExercise, setIdExercise,
         //methods
         createExercise,
     };
