@@ -157,8 +157,8 @@ export default function AddExercises() {
             </div>
 
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-gray-700">
-                Imagem do Equipamento {(equipamentImage) && "(Clique na imagem para alterar)"}
+              <label className="block text-[16px] font-medium text-black-700">
+                Imagem do Equipamento * {(equipamentImage) && "(Clique na imagem para alterar)"}
               </label>
               <div className="mt-1">
                 <div className="flex items-center justify-center w-full">
@@ -195,8 +195,8 @@ export default function AddExercises() {
             </div>
 
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-gray-700">
-                GIF do Exercício {(exerciseGif) && "(Clique na imagem para alterar)"}
+              <label className="block text-[16px] font-medium text-black-700">
+                GIF do Exercício * {(exerciseGif) && "(Clique na imagem para alterar)"}
               </label>
               <div className="mt-1">
                 <div className="flex items-center justify-center w-full">
