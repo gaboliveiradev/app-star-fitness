@@ -30,3 +30,14 @@ export const get = async () => {
         return false;
     }
 }
+
+export const del = async (idExercise) => {
+    try {
+        const response = await api.delete(`/exercise/${idExercise}`);
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}

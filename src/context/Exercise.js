@@ -22,6 +22,12 @@ export const ExerciseProvider = ({ children }) => {
         return (response.status === 201) ? response : false;
     }
 
+    async function deleteExercise(idExercise) {
+        const response = await exercise.del(idExercise);
+
+        return (response.status === 200) ? response : false;
+    }
+
     const context = {
         nameExercise, setNameExercise,
         exerciseGifUrl, setExerciseGifUrl,
@@ -32,7 +38,7 @@ export const ExerciseProvider = ({ children }) => {
         //others
         idExercise, setIdExercise,
         //methods
-        createExercise,
+        createExercise, deleteExercise,
     };
 
     return (

@@ -7,11 +7,15 @@ import Swal from 'sweetalert2'
 import { MainContext } from '../context/Main';
 import { TypeContext } from '../context/Type';
 
+import { ExerciseContext } from '../context/Exercise';
+
 export default function MyExercises() {
     const navigate = useNavigate();
 
-    const { exerciseList } = useContext(AuthContext);
+    const { exerciseList, getExercise } = useContext(AuthContext);
     const { setIsLoading, setIsLoadingText } = useContext(MainContext);
+
+    const { deleteExercise } = useContext(ExerciseContext);
 
     const {
         setIdType,
@@ -53,14 +57,16 @@ export default function MyExercises() {
                 setIsLoading(true);
                 setIsLoadingText('Excluindo Exercício...');
 
-                /*try {
-                    const response = await deleteType(row.id);
+                try {
+                    const response = await deleteExercise(row.id);
 
                     if (response.status === 200) {
+                        await getExercise();
+
                         Swal.fire({
                             icon: 'success',
-                            title: 'Plano Deletado',
-                            html: 'Ihuul... Parabéns, você <b>deletou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para reativar seu plano.'
+                            title: 'Exercício Deletado',
+                            html: 'Ihuul... Parabéns, você <b>deletou</b> um exercício da academia. Acesse \"<b>Exercícios/Gerenciar Exercícios</b>\" para reativar seu plano.'
                         })
 
                         return;
@@ -70,7 +76,7 @@ export default function MyExercises() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
+                            html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este exercício.'
                         })
 
                         return;
@@ -79,12 +85,12 @@ export default function MyExercises() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este plano.'
+                        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível deletar este exercício.'
                     })
                 } finally {
                     setIsLoading(false);
                     setIsLoadingText('');
-                }*/
+                }
             }
         })
     }

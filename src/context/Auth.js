@@ -183,6 +183,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated, setIsAuthenticated,
         typeList, setTypeList,
         exerciseList, setExerciseList,
+        getExercise,
         createType, getType, deleteType,
         createAddress, createGymMemberPerson,
         createBilling, getGymMembers,
