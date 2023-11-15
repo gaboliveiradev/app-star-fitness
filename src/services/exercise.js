@@ -19,3 +19,14 @@ export const create = async (parameters) => {
         return false;
     }
 }
+
+export const get = async () => {
+    try {
+        const response = await api.get(`/exercise`)
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}

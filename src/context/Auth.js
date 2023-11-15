@@ -1,10 +1,11 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as auth from '../services/auth';
 import * as type from '../services/type';
 import * as address from '../services/address';
 import * as gymMemberPerson from '../services/gymMember';
 import * as billing from '../services/billing';
+import * as exercise from '../services/exercise';
 
 export const AuthContext = createContext();
 
@@ -17,6 +18,8 @@ export const AuthProvider = ({ children }) => {
 
     const [typeList, setTypeList] = useState(null);
     const [gymMembersList, setGymMembersList] = useState(null);
+    const [exerciseList, setExerciseList] = useState(null);
+
 
     useEffect(() => {
         const token = localStorage.getItem('app-star-fitness-token');
@@ -25,6 +28,7 @@ export const AuthProvider = ({ children }) => {
 
         const typeList = localStorage.getItem('app-star-fitness-type');
         const gymMembersList = localStorage.getItem('app-star-fitness-gym-members');
+        const exerciseList = localStorage.getItem('app-star-fitness-exercise');
 
         if (token && user && isAuthenticated) {
             setUser(JSON.parse(user));
@@ -33,9 +37,15 @@ export const AuthProvider = ({ children }) => {
 
             return;
         }
-        
-        if(typeList) {
+
+        if (typeList) {
             setTypeList(JSON.parse(typeList));
+
+            return;
+        }
+
+        if (exerciseList) {
+            setExerciseList(JSON.parse(exerciseList));
 
             return;
         }
@@ -78,10 +88,9 @@ export const AuthProvider = ({ children }) => {
                 employee: employee
             }));
 
-            console.log(response);
-
             await getType(response.data.token);
             await getGymMembers(response.data.token);
+            await getExercise();
 
             return true;
         } catch (error) {
@@ -112,6 +121,17 @@ export const AuthProvider = ({ children }) => {
         const response = await billing.create(parameters);
 
         return (response.status === 201) ? response : false;
+    }
+
+    async function getExercise() {
+        const response = await exercise.get();
+
+        if (response.status !== 200) return false;
+
+        setExerciseList(response.data.data);
+        localStorage.setItem('app-star-fitness-exercise', JSON.stringify(response.data.data));
+
+        return true;
     }
 
     async function getType() {

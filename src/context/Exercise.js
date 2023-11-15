@@ -6,7 +6,6 @@ import * as exercise from './../services/exercise';
 export const ExerciseContext = createContext();
 
 export const ExerciseProvider = ({ children }) => {
-
     // Exercise Data
     const [nameExercise, setNameExercise] = useState("");
     const [exerciseGifUrl, setExerciseGifUrl] = useState("");
@@ -14,6 +13,12 @@ export const ExerciseProvider = ({ children }) => {
     const [equipamentImageUrl, setEquipamentImageUrl] = useState("");
     const [equipamentImage, setEquipamentImage] = useState(null);
     const [muscleGroup, setMuscleGroup] = useState("");
+
+    async function createExercise(parameters) {
+        const response = await exercise.create(parameters);
+
+        return (response.status === 201) ? response : false;
+    }
 
     const context = {
         nameExercise, setNameExercise,
@@ -25,12 +30,6 @@ export const ExerciseProvider = ({ children }) => {
         //methods
         createExercise,
     };
-
-    async function createExercise(parameters) {
-        const response = await exercise.create(parameters);
-
-        return (response.status === 201) ? response : false;
-    }
 
     return (
         <ExerciseContext.Provider value={context}>
