@@ -51,7 +51,7 @@ export default function EnrollGymMember() {
 
     const {
         paymentMethod, setPaymentMethod,
-        amount, setAmount,
+        amount, setAmount, setReceivedAmount, setChange,
         createPayment,
     } = useContext(PaymentContext);
 
@@ -82,6 +82,8 @@ export default function EnrollGymMember() {
         setDueDate(add30Days(getCurrentDate()));
         setAmount('');
         setPaymentMethod('');
+        setReceivedAmount('');
+        setChange('');
 
         setIsUpdate(false);
     }

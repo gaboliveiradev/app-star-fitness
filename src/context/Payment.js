@@ -9,6 +9,10 @@ export const PaymentProvider = ({ children }) => {
     const [paymentMethod, setPaymentMethod] = useState("");
     const [amount, setAmount] = useState("");
 
+    // Others
+    const [receivedAmount, setReceivedAmount] = useState('');
+    const [change, setChange] = useState('');
+
     async function createPayment(parameters) {
         const response = await payment.create(parameters);
 
@@ -19,6 +23,9 @@ export const PaymentProvider = ({ children }) => {
         idBilling, setIdBilling,
         paymentMethod, setPaymentMethod,
         amount, setAmount,
+        //others
+        receivedAmount, setReceivedAmount,
+        change, setChange,
         // methods
         createPayment,
     }

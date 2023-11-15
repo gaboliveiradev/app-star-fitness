@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { IMaskInput } from 'react-imask';
 
 import { AuthContext } from '../context/Auth';
 import { GymMemberContext } from '../context/GymMember';
@@ -19,7 +20,8 @@ export default function FormEnroll() {
     } = useContext(BillingContext);
 
     const {
-        paymentMethod, setPaymentMethod, setAmount
+        paymentMethod, setPaymentMethod, amount, setAmount,
+        change, setChange, receivedAmount, setReceivedAmount,
     } = useContext(PaymentContext);
 
     return (
@@ -33,7 +35,9 @@ export default function FormEnroll() {
                         disabled={isUpdate}
                         name="plan" id="plan" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                         value={idPlan}
-                        onChange={(e) => setIdPlan(e.target.value)}
+                        onChange={(e) => {
+                            setIdPlan(e.target.value);
+                        }}
                     >
                         <option value='' disabled selected>--- Selecione ---</option>
                         {
@@ -126,6 +130,60 @@ export default function FormEnroll() {
             </div>
 
             <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
+
+            <div className="sm:col-span-3">
+                <label htmlFor="receivedAmount" className="block text-[16px] font-bold text-black-700">
+                    Valor Recebido
+                </label>
+                <div className="mt-1">
+                    <IMaskInput
+                        mask="R$ num"
+                        blocks={{
+                            num: {
+                                mask: Number,
+                                scale: 2,
+                                thousandsSeparator: '.',
+                                radix: ',',
+                                max: 1000,
+                            },
+                        }}
+                        lazy={false}
+                        type="text"
+                        disabled={isUpdate || paymentMethod !== 'MONEY'}
+                        value={receivedAmount}
+                        onChange={(e) => {
+                            if (parseFloat(e.target.value.replace("R$", "").replace(",", ".")) >= amount) {
+                                setReceivedAmount(e.target.value.replace("R$", "").replace(",", "."));
+                                setChange(formatMoney(parseFloat(e.target.value.replace("R$", "").replace(",", ".")) - parseFloat(amount)));
+
+                                return
+                            }
+
+                            setChange('O valor recebido é menor que o valor da mensalidade.')
+                        }}
+                        name="receivedAmount"
+                        id="receivedAmount"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                    />
+                </div>
+            </div>
+
+            <div className="sm:col-span-3">
+                <label htmlFor="change" className="block text-[16px] font-bold text-black-700">
+                    Troco
+                </label>
+                <div className="mt-1">
+                    <input
+                        type="text"
+                        disabled
+                        name="change"
+                        id="change"
+                        value={change}
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                    />
+                </div>
+            </div>
+
         </>
     )
 }

@@ -206,7 +206,6 @@ export default function AddPDC() {
             </div>
           </div>
         </div>
-        {/* Renderize os inputs adicionais se a forma de pagamento for dinheiro */}
         {showMoneyInputs && paymentMethod === "MONEY" && (
           <div className="flex-auto mt-[20px]">
             <div className="mt-6 grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6">
