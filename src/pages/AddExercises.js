@@ -157,62 +157,77 @@ export default function AddExercises() {
             </div>
 
             <div className="sm:col-span-3">
-              <label
-                htmlFor="equipamentImage"
-                className="block text-[16px] font-medium text-black-700"
-              >
-                Imagem do Equipamento
+              <label className="block text-sm font-medium text-gray-700">
+                Imagem do Equipamento {(equipamentImage) && "(Clique na imagem para alterar)"}
               </label>
-              <div class="flex items-center justify-center w-full">
-                <input
-                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                  id="equipamentImage"
-                  type="file"
-                  onChange={(e) => handleOnChangeEquipamentImage(e)}
-                />
+              <div className="mt-1">
+                <div className="flex items-center justify-center w-full">
+                  <label
+                    htmlFor="exerciseGif"
+                    className="flex flex-col items-center justify-center w-full h-[512px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6 container">
+                      {equipamentImage ? (
+                        <img
+                          src={equipamentImageUrl}
+                          alt="Imagem"
+                          className="w-full h-[512px]"
+                        />
+                      ) : (
+                        <>
+                          <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                          </svg>
+                          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Cliquei para adicionar uma imagem</span></p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG ou JPEG</p>
+                        </>
+                      )}
+                    </div>
+                    <input
+                      id="exerciseGif"
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => handleOnChangeEquipamentImage(e)}
+                    />
+                  </label>
+                </div>
               </div>
             </div>
 
             <div className="sm:col-span-3">
-              <label
-                htmlFor="exerciseGif"
-                className="block text-[16px] font-medium text-black-700"
-              >
-                GIF do Exercício
+              <label className="block text-sm font-medium text-gray-700">
+                GIF do Exercício {(exerciseGif) && "(Clique na imagem para alterar)"}
               </label>
-              <div class="flex items-center justify-center w-full">
-                <input
-                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                  id="exerciseGif"
-                  type="file"
-                  onChange={(e) => handleOnChangeExerciseGif(e)}
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-6">
-              <label
-                htmlFor="first-name"
-                className="block text-[16px] font-medium text-black-700"
-              >
-                Arquivos Adicionados
-              </label>
-              <div className="mt-1 flex flex-row justify-between flex-wrap">
-                <div
-                  class="relative flex h-96 w-96 cursor-pointer flex-col overflow-hidden bg-white bg-clip-border text-gray-700 transition-opacity hover:opacity-90" data-dialog-target="image-dialog">
-                  <img
-                    alt="equipamento_academia"
-                    class="h-full w-full object-cover object-center"
-                    src={equipamentImageUrl}
-                  />
-                </div>
-                <div
-                  class="relative flex h-96 w-96 cursor-pointer flex-col overflow-hidden bg-white bg-clip-border text-gray-700 transition-opacity hover:opacity-90" data-dialog-target="image-dialog">
-                  <img
-                    alt="exercicio"
-                    class="h-full w-full object-cover object-center"
-                    src={exerciseGifUrl}
-                  />
+              <div className="mt-1">
+                <div className="flex items-center justify-center w-full">
+                  <label
+                    htmlFor="equipamentImage"
+                    className="flex flex-col items-center justify-center w-full h-[521px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                  >
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6 container">
+                      {exerciseGif ? (
+                        <img
+                          src={exerciseGifUrl}
+                          alt="Imagem"
+                          className="w-full h-[512px]"
+                        />
+                      ) : (
+                        <>
+                          <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                          </svg>
+                          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Cliquei para adicionar uma imagem</span></p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG ou JPEG</p>
+                        </>
+                      )}
+                    </div>
+                    <input
+                      id="equipamentImage"
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => handleOnChangeExerciseGif(e)}
+                    />
+                  </label>
                 </div>
               </div>
             </div>
