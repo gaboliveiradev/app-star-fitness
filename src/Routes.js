@@ -20,6 +20,7 @@ import AddExercises from './pages/AddExercises';
 import AddTraining from './pages/AddTraining';
 import AddPDC from './pages/AddPDC';
 import IntroductoryTraining from './pages/IntroductoryTraining';
+import MyExercises from './pages/MyExercises';
 
 export const Routing = () => {
     const { isAuthenticated } = useContext(AuthContext);
@@ -92,6 +93,11 @@ export const Routing = () => {
                     <DashboardLayout page={<AddExercises />} />
                 </ProtectedRoutes>
             } />
+            <Route path="/exercises/manage" exact element={
+                <ProtectedRoutes>
+                    <DashboardLayout page={<MyExercises />} />
+                </ProtectedRoutes>
+            } />
             {/* @==== Training  ====@ */}
             <Route path='/training/form' exact element={
                 <ProtectedRoutes>
@@ -103,7 +109,7 @@ export const Routing = () => {
                     <DashboardLayout page={<IntroductoryTraining />} />
                 </ProtectedRoutes>
             } />
-            {/* @==== PDV ====@ */}
+            {/* @==== PDC ====@ */}
             <Route path='/pdc/form' exact element={
                 <ProtectedRoutes>
                     <DashboardLayout page={<AddPDC />} />
