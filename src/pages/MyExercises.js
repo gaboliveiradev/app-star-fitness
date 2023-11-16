@@ -8,14 +8,18 @@ import { MainContext } from '../context/Main';
 import { TypeContext } from '../context/Type';
 
 import { ExerciseContext } from '../context/Exercise';
+import ImageExerciseModal from '../components/modals/ImageExerciseModal';
 
 export default function MyExercises() {
     const navigate = useNavigate();
 
     const { exerciseList, getExercise } = useContext(AuthContext);
-    const { setIsLoading, setIsLoadingText } = useContext(MainContext);
+    const { setIsLoading, setIsLoadingText, isOpenImageExerciseModal, setIsOpenImageExerciseModal } = useContext(MainContext);
 
-    const { deleteExercise } = useContext(ExerciseContext);
+    const { 
+        setSelectedExercise,
+        deleteExercise
+    } = useContext(ExerciseContext);
 
     const {
         setIdType,
@@ -27,6 +31,11 @@ export default function MyExercises() {
     const [records, setRecords] = useState(exerciseList);
     const [isFilterActive, setIsFilterActive] = useState(false);
     const [filterSelect, setFilterSelect] = useState('');
+
+    const handleClickViewImageModal = async (row) => {
+        setIsOpenImageExerciseModal(true);
+        setSelectedExercise(row);
+    }
 
     const handleClickAlterUpdate = async (e, row) => {
         e.preventDefault();
@@ -135,7 +144,7 @@ export default function MyExercises() {
         },
         {
             name: <span className='font-bold text-[14px]'>Imagens</span>,
-            selector: row => <span className='text-[14px] underline cursor-pointer text-blue-500'>Visualizar</span>,
+            selector: row => <span onClick={() => handleClickViewImageModal(row)} className='text-[14px] underline cursor-pointer text-blue-500'>Visualizar</span>,
             sortable: true
         },
         {
@@ -194,6 +203,11 @@ export default function MyExercises() {
 
     return (
         <article className="flex-auto h-full mx-auto rounded-md w-full">
+            {
+                (isOpenImageExerciseModal) && (
+                    <ImageExerciseModal />
+                )
+            }
             <div>
                 <div className="flex-auto pb-[14px]">
                     <h1 class="title">{`Meus Exercícios (${records.length})`}

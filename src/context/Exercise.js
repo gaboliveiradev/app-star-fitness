@@ -6,6 +6,8 @@ import * as exercise from './../services/exercise';
 export const ExerciseContext = createContext();
 
 export const ExerciseProvider = ({ children }) => {
+    const [selectedExercise, setSelectedExercise] = useState('');
+
     // Exercise Data
     const [nameExercise, setNameExercise] = useState("");
     const [exerciseGifUrl, setExerciseGifUrl] = useState("");
@@ -37,6 +39,7 @@ export const ExerciseProvider = ({ children }) => {
         muscleGroup, setMuscleGroup,
         //others
         idExercise, setIdExercise,
+        selectedExercise, setSelectedExercise,
         //methods
         createExercise, deleteExercise,
     };

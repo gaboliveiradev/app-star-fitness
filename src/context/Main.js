@@ -12,12 +12,14 @@ export const MainProvider = ({ children }) => {
     const [gymMemberModal, setGymMemberModal] = useState(null);
 
     const [isOpenAddExerciseModal, setIsOpenAddExerciseModal] = useState(false);
+    const [isOpenImageExerciseModal, setIsOpenImageExerciseModal] = useState(false);
 
     const context = {
         isLoading, setIsLoading, isLoadingText, setIsLoadingText,
         isOpenFullDataGymMemberModal, setIsOpenFullDataGymMemberModal,
         gymMemberModal, setGymMemberModal,
         isOpenAddExerciseModal, setIsOpenAddExerciseModal,
+        isOpenImageExerciseModal, setIsOpenImageExerciseModal
     };
 
     return (
