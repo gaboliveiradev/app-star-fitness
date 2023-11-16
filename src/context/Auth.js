@@ -6,6 +6,7 @@ import * as address from '../services/address';
 import * as gymMemberPerson from '../services/gymMember';
 import * as billing from '../services/billing';
 import * as exercise from '../services/exercise';
+import * as employee from '../services/employee';
 
 export const AuthContext = createContext();
 
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     const [typeList, setTypeList] = useState(null);
     const [gymMembersList, setGymMembersList] = useState(null);
     const [exerciseList, setExerciseList] = useState(null);
-
+    const [employeeList, setEmployeeList] = useState(null);
 
     useEffect(() => {
         const token = localStorage.getItem('app-star-fitness-token');
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
         const typeList = localStorage.getItem('app-star-fitness-type');
         const gymMembersList = localStorage.getItem('app-star-fitness-gym-members');
         const exerciseList = localStorage.getItem('app-star-fitness-exercise');
+        const employeeList = localStorage.getItem('app-star-fitness-employee');
 
         if (token && user && isAuthenticated) {
             setUser(JSON.parse(user));
@@ -52,6 +54,12 @@ export const AuthProvider = ({ children }) => {
 
         if (gymMembersList) {
             setGymMembersList(JSON.parse(gymMembersList));
+
+            return;
+        }
+
+        if (employeeList) {
+            setEmployeeList(JSON.parse(employeeList));
 
             return;
         }
@@ -88,8 +96,9 @@ export const AuthProvider = ({ children }) => {
                 employee: employee
             }));
 
-            await getType(response.data.token);
-            await getGymMembers(response.data.token);
+            await getType();
+            await getGymMembers();
+            await getEmployee()
             await getExercise();
 
             return true;
@@ -121,6 +130,17 @@ export const AuthProvider = ({ children }) => {
         const response = await billing.create(parameters);
 
         return (response.status === 201) ? response : false;
+    }
+
+    async function getEmployee() {
+        const response = await employee.get();
+
+        if (response.status !== 200) return false;
+
+        setEmployeeList(response.data.data);
+        localStorage.setItem('app-star-fitness-employee', JSON.stringify(response.data.data));
+
+        return true;
     }
 
     async function getExercise() {
@@ -183,7 +203,8 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated, setIsAuthenticated,
         typeList, setTypeList,
         exerciseList, setExerciseList,
-        getExercise,
+        employeeList, setEmployeeList,
+        getExercise, getEmployee,
         createType, getType, deleteType,
         createAddress, createGymMemberPerson,
         createBilling, getGymMembers,

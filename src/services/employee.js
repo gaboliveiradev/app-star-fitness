@@ -22,5 +22,15 @@ export const create = async (parameters) => {
         console.log(error);
         return false;
     }
+}
 
+export const get = async () => {
+    try {
+        const response = await api.get(`/employee`)
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
 }
