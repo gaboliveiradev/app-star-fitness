@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import { ExerciseContext } from "../context/Exercise";
 import { MainContext } from "../context/Main";
 import { setId } from "@material-tailwind/react/components/Tabs/TabsContext";
+import { AuthContext } from "../context/Auth";
 
 export default function AddExercises() {
   const {
@@ -19,6 +20,7 @@ export default function AddExercises() {
   } = useContext(ExerciseContext);
 
   const { setIsLoading, setIsLoadingText } = useContext(MainContext);
+  const { getExercise } = useContext(AuthContext);
 
   const handleOnChangeEquipamentImage = async (e) => {
     setEquipamentImageUrl(URL.createObjectURL(e.target.files[0]));
@@ -46,6 +48,9 @@ export default function AddExercises() {
       const response = await createExercise(parameters);
 
       if (response.status === 201) {
+        setIsLoadingText('Atualizando Exercícios...');
+        await getExercise();
+
         Swal.fire({
           icon: 'success',
           title: 'Exercício Criado',
