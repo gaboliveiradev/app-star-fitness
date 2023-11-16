@@ -5,7 +5,6 @@ import { AuthContext } from '../context/Auth';
 import { Toast } from '../common/Toast';
 import Swal from 'sweetalert2'
 import { MainContext } from '../context/Main';
-import { TypeContext } from '../context/Type';
 
 import { ExerciseContext } from '../context/Exercise';
 import ImageExerciseModal from '../components/modals/ImageExerciseModal';
@@ -17,16 +16,12 @@ export default function MyExercises() {
     const { setIsLoading, setIsLoadingText, isOpenImageExerciseModal, setIsOpenImageExerciseModal } = useContext(MainContext);
 
     const { 
+        setIdExercise, setNameExercise,
+        setExerciseGifUrl, setEquipamentImageUrl,
+        setMuscleGroup, setIsUpdateExercise,
         setSelectedExercise,
         deleteExercise
     } = useContext(ExerciseContext);
-
-    const {
-        setIdType,
-        setNameType,
-        setNumberOfDays,
-        setPrice, setIsUpdateType
-    } = useContext(TypeContext)
 
     const [records, setRecords] = useState(exerciseList);
     const [isFilterActive, setIsFilterActive] = useState(false);
@@ -40,14 +35,15 @@ export default function MyExercises() {
     const handleClickAlterUpdate = async (e, row) => {
         e.preventDefault();
 
-        setIdType(row.id);
-        setNameType(row.name);
-        setNumberOfDays(row.number_of_days.toString());
-        setPrice(row.price.toString().replace('.', ','));
+        setIdExercise(row.id);
+        setNameExercise(row.name);
+        setEquipamentImageUrl(row.equipment_gym_photo);
+        setExerciseGifUrl(row.exercise_gif);
+        setMuscleGroup(row.muscle_groups);
 
-        setIsUpdateType(true);
+        setIsUpdateExercise(true);
 
-        navigate('/academy-plans/form');
+        navigate('/exercises/form');
     }
 
     const handleClickDelete = async (e, row) => {

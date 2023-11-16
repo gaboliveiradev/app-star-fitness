@@ -7,6 +7,7 @@ export const ExerciseContext = createContext();
 
 export const ExerciseProvider = ({ children }) => {
     const [selectedExercise, setSelectedExercise] = useState('');
+    const [isUpdateExercise, setIsUpdateExercise] = useState(false);
 
     // Exercise Data
     const [nameExercise, setNameExercise] = useState("");
@@ -38,6 +39,7 @@ export const ExerciseProvider = ({ children }) => {
         equipamentImage, setEquipamentImage,
         muscleGroup, setMuscleGroup,
         //others
+        isUpdateExercise, setIsUpdateExercise,
         idExercise, setIdExercise,
         selectedExercise, setSelectedExercise,
         //methods

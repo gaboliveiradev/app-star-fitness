@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Swal from 'sweetalert2'
 import { ExerciseContext } from "../context/Exercise";
 import { MainContext } from "../context/Main";
+import { setId } from "@material-tailwind/react/components/Tabs/TabsContext";
 
 export default function AddExercises() {
   const {
@@ -11,6 +12,8 @@ export default function AddExercises() {
     equipamentImageUrl, setEquipamentImageUrl,
     equipamentImage, setEquipamentImage,
     muscleGroup, setMuscleGroup,
+    //others
+    setIsUpdateExercise, setIdExercise, isUpdateExercise,
     //methods
     createExercise,
   } = useContext(ExerciseContext);
@@ -83,6 +86,9 @@ export default function AddExercises() {
     setEquipamentImageUrl('');
     setEquipamentImage('');
     setMuscleGroup('');
+    setIdExercise('');
+
+    setIsUpdateExercise(false);
   }
 
   return (
@@ -90,7 +96,7 @@ export default function AddExercises() {
       <article className="flex-auto h-full mx-auto rounded-md w-full">
         <div>
           <div className="flex-auto pb-[14px]">
-            <h1 class="title">Adicionar Exercícios</h1>
+            <h1 class="title">{isUpdateExercise ? 'Atualizar' : 'Adicionar'} Exercícios</h1>
             <ul class="breadcrumbs">
               <li>
                 <span>Principal</span>
@@ -102,7 +108,7 @@ export default function AddExercises() {
               <li class="divider">/</li>
               <li>
                 <span class="active">
-                  Adicionar Exercícios
+                  {isUpdateExercise ? 'Atualizar' : 'Adicionar'} Exercícios
                 </span>
               </li>
             </ul>
@@ -158,7 +164,7 @@ export default function AddExercises() {
 
             <div className="sm:col-span-3">
               <label className="block text-[16px] font-medium text-black-700">
-                Imagem do Equipamento * {(equipamentImage) && "(Clique na imagem para alterar)"}
+                Imagem do Equipamento * {(equipamentImage || equipamentImageUrl) && "(Clique na imagem para alterar)"}
               </label>
               <div className="mt-1">
                 <div className="flex items-center justify-center w-full">
@@ -167,7 +173,7 @@ export default function AddExercises() {
                     className="flex flex-col items-center justify-center w-full h-[512px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6 container">
-                      {equipamentImage ? (
+                      {equipamentImage || equipamentImageUrl ? (
                         <img
                           src={equipamentImageUrl}
                           alt="Imagem"
@@ -196,7 +202,7 @@ export default function AddExercises() {
 
             <div className="sm:col-span-3">
               <label className="block text-[16px] font-medium text-black-700">
-                GIF do Exercício * {(exerciseGif) && "(Clique na imagem para alterar)"}
+                GIF do Exercício * {(exerciseGif || exerciseGifUrl) && "(Clique na imagem para alterar)"}
               </label>
               <div className="mt-1">
                 <div className="flex items-center justify-center w-full">
@@ -205,7 +211,7 @@ export default function AddExercises() {
                     className="flex flex-col items-center justify-center w-full h-[521px] border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6 container">
-                      {exerciseGif ? (
+                      {exerciseGif || exerciseGifUrl ? (
                         <img
                           src={exerciseGifUrl}
                           alt="Imagem"
@@ -244,7 +250,7 @@ export default function AddExercises() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
-                  Salvar
+                  {isUpdateExercise ? 'Atualizar' : 'Salvar'}
                 </button>
               </div>
             </div>
