@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import Swal from 'sweetalert2'
 import { ExerciseContext } from "../context/Exercise";
 import { MainContext } from "../context/Main";
-import { setId } from "@material-tailwind/react/components/Tabs/TabsContext";
 import { AuthContext } from "../context/Auth";
 
 export default function AddExercises() {
@@ -23,13 +22,17 @@ export default function AddExercises() {
   const { getExercise } = useContext(AuthContext);
 
   const handleOnChangeEquipamentImage = async (e) => {
-    setEquipamentImageUrl(URL.createObjectURL(e.target.files[0]));
-    setEquipamentImage(e.target.files[0])
+    if (e.target.files[0]) {
+      setEquipamentImage(e.target.files[0])
+      setEquipamentImageUrl(URL.createObjectURL(e.target.files[0]));
+    }
   }
 
   const handleOnChangeExerciseGif = async (e) => {
-    setExerciseGifUrl(URL.createObjectURL(e.target.files[0]));
-    setExerciseGif(e.target.files[0])
+    if (e.target.files[0]) {
+      setExerciseGif(e.target.files[0])
+      setExerciseGifUrl(URL.createObjectURL(e.target.files[0]));
+    }
   }
 
   const handleClickSave = async (e) => {
@@ -54,7 +57,7 @@ export default function AddExercises() {
         Swal.fire({
           icon: 'success',
           title: 'Exercício Criado',
-          html: 'Ihuul... Parabéns, você <b>criou</b> um exercício na academia. Acesse \"<b>Exercícios/Gerenciar Exercícios</b>\" para gerenciar seus planos'
+          html: 'Ihuul... Parabéns, você <b>criou</b> um exercício na academia. Acesse "<b>Exercícios/Gerenciar Exercícios</b>" para gerenciar seus planos'
         })
 
         handleClickCancel(e);
@@ -169,7 +172,7 @@ export default function AddExercises() {
 
             <div className="sm:col-span-3">
               <label className="block text-[16px] font-medium text-black-700">
-                Imagem do Equipamento * {(equipamentImage || equipamentImageUrl) && "(Clique na imagem para alterar)"}
+                Imagem do Equipamento {(equipamentImage || equipamentImageUrl) && "(Clique na imagem para alterar)"}
               </label>
               <div className="mt-1">
                 <div className="flex items-center justify-center w-full">
@@ -207,7 +210,7 @@ export default function AddExercises() {
 
             <div className="sm:col-span-3">
               <label className="block text-[16px] font-medium text-black-700">
-                GIF do Exercício * {(exerciseGif || exerciseGifUrl) && "(Clique na imagem para alterar)"}
+                GIF do Exercício {(exerciseGif || exerciseGifUrl) && "(Clique na imagem para alterar)"}
               </label>
               <div className="mt-1">
                 <div className="flex items-center justify-center w-full">
@@ -245,7 +248,21 @@ export default function AddExercises() {
 
             <div className="sm:col-span-6 flex justify-end">
               <div className="my-[20px] flex flex-row hover:cursor-pointer">
-                <button onClick={(e) => handleClickCancel(e)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                <button onClick={(e) => {
+                  Swal.fire({
+                    title: 'Você tem Certeza?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Sim, Limpar!'
+                  }).then(async (result) => {
+                    if (result.isConfirmed) {
+                      handleClickCancel(e)
+                    }
+                  })
+                }} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
