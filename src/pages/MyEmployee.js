@@ -122,6 +122,7 @@ export default function MyEmployee() {
           pagination
           selectableRows
           paginationComponentOptions={options}
+          noDataComponent={<p className='text-[18px] font-bold pt-[10px]'>Nenhum registro encontrado</p>}
         />
       </div>
     </article>
