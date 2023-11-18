@@ -51,7 +51,7 @@ export default function FormEnroll() {
 
             <div className="sm:col-span-3">
                 <label htmlFor="invoiceDate" className="block text-[16px] font-bold text-black-700">
-                    Data de Inicio
+                    Data do Primeiro Pagamento
                 </label>
                 <div className="mt-1">
                     <input
@@ -68,7 +68,7 @@ export default function FormEnroll() {
 
             <div className="sm:col-span-3">
                 <label htmlFor="dueDate" className="block text-[16px] font-bold text-black-700">
-                    Data de Vencimento
+                    Data da Proxíma Cobrança
                 </label>
                 <div className="mt-1">
                     <input
@@ -91,45 +91,47 @@ export default function FormEnroll() {
                     <div class="flex flex-wrap -m-4 text-center">
                         <button disabled={idPlan === null || idPlan === '' || isUpdate} onClick={() => {
                             setPaymentMethod('CREDIT_CARD');
+                            setChange("");
+                            setReceivedAmount("");
                             typeList.filter(type => type.id === idPlan).map(type => setAmount(parseFloat(type.price) + parseFloat(4)));
                         }} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
-                            <div class={`${paymentMethod === 'CREDIT_CARD' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
-                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(parseFloat(type.price) + parseFloat(4)))}</h2>
-                                <p class="leading-relaxed text-black-100 font-bold">Crédito <span className="text-green-500">(+ R$ 4,00)</span></p>
+                            <div class={`${paymentMethod === 'CREDIT_CARD' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-300 border`}>
+                                <p class="leading-relaxed text-black-100 font-bold">Crédito</p>
                             </div>
                         </button>
                         <button disabled={idPlan === null || idPlan === '' || isUpdate} onClick={() => {
                             setPaymentMethod('DEBIT_CARD');
+                            setChange("");
+                            setReceivedAmount("");
                             typeList.filter(type => type.id === idPlan).map(type => setAmount(parseFloat(type.price) + parseFloat(2.50)));
                         }} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
-                            <div class={`${paymentMethod === 'DEBIT_CARD' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
-                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(parseFloat(type.price) + parseFloat(2.50)))}</h2>
-                                <p class="leading-relaxed text-black font-bold">Débito <span className="text-green-500">(+ R$ 2,50)</span></p>
+                            <div class={`${paymentMethod === 'DEBIT_CARD' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-300 border`}>
+                                <p class="leading-relaxed text-black font-bold">Débito</p>
                             </div>
                         </button>
                         <button disabled={idPlan === null || idPlan === '' || isUpdate} onClick={() => {
                             setPaymentMethod('PIX');
+                            setChange("");
+                            setReceivedAmount("");
                             typeList.filter(type => type.id === idPlan).map(type => setAmount(type.price));
                         }} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
-                            <div class={`${paymentMethod === 'PIX' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
-                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</h2>
+                            <div class={`${paymentMethod === 'PIX' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-300 border`}>
                                 <p class="leading-relaxed text-black font-bold">PIX</p>
                             </div>
                         </button>
                         <button disabled={idPlan === null || idPlan === '' || isUpdate} onClick={() => {
                             setPaymentMethod('MONEY');
+                            setChange("");
+                            setReceivedAmount("");
                             typeList.filter(type => type.id === idPlan).map(type => setAmount(type.price));
                         }} class="cursor-pointer p-4 sm:w-1/4 w-1/2">
-                            <div class={`${paymentMethod === 'MONEY' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-400 border`}>
-                                <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">{typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}</h2>
+                            <div class={`${paymentMethod === 'MONEY' ? 'bg-green-200' : 'bg-transparent'} rounded-lg p-2 xl:p-6 border-gray-300 border`}>
                                 <p class="leading-relaxed text-black font-bold">Dinheiro</p>
                             </div>
                         </button>
                     </div>
                 </div>
             </div>
-
-            <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
 
             <div className="sm:col-span-3">
                 <label htmlFor="receivedAmount" className="block text-[16px] font-bold text-black-700">
@@ -158,8 +160,6 @@ export default function FormEnroll() {
 
                                 return
                             }
-
-                            setChange('O valor recebido é menor que o valor da mensalidade.')
                         }}
                         name="receivedAmount"
                         id="receivedAmount"
@@ -181,6 +181,66 @@ export default function FormEnroll() {
                         value={change}
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     />
+                </div>
+            </div>
+
+            <div className="sm:col-span-6">
+                <div className="mt-1">
+                    <div class="w-full flex mb-3 items-center">
+                        <div class="flex-grow">
+                            <span class="text-gray-600">Item</span>
+                        </div>
+                        <div class="pl-3">
+                            <span class="font-semibold">{(idPlan === "") ? "Não Informado" : typeList.filter(type => type.id === idPlan).map(type => (type.name))}</span>
+                        </div>
+                    </div>
+                    <div class="w-full flex mb-3 items-center">
+                        <div class="flex-grow">
+                            <span class="text-gray-600">Qnt. Dias</span>
+                        </div>
+                        <div class="pl-3">
+                            <span class="font-semibold">{(idPlan === "") ? "Não Informado" : typeList.filter(type => type.id === idPlan).map(type => (type.number_of_days + "x na Semana"))}</span>
+                        </div>
+                    </div>
+                    <div class="w-full flex mb-3 items-center">
+                        <div class="flex-grow">
+                            <span class="text-gray-600">Subtotal</span>
+                        </div>
+                        <div class="pl-3">
+                            <span class="font-semibold">
+                                {(idPlan === "") ? "Não Informado" : typeList.filter(type => type.id === idPlan).map(type => formatMoney(type.price))}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="w-full flex items-center">
+                        <div class="flex-grow">
+                            <span class="text-gray-600">Taxas de Cartão</span>
+                        </div>
+                        <div class="pl-3">
+                            <span class="font-semibold">
+                                {
+                                    (paymentMethod === "CREDIT_CARD") ? formatMoney(4) 
+                                    : (paymentMethod === "DEBIT_CARD") ? formatMoney(2.5)
+                                    : (paymentMethod === "PIX" || paymentMethod === "MONEY") ? formatMoney(0) : "Não Informado"
+                                }
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='sm:col-span-6 border-t-2 border-gray-300'></div>
+
+            <div className="sm:col-span-6">
+                <div class="border-b border-gray-200 md:border-none text-gray-800 text-xl">
+                    <div class="w-full flex items-center">
+                        <div class="flex-grow">
+                            <span class="text-gray-600">Total</span>
+                        </div>
+                        <div class="pl-3">
+                            <span class="font-semibold text-gray-400 text-sm">{(idPlan !== "" && paymentMethod !== "") && "BRL"}</span> <span class="font-semibold">{(idPlan === "" && paymentMethod === "") ? 'Não Informado' : formatMoney(amount)}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
