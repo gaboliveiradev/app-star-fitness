@@ -10,6 +10,7 @@ import { PersonProvider } from './context/Person';
 import { TypeProvider } from './context/Type';
 import { PaymentProvider } from './context/Payment';
 import { ExerciseProvider } from './context/Exercise';
+import { WorkoutRoutineProvider } from './context/WorkoutRoutine';
 
 function App() {
   return (
@@ -23,9 +24,11 @@ function App() {
                 <PaymentProvider>
                   <TypeProvider>
                     <ExerciseProvider>
-                      <EmployeeProvider>
-                        <Routing />
-                      </EmployeeProvider>
+                      <WorkoutRoutineProvider>
+                        <EmployeeProvider>
+                          <Routing />
+                        </EmployeeProvider>
+                      </WorkoutRoutineProvider>
                     </ExerciseProvider>
                   </TypeProvider>
                 </PaymentProvider>

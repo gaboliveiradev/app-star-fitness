@@ -6,7 +6,6 @@ export default function ImageExerciseModal() {
     const { setIsOpenImageExerciseModal } = useContext(MainContext);
 
     const { selectedExercise } = useContext(ExerciseContext);
-
     return (
         <div class="z-999 modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
             <div class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded border border-gray-300 shadow-xl">
