@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import Search from "../components/training/Search";
 import { CardTraining } from "../components/training/Card";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
-import { MainContext } from "../context/Main";
 
 export default function AddTraining() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -99,22 +98,7 @@ export default function AddTraining() {
               />
             </div>
           </div>
-          <div className="pb-[20px] scrollbarConfig flex flex-row flex-wrap justify-center items-center overflow-x-scroll">
-            {Array.from({ length: 7 }, (_, index) => (
-              <div
-                key={index}
-                className={`mt-[30px] ${
-                  index + 1 > currentPage * 3 ||
-                  index + 1 <= (currentPage - 1) * 3
-                    ? "hidden"
-                    : ""
-                }`}
-              >
-                <CardTraining title={daysOfWeek[index]} />
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between mt-[-200px]">
+          <div className="mt-[30px] flex justify-end">
             <button
               onClick={handlePrevPage}
               className="px-3 py-1 bg-blue-500 text-white rounded-md"
@@ -129,6 +113,20 @@ export default function AddTraining() {
             >
               <ArrowRightIcon className="h-5 w-5" />
             </button>
+          </div>
+          <div className="pb-[20px] scrollbarConfig flex flex-row flex-wrap justify-center items-center">
+            {Array.from({ length: 7 }, (_, index) => (
+              <div
+                key={index}
+                className={`mt-[30px] ${index + 1 > currentPage * 3 ||
+                    index + 1 <= (currentPage - 1) * 3
+                    ? "hidden"
+                    : ""
+                  }`}
+              >
+                <CardTraining title={daysOfWeek[index]} />
+              </div>
+            ))}
           </div>
         </div>
       </article>

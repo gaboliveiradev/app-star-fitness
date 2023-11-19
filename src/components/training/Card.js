@@ -13,7 +13,7 @@ export function CardTraining({ title }) {
 
   return (
     <>
-      <Card className="shadow-md mr-8 w-96 h-[400px] dark:bg-boxdark antialiased font-normal text-base leading-default text-slate-500">
+      <Card className="shadow-md w-96 h-[400px] dark:bg-boxdark antialiased font-normal text-base leading-default text-slate-500">
         <CardBody className="p-0">
           <div className="text-center relative">
             <h1 className="bg-blueProfile text-white rounded font-sans p-4 ">
