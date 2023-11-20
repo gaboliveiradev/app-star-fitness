@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { IMaskInput } from "react-imask";
+import { Toast } from './../../common/Toast';
+import Swal from 'sweetalert2'
 import { MainContext } from "../../context/Main";
 import { AuthContext } from '../../context/Auth';
 import { ExerciseContext } from "../../context/Exercise";
@@ -37,14 +38,32 @@ export default function AddExerciseModal() {
   const handleClickAddExercise = async (e) => {
     e.preventDefault();
 
-    console.log([...workoutRoutine, workoutRoutine.push({
-      idExercise: idExercise,
-      weekDay: currentWeek,
-      sets: setsWorkoutRoutine,
-      repetitions: repsWorkoutRoutine,
-      rest: intervalWorkoutRoutine,
-      observation: observationWorkoutRoutine,
-    })]);
+    if (idExercise === "" || currentWeek === "" || setsWorkoutRoutine === "" || repsWorkoutRoutine === "" || intervalWorkoutRoutine === "") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos Vazio!',
+        html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+      })
+
+      return;
+    }
+
+    setWorkoutRoutine((prevRoutine) => [
+      ...prevRoutine,
+      {
+        idExercise: idExercise,
+        weekDay: currentWeek,
+        sets: setsWorkoutRoutine,
+        repetitions: repsWorkoutRoutine,
+        rest: intervalWorkoutRoutine,
+        observation: observationWorkoutRoutine,
+      },
+    ]);
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Exercício adiconado.'
+    })
 
     handleClickClear(e);
   }
