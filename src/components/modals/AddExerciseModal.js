@@ -16,14 +16,13 @@ export default function AddExerciseModal() {
 
   const {
     currentWeek,
+    localIdExercise, setLocalIdExercise,
     workoutRoutine, setWorkoutRoutine,
     repsWorkoutRoutine, setRepsWorkoutRoutine,
     setsWorkoutRoutine, setSetsWorkoutRoutine,
     intervalWorkoutRoutine, setIntervalWorkoutRoutine,
     observationWorkoutRoutine, setObservationWorkoutRoutine,
   } = useContext(WorkoutRoutineContext);
-
-  console.log(workoutRoutine);
 
   const handleClickClear = async (e) => {
     e.preventDefault();
@@ -51,6 +50,7 @@ export default function AddExerciseModal() {
     setWorkoutRoutine((prevRoutine) => [
       ...prevRoutine,
       {
+        localIdExercise: localIdExercise,
         idExercise: idExercise,
         weekDay: currentWeek,
         sets: setsWorkoutRoutine,
@@ -59,6 +59,8 @@ export default function AddExerciseModal() {
         observation: observationWorkoutRoutine,
       },
     ]);
+
+    setLocalIdExercise(localIdExercise + 1);
 
     Toast.fire({
       icon: 'success',

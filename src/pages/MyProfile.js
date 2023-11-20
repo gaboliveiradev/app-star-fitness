@@ -50,7 +50,6 @@ export default function MyProfile() {
     setState(user.address.state);
   }
 
-  console.log(user)
   return (
     <>
       <div className="rounded-xl flex flex-col flex-auto min-w-0 overflow-hidden break-words bg-tertiary-blue border-0 ">

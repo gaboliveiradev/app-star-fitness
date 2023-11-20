@@ -21,7 +21,7 @@ export default function AddTraining() {
     setSelectedGymMemberWorkout, setWorkoutRoutine,
     isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
     documentWorkoutRoutine, setDocumentWorkoutRoutine,
-    nameWorkoutRoutine, setNameWorkoutRoutine,
+    nameWorkoutRoutine, setNameWorkoutRoutine, setLocalIdExercise,
   } = useContext(WorkoutRoutineContext);
   const { gymMembersList } = useContext(AuthContext);
 
@@ -45,6 +45,7 @@ export default function AddTraining() {
   const handleClickClear = async (e) => {
     e.preventDefault();
 
+    setLocalIdExercise(1);
     setWorkoutRoutine([]);
     setDocumentWorkoutRoutine('');
     setNameWorkoutRoutine('');
@@ -152,19 +153,19 @@ export default function AddTraining() {
             {
               (currentPage === 1) ? (
                 <>
-                  <CardTrainingWeek week="DOM" />
-                  <CardTrainingWeek week={"SEG"} />
-                  <CardTrainingWeek week={"TER"} />
+                  <CardTrainingWeek weekDay="DOM" />
+                  <CardTrainingWeek weekDay={"SEG"} />
+                  <CardTrainingWeek weekDay={"TER"} />
                 </>
               ) : (currentPage === 2) ? (
                 <>
-                  <CardTrainingWeek week={"QUA"} />
-                  <CardTrainingWeek week={"QUI"} />
-                  <CardTrainingWeek week={"SEX"} />
+                  <CardTrainingWeek weekDay={"QUA"} />
+                  <CardTrainingWeek weekDay={"QUI"} />
+                  <CardTrainingWeek weekDay={"SEX"} />
                 </>
               ) : (currentPage === 3) && (
                 <>
-                  <CardTrainingWeek week={"SÁB"} />
+                  <CardTrainingWeek weekDay={"SÁB"} />
 
                 </>
               )

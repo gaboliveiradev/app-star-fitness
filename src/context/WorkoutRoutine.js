@@ -8,6 +8,7 @@ export const WorkoutRoutineProvider = ({ children }) => {
     const [selectedGymMemberWorkout, setSelectedGymMemberWorkout] = useState({});
     const [currentWeek, setCurrentWeek] = useState([]);
 
+    const [localIdExercise, setLocalIdExercise] = useState(1);
     const [workoutRoutine, setWorkoutRoutine] = useState([]);
 
     const [documentWorkoutRoutine, setDocumentWorkoutRoutine] = useState('');
@@ -18,6 +19,7 @@ export const WorkoutRoutineProvider = ({ children }) => {
     const [observationWorkoutRoutine, setObservationWorkoutRoutine] = useState('');
 
     const context = {
+        localIdExercise, setLocalIdExercise,
         workoutRoutine, setWorkoutRoutine,
         isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
         selectedGymMemberWorkout, setSelectedGymMemberWorkout,
