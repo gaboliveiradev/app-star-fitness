@@ -15,13 +15,18 @@ import AddExerciseModal from "../components/modals/AddExerciseModal";
 export default function AddTraining() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { isOpenAddExerciseModal } = useContext(MainContext);
+  const { isOpenAddExerciseModal, setIsLoading, setIsLoadingText } = useContext(MainContext);
 
   const {
+    workoutRoutine,
+    selectedGymMemberWorkout,
     setSelectedGymMemberWorkout, setWorkoutRoutine,
     isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
     documentWorkoutRoutine, setDocumentWorkoutRoutine,
     nameWorkoutRoutine, setNameWorkoutRoutine, setLocalIdExercise,
+    //methods
+    createWorkoutRoutine,
+    createAssocWorkoutRoutineExercise,
   } = useContext(WorkoutRoutineContext);
   const { gymMembersList } = useContext(AuthContext);
 
@@ -49,6 +54,70 @@ export default function AddTraining() {
     setWorkoutRoutine([]);
     setDocumentWorkoutRoutine('');
     setNameWorkoutRoutine('');
+  }
+
+  const handleClickSaveWorkoutRoutine = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      setIsLoadingText('Criando Ficha de Treino...');
+
+      const workoutRoutineParameters = {
+        name: nameWorkoutRoutine,
+        id_gym_member: selectedGymMemberWorkout.id
+      }
+
+      const responseWorkoutRoutine = await createWorkoutRoutine(workoutRoutineParameters);
+
+      if (responseWorkoutRoutine.status !== 201) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar uma nova ficha de treino.'
+        })
+
+        return;
+      }
+
+      setIsLoadingText('Adicionando Exercícios a Ficha de Treino...')
+
+      const workoutRoutineAssocParameters = {
+        id_workout_routine: responseWorkoutRoutine.data.data.id,
+        array_exercises: workoutRoutine,
+      }
+
+      const responseWorkoutRoutineAssoc = await createAssocWorkoutRoutineExercise(workoutRoutineAssocParameters);
+
+      if (responseWorkoutRoutineAssoc.status !== 201) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível vincular todos exercícios a ficha de treino criada.'
+        })
+
+        return;
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Ficha de Treino Criada',
+        html: 'Ihuul... Parabéns, você <b>criou</b> uma ficha de treino. Acesse \"<b>Ficha de Treino/Gestão e Fichas de Treinos</b>\" para gerenciar as fichas de treinos.'
+      })
+
+      handleClickClear(e);
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar uma ficha de treino.'
+      })
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      setIsLoadingText("");
+    }
   }
 
   return (
@@ -194,7 +263,9 @@ export default function AddTraining() {
                 </svg>
                 Cancelar
               </button>
-              <button class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+              <button onClick={(e) => {
+                handleClickSaveWorkoutRoutine(e);
+              }} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>

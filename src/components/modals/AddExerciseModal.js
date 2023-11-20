@@ -56,7 +56,7 @@ export default function AddExerciseModal() {
         sets: setsWorkoutRoutine,
         repetitions: repsWorkoutRoutine,
         rest: intervalWorkoutRoutine,
-        observation: observationWorkoutRoutine,
+        observation: (observationWorkoutRoutine === "") ? null : observationWorkoutRoutine,
       },
     ]);
 
