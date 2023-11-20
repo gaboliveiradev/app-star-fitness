@@ -18,7 +18,7 @@ export default function AddTraining() {
   const { isOpenAddExerciseModal } = useContext(MainContext);
 
   const {
-    setSelectedGymMemberWorkout,
+    setSelectedGymMemberWorkout, setWorkoutRoutine,
     isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
     documentWorkoutRoutine, setDocumentWorkoutRoutine,
     nameWorkoutRoutine, setNameWorkoutRoutine,
@@ -40,6 +40,14 @@ export default function AddTraining() {
 
     setSelectedGymMemberWorkout(item[0]);
     setIsOpenConfirmGymMemberModal(true);
+  }
+
+  const handleClickClear = async (e) => {
+    e.preventDefault();
+
+    setWorkoutRoutine([]);
+    setDocumentWorkoutRoutine('');
+    setNameWorkoutRoutine('');
   }
 
   return (
@@ -176,7 +184,7 @@ export default function AddTraining() {
                   confirmButtonText: 'Sim, Limpar!'
                 }).then(async (result) => {
                   if (result.isConfirmed) {
-                    //handleClickClearFields(e)
+                    handleClickClear(e)
                   }
                 })
               }} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">

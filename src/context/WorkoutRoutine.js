@@ -6,7 +6,7 @@ export const WorkoutRoutineProvider = ({ children }) => {
 
     const [isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal] = useState(false);
     const [selectedGymMemberWorkout, setSelectedGymMemberWorkout] = useState({});
-    const [currentWeek, setCurrentWeek] = useState('');
+    const [currentWeek, setCurrentWeek] = useState([]);
 
     const [workoutRoutine, setWorkoutRoutine] = useState([]);
 

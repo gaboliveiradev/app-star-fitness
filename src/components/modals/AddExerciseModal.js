@@ -14,11 +14,15 @@ export default function AddExerciseModal() {
   } = useContext(ExerciseContext);
 
   const {
+    currentWeek,
+    workoutRoutine, setWorkoutRoutine,
     repsWorkoutRoutine, setRepsWorkoutRoutine,
     setsWorkoutRoutine, setSetsWorkoutRoutine,
     intervalWorkoutRoutine, setIntervalWorkoutRoutine,
     observationWorkoutRoutine, setObservationWorkoutRoutine,
   } = useContext(WorkoutRoutineContext);
+
+  console.log(workoutRoutine);
 
   const handleClickClear = async (e) => {
     e.preventDefault();
@@ -28,6 +32,21 @@ export default function AddExerciseModal() {
     setSetsWorkoutRoutine('');
     setIntervalWorkoutRoutine('');
     setObservationWorkoutRoutine('');
+  }
+
+  const handleClickAddExercise = async (e) => {
+    e.preventDefault();
+
+    console.log([...workoutRoutine, workoutRoutine.push({
+      idExercise: idExercise,
+      weekDay: currentWeek,
+      sets: setsWorkoutRoutine,
+      repetitions: repsWorkoutRoutine,
+      rest: intervalWorkoutRoutine,
+      observation: observationWorkoutRoutine,
+    })]);
+
+    handleClickClear(e);
   }
 
   return (
@@ -156,7 +175,7 @@ export default function AddExerciseModal() {
               </svg>
               Cancelar
             </button>
-            <button onClick={() => setIsOpenAddExerciseModal(true)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+            <button onClick={(e) => handleClickAddExercise(e)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
