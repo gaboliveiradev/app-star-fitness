@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { IntroductoryCard } from "../components/training/IntroductoryCard";
-import { CardTraining } from "../components/training/Card";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
 import IntroductoryModal from "../components/training/IntroductoryModal";
+import CardTrainingWeek from "../components/CardTrainingWeek";
 
 export default function IntroductoryTraining() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,36 +61,14 @@ export default function IntroductoryTraining() {
               />
             </div>
           </div>
-          <div className="pb-[20px] scrollbarConfig flex flex-row flex-wrap justify-center items-center overflow-x-scroll">
-            {Array.from({ length: 7 }, (_, index) => (
-              <div
-                key={index}
-                className={`mt-[30px] ${
-                  index + 1 > currentPage * 3 ||
-                  index + 1 <= (currentPage - 1) * 3
-                    ? "hidden"
-                    : ""
-                }`}
-              >
-                <IntroductoryCard title={daysOfWeek[index]} />
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between mt-[-200px]">
-            <button
-              onClick={handlePrevPage}
-              className="px-3 py-1 bg-blue-500 text-white rounded-md"
-              disabled={currentPage === 1}
-            >
-              <ArrowLeftIcon className="h-5 w-5" />
-            </button>
-            <button
-              onClick={handleNextPage}
-              className="px-3 py-1 bg-blue-500 text-white rounded-md"
-              disabled={currentPage === 3}
-            >
-              <ArrowRightIcon className="h-5 w-5" />
-            </button>
+          <div className="pb-[20px] mt-[15px] scrollbarConfig flex flex-row flex-wrap justify-center items-center overflow-x-scroll">
+            <CardTrainingWeek week={"DOM"} />
+            <CardTrainingWeek week={"SEG"} />
+            <CardTrainingWeek week={"TER"} />
+            <CardTrainingWeek week={"QUA"} />
+            <CardTrainingWeek week={"QUI"} />
+            <CardTrainingWeek week={"SEX"} />
+            <CardTrainingWeek week={"SÁB"} />
           </div>
         </div>
       </article>

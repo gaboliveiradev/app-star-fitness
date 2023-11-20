@@ -4,7 +4,7 @@ import { MainContext } from "../../context/Main";
 import { AuthContext } from '../../context/Auth';
 import { ExerciseContext } from "../../context/Exercise";
 
-export default function Modal() {
+export default function AddExerciseModal() {
   const { setIsOpenAddExerciseModal } = useContext(MainContext);
   const { exerciseList } = useContext(AuthContext);
 

@@ -1,17 +1,21 @@
 import React, { useContext, useState } from "react";
 import { IMaskInput } from 'react-imask';
 import Swal from 'sweetalert2'
-import { CardTraining } from "../components/training/Card";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
 import { WorkoutRoutineContext } from "../context/WorkoutRoutine";
 import ConfirmGymMemberModal from "../components/modals/ConfirmGymMemberModal";
 import { AuthContext } from "../context/Auth";
 import { formatCPF } from "./../utils/format";
 import { Toast } from './../common/Toast';
+import CardTrainingWeek from "../components/CardTrainingWeek";
+import { MainContext } from "../context/Main";
+import AddExerciseModal from "../components/modals/AddExerciseModal";
 
 
 export default function AddTraining() {
   const [currentPage, setCurrentPage] = useState(1);
+
+  const { isOpenAddExerciseModal } = useContext(MainContext);
 
   const {
     setSelectedGymMemberWorkout,
@@ -45,22 +49,17 @@ export default function AddTraining() {
     setIsOpenConfirmGymMemberModal(true);
   }
 
-  const daysOfWeek = [
-    "DOMINGO",
-    "SEGUNDA-FEIRA",
-    "TERÇA-FEIRA",
-    "QUARTA-FEIRA",
-    "QUINTA-FEIRA",
-    "SEXTA-FEIRA",
-    "SÁBADO",
-  ];
-
   return (
     <>
       <article className="flex-auto h-full mx-auto rounded-md w-full p-4">
         {
           (isOpenConfirmGymMemberModal) && (
             <ConfirmGymMemberModal />
+          )
+        }
+        {
+          (isOpenAddExerciseModal) && (
+            <AddExerciseModal />
           )
         }
         <div>
@@ -130,35 +129,43 @@ export default function AddTraining() {
               />
             </div>
           </div>
-          <div className="mt-[30px] flex justify-end">
+          <div className="my-[30px] flex justify-end">
             <button
-              onClick={handlePrevPage}
+              onClick={() => (currentPage !== 1) && setCurrentPage(currentPage - 1)}
               className="mr-[5px] px-4 py-2 text-white font-semibold bg-blue-500 rounded"
               disabled={currentPage === 1}
             >
               <ArrowLeftIcon className="h-5 w-5" />
             </button>
             <button
-              onClick={handleNextPage}
+              onClick={() => (currentPage !== 3) && setCurrentPage(currentPage + 1)}
               className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
               disabled={currentPage === 3}
             >
               <ArrowRightIcon className="h-5 w-5" />
             </button>
           </div>
-          <div className="pb-[20px] scrollbarConfig flex flex-row flex-wrap justify-center items-center">
-            {Array.from({ length: 7 }, (_, index) => (
-              <div
-                key={index}
-                className={`mt-[30px] ${index + 1 > currentPage * 3 ||
-                  index + 1 <= (currentPage - 1) * 3
-                  ? "hidden"
-                  : ""
-                  }`}
-              >
-                <CardTraining title={daysOfWeek[index]} />
-              </div>
-            ))}
+          <div className="pb-[20px] mt-[15px] scrollbarConfig flex flex-row flex-wrap justify-around">
+            {
+              (currentPage === 1) ? (
+                <>
+                  <CardTrainingWeek week="DOM" />
+                  <CardTrainingWeek week={"SEG"} />
+                  <CardTrainingWeek week={"TER"} />
+                </>
+              ) : (currentPage === 2) ? (
+                <>
+                  <CardTrainingWeek week={"QUA"} />
+                  <CardTrainingWeek week={"QUI"} />
+                  <CardTrainingWeek week={"SEX"} />
+                </>
+              ) : (currentPage === 3) && (
+                <>
+                  <CardTrainingWeek week={"SÁB"} />
+
+                </>
+              )
+            }
           </div>
 
           <div className="sm:col-span-6 flex justify-end">
