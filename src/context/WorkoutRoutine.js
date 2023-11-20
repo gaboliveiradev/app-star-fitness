@@ -5,11 +5,16 @@ export const WorkoutRoutineContext = createContext();
 export const WorkoutRoutineProvider = ({ children }) => {
 
     const [isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal] = useState(false);
-    const [selectedConfirmGymMember, setSelectedConfirmGymMember] = useState({});
+    const [selectedGymMemberWorkout, setSelectedGymMemberWorkout] = useState({});
+
+    const [documentWorkoutRoutine, setDocumentWorkoutRoutine] = useState('');
+    const [nameWorkoutRoutine, setNameWorkoutRoutine] = useState('');
 
     const context = {
         isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
-        selectedConfirmGymMember, setSelectedConfirmGymMember,
+        selectedGymMemberWorkout, setSelectedGymMemberWorkout,
+        documentWorkoutRoutine, setDocumentWorkoutRoutine,
+        nameWorkoutRoutine, setNameWorkoutRoutine,
     };
 
     return (

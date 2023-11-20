@@ -5,11 +5,20 @@ import { CardTraining } from "../components/training/Card";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
 import { WorkoutRoutineContext } from "../context/WorkoutRoutine";
 import ConfirmGymMemberModal from "../components/modals/ConfirmGymMemberModal";
+import { AuthContext } from "../context/Auth";
+import { formatCPF } from "./../utils/format";
+import { Toast } from './../common/Toast';
+
 
 export default function AddTraining() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal } = useContext(WorkoutRoutineContext);
+  const {
+    setSelectedGymMemberWorkout,
+    isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
+    documentWorkoutRoutine, setDocumentWorkoutRoutine,
+  } = useContext(WorkoutRoutineContext);
+  const { gymMembersList } = useContext(AuthContext);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, 3));
@@ -18,6 +27,23 @@ export default function AddTraining() {
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
+
+  const handleClickSearchGymMemberByDocument = async () => {
+    let item = gymMembersList.filter(gymMember => gymMember.person.document == documentWorkoutRoutine);
+
+    if (item.length <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        html: `<strong>Não foi possível</strong> encontrar um aluno <strong>pelo CPF ${formatCPF(documentWorkoutRoutine)}</strong>, por favor, verifique os dados e tente novamente.`
+      })
+
+      return;
+    }
+
+    setSelectedGymMemberWorkout(item[0]);
+    setIsOpenConfirmGymMemberModal(true);
+  }
 
   const daysOfWeek = [
     "DOMINGO",
@@ -63,12 +89,24 @@ export default function AddTraining() {
                 <IMaskInput
                   mask='000.000.000-00'
                   placeholder='999.999.999-99'
+                  value={documentWorkoutRoutine}
+                  onChange={(e) => setDocumentWorkoutRoutine(e.target.value.replace(/[^0-9]/g, ''))}
                   type="text"
                   className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                 />
               </div>
               <button
-                onClick={(e) => setIsOpenConfirmGymMemberModal(true)}
+                onClick={(e) => {
+                  if (documentWorkoutRoutine.length > 11 || documentWorkoutRoutine.length < 11) {
+                    Toast.fire({
+                      icon: 'error',
+                      title: 'O CPF PRECISA TER 11 DIGITOS.'
+                    })
+
+                    return;
+                  }
+                  handleClickSearchGymMemberByDocument(e)
+                }}
                 type="button"
                 className="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-primary-blue bg-primary-blue px-4 py-2 text-sm font-medium text-white hover:opacity-80"
               >

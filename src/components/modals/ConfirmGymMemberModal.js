@@ -1,14 +1,18 @@
 import React, { useContext } from 'react';
 import { WorkoutRoutineContext } from '../../context/WorkoutRoutine';
 import { IMaskInput } from 'react-imask';
+import { Toast } from './../../common/Toast';
 
 export default function ConfirmGymMemberModal() {
-    const { setIsOpenConfirmGymMemberModal } = useContext(WorkoutRoutineContext);
+    const {
+        setIsOpenConfirmGymMemberModal, selectedGymMemberWorkout, setSelectedGymMemberWorkout,
+    } = useContext(WorkoutRoutineContext);
 
     const handleClickClearFields = async (e) => {
         e.preventDefault();
 
         setIsOpenConfirmGymMemberModal(false);
+        setSelectedGymMemberWorkout({});
     }
 
     return (
@@ -22,7 +26,7 @@ export default function ConfirmGymMemberModal() {
                                 <div className="flex flex-wrap -mx-3">
                                     <div className="grid grid-cols-1 gap-y-[16px] gap-x-4 sm:grid-cols-6 w-full max-w-full px-3 shrink-0 md:w-12/12 md:flex-0 mt-[20px]">
                                         <div className="sm:col-span-6">
-                                            <img class="w-32 h-32 rounded-full mx-auto" src="https://picsum.photos/200" alt="Profile picture" />
+                                            <img class="w-32 h-32 rounded-full mx-auto" src={selectedGymMemberWorkout.person.photo_url} alt="Profile picture" />
                                         </div>
                                         <div className="sm:col-span-3">
                                             <label
@@ -33,6 +37,8 @@ export default function ConfirmGymMemberModal() {
                                             </label>
                                             <div className="mt-1">
                                                 <input
+                                                    value={selectedGymMemberWorkout.person.name}
+                                                    disabled
                                                     type="text"
                                                     name="name"
                                                     id="name"
@@ -49,6 +55,8 @@ export default function ConfirmGymMemberModal() {
                                             </label>
                                             <div className="mt-1">
                                                 <IMaskInput
+                                                    disabled
+                                                    value={selectedGymMemberWorkout.person.document}
                                                     mask="000.000.000-00"
                                                     placeholder='999.999.999-99'
                                                     type="text"
@@ -67,6 +75,8 @@ export default function ConfirmGymMemberModal() {
                                             </label>
                                             <div className="mt-1">
                                                 <input
+                                                    disabled
+                                                    value={selectedGymMemberWorkout.person.email}
                                                     type="email"
                                                     name="email"
                                                     id="email"
@@ -83,6 +93,8 @@ export default function ConfirmGymMemberModal() {
                                             </label>
                                             <div className="mt-1">
                                                 <IMaskInput
+                                                    disabled
+                                                    value={selectedGymMemberWorkout.person.phone}
                                                     mask="(00) 00000-0000"
                                                     placeholder='(99) 99999-9999'
                                                     type="text"
@@ -101,6 +113,8 @@ export default function ConfirmGymMemberModal() {
                                             </label>
                                             <div className="mt-1">
                                                 <input
+                                                    disabled
+                                                    value={selectedGymMemberWorkout.person.birthday}
                                                     type="date"
                                                     name="birthday"
                                                     id="birthday"
@@ -121,9 +135,15 @@ export default function ConfirmGymMemberModal() {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                            Não
+                            Não, fechar
                         </button>
-                        <button class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <button onClick={() => {
+                            setIsOpenConfirmGymMemberModal(false);
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'ALUNO CONFIRMADO'
+                            })
+                        }} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>
