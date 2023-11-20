@@ -3,12 +3,32 @@ import { IMaskInput } from "react-imask";
 import { MainContext } from "../../context/Main";
 import { AuthContext } from '../../context/Auth';
 import { ExerciseContext } from "../../context/Exercise";
+import { WorkoutRoutineContext } from "../../context/WorkoutRoutine";
 
 export default function AddExerciseModal() {
   const { setIsOpenAddExerciseModal } = useContext(MainContext);
   const { exerciseList } = useContext(AuthContext);
 
-  const { idExercise, setIdExercise } = useContext(ExerciseContext);
+  const {
+    idExercise, setIdExercise,
+  } = useContext(ExerciseContext);
+
+  const {
+    repsWorkoutRoutine, setRepsWorkoutRoutine,
+    setsWorkoutRoutine, setSetsWorkoutRoutine,
+    intervalWorkoutRoutine, setIntervalWorkoutRoutine,
+    observationWorkoutRoutine, setObservationWorkoutRoutine,
+  } = useContext(WorkoutRoutineContext);
+
+  const handleClickClear = async (e) => {
+    e.preventDefault();
+
+    setIdExercise('');
+    setRepsWorkoutRoutine('');
+    setSetsWorkoutRoutine('');
+    setIntervalWorkoutRoutine('');
+    setObservationWorkoutRoutine('');
+  }
 
   return (
     <div class="z-999 modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
@@ -44,6 +64,24 @@ export default function AddExerciseModal() {
                         </select>
                       </div>
                     </div>
+                    <div className="sm:col-span-6 mt-[15px]">
+                      <label
+                        htmlFor="sets"
+                        className="block font-bold text-[16px] text-black-700"
+                      >
+                        Número de Séries *
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          value={setsWorkoutRoutine}
+                          onChange={(e) => setSetsWorkoutRoutine(e.target.value)}
+                          type="number"
+                          name="sets"
+                          id="sets"
+                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                        />
+                      </div>
+                    </div>
                     <div className="sm:col-span-3 mt-[15px]">
                       <label
                         htmlFor="reps"
@@ -52,9 +90,9 @@ export default function AddExerciseModal() {
                         Quantidade de Repetições *
                       </label>
                       <div className="mt-1">
-                        <IMaskInput
-                          mask={Number}
-                          lazy={true}
+                        <input
+                          value={repsWorkoutRoutine}
+                          onChange={(e) => setRepsWorkoutRoutine(e.target.value)}
                           type="number"
                           name="reps"
                           id="reps"
@@ -70,8 +108,9 @@ export default function AddExerciseModal() {
                         Descanso *
                       </label>
                       <div className="mt-1">
-                        <IMaskInput
-                          lazy={true}
+                        <input
+                          value={intervalWorkoutRoutine}
+                          onChange={(e) => setIntervalWorkoutRoutine(e.target.value)}
                           type="time"
                           name="rest"
                           id="rest"
@@ -81,31 +120,17 @@ export default function AddExerciseModal() {
                     </div>
                     <div className="sm:col-span-6 mt-[15px]">
                       <label
-                        htmlFor="sets"
-                        className="block font-bold text-[16px] text-black-700"
-                      >
-                        Número de Séries *
-                      </label>
-                      <div className="mt-1">
-                        <IMaskInput
-                          mask={Number}
-                          lazy={true}
-                          type="number"
-                          name="sets"
-                          id="sets"
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
-                        />
-                      </div>
-                    </div>
-                    <div className="sm:col-span-6 mt-[15px]">
-                      <label
                         htmlFor="observation"
-                        className="block font-bold text-[16px] text-black-700"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                       >
                         Observação *
                       </label>
                       <div className="mt-1"></div>
-                      <textarea class="resize-none rounded-md w-full h-full"></textarea>
+                      <textarea
+                        value={observationWorkoutRoutine}
+                        onChange={(e) => setObservationWorkoutRoutine(e.target.value)}
+                        class="resize-none rounded-md w-full h-full"
+                      ></textarea>
                     </div>
                   </div>
                 </div>
@@ -114,9 +139,18 @@ export default function AddExerciseModal() {
           </div>
         </div>
 
-        <div className="flex justify-end bg-white px-5">
-          <div className="my-[20px] flex flex-row hover:cursor-pointer">
+
+        <div className="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg">
+          <div>
             <button onClick={() => setIsOpenAddExerciseModal(false)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Fechar
+            </button>
+          </div>
+          <div className="flex flex-row">
+            <button onClick={(e) => handleClickClear(e)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>

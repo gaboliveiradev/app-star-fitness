@@ -21,16 +21,9 @@ export default function AddTraining() {
     setSelectedGymMemberWorkout,
     isOpenConfirmGymMemberModal, setIsOpenConfirmGymMemberModal,
     documentWorkoutRoutine, setDocumentWorkoutRoutine,
+    nameWorkoutRoutine, setNameWorkoutRoutine,
   } = useContext(WorkoutRoutineContext);
   const { gymMembersList } = useContext(AuthContext);
-
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, 3));
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
 
   const handleClickSearchGymMemberByDocument = async () => {
     let item = gymMembersList.filter(gymMember => gymMember.person.document == documentWorkoutRoutine);
@@ -122,6 +115,8 @@ export default function AddTraining() {
             </label>
             <div className="mt-1">
               <input
+                value={nameWorkoutRoutine}
+                onChange={(e) => setNameWorkoutRoutine(e.target.value)}
                 type="text"
                 name="email"
                 id="email"
