@@ -5,20 +5,22 @@ import { AddressContext } from '../context/Address';
 import Swal from 'sweetalert2'
 import { Toast } from './../common/Toast';
 
-export default function FormAddress() {
+export default function FormAddressEmployee() {
     const numberInputRef = useRef(null);
 
     const {
-        zipCode, setZipCode,
-        street, setStreet, district, setDistrict,
-        number, setNumber, city, setCity,
-        state, setState,
+        zipCodeEmployee, setZipCodeEmployee,
+        streetEmployee, setStreetEmployee,
+        districtEmployee, setDistrictEmployee,
+        numberEmployee, setNumberEmployee,
+        cityEmployee, setCityEmployee,
+        stateEmployee, setStateEmployee,
     } = useContext(AddressContext);
 
     const handleClickZipcode = async (e) => {
         e.preventDefault();
 
-        if (zipCode === "") {
+        if (zipCodeEmployee	 === "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -28,14 +30,14 @@ export default function FormAddress() {
             return;
         }
 
-        if (zipCode !== "") {
+        if (zipCodeEmployee !== "") {
             try {
-                axios.get(`http://viacep.com.br/ws/${zipCode.replace(/[.-]/g, "")}/json/`)
+                axios.get(`http://viacep.com.br/ws/${zipCodeEmployee.replace(/[.-]/g, "")}/json/`)
                     .then((res) => {
-                        setDistrict(res.data.bairro);
-                        setCity(res.data.localidade);
-                        setStreet(res.data.logradouro);
-                        setState(res.data.uf);
+                        setDistrictEmployee(res.data.bairro);
+                        setCityEmployee(res.data.localidade);
+                        setStreetEmployee(res.data.logradouro);
+                        setStateEmployee(res.data.uf);
 
                         if (res.data.hasOwnProperty('erro')) {
                             Swal.fire({
@@ -73,8 +75,8 @@ export default function FormAddress() {
                 <div className="mt-1 flex rounded-md shadow-sm mb-[20px]">
                     <div className="relative flex flex-grow items-stretch focus-within:z-10">
                         <IMaskInput
-                            value={zipCode}
-                            onChange={(e) => setZipCode(e.target.value)}
+                            value={zipCodeEmployee}
+                            onChange={(e) => setZipCodeEmployee(e.target.value)}
                             mask='00000-000'
                             placeholder='99999-999'
                             type="text"
@@ -98,8 +100,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
+                        value={streetEmployee}
+                        onChange={(e) => setStreetEmployee(e.target.value)}
                         type="text"
                         name="street"
                         id="street"
@@ -114,8 +116,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={district}
-                        onChange={(e) => setDistrict(e.target.value)}
+                        value={districtEmployee}
+                        onChange={(e) => setDistrictEmployee(e.target.value)}
                         type="text"
                         name="district"
                         id="district"
@@ -130,8 +132,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={number}
-                        onChange={(e) => setNumber(e.target.value)}
+                        value={numberEmployee}
+                        onChange={(e) => setNumberEmployee(e.target.value)}
                         type="text"
                         name="number"
                         id="number"
@@ -147,8 +149,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
+                        value={cityEmployee}
+                        onChange={(e) => setCityEmployee(e.target.value)}
                         type="text"
                         name="city"
                         id="city"
@@ -163,8 +165,8 @@ export default function FormAddress() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
+                        value={stateEmployee}
+                        onChange={(e) => setStateEmployee(e.target.value)}
                         type="text"
                         name="state"
                         id="state"

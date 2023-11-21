@@ -14,6 +14,14 @@ export const AddressProvider = ({ children }) => {
     const [number, setNumber] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
+    // Address Data Employee
+    const [idAddressEmployee, setIdAddressEmployee] = useState("");
+    const [zipCodeEmployee, setZipCodeEmployee] = useState("");
+    const [streetEmployee, setStreetEmployee] = useState("");
+    const [districtEmployee, setDistrictEmployee] = useState("");
+    const [numberEmployee, setNumberEmployee] = useState("");
+    const [cityEmployee, setCityEmployee] = useState("");
+    const [stateEmployee, setStateEmployee] = useState("");
 
     async function updateAddress(parameters) {
         const response = await address.update(parameters);
@@ -29,6 +37,14 @@ export const AddressProvider = ({ children }) => {
         number, setNumber,
         city, setCity,
         state, setState,
+        // Address Data Employee
+        idAddressEmployee, setIdAddressEmployee,
+        zipCodeEmployee, setZipCodeEmployee,
+        streetEmployee, setStreetEmployee,
+        districtEmployee, setDistrictEmployee,
+        numberEmployee, setNumberEmployee,
+        cityEmployee, setCityEmployee,
+        stateEmployee, setStateEmployee,
         // methods
         updateAddress
     };

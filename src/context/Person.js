@@ -15,6 +15,15 @@ export const PersonProvider = ({ children }) => {
     const [birthday, setBirthday] = useState("");
     const [gender, setGender] = useState("");
 
+    // Person Data Employee
+    const [idPersonEmployee, setIdPersonEmployee] = useState("");
+    const [nameEmployee, setNameEmployee] = useState("");
+    const [emailEmployee, setEmailEmployee] = useState("");
+    const [documentEmployee, setDocumentEmployee] = useState("");
+    const [phoneEmployee, setPhoneEmployee] = useState("");
+    const [birthdayEmployee, setBirthdayEmployee] = useState("");
+    const [genderEmployee, setGenderEmployee] = useState("");
+
     const [password, setPassword] = useState("");
 
     async function updatePerson(parameters) {
@@ -32,6 +41,14 @@ export const PersonProvider = ({ children }) => {
         birthday, setBirthday,
         gender, setGender,
         password, setPassword,
+        // Person Data Employee
+        idPersonEmployee, setIdPersonEmployee,
+        nameEmployee, setNameEmployee,
+        emailEmployee, setEmailEmployee,
+        documentEmployee, setDocumentEmployee,
+        phoneEmployee, setPhoneEmployee,
+        birthdayEmployee, setBirthdayEmployee,
+        genderEmployee, setGenderEmployee,
         //methods
         updatePerson
     };

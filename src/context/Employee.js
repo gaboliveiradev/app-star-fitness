@@ -5,11 +5,10 @@ export const EmployeeContext = createContext();
 export const EmployeeProvider = ({ children }) => {
 
     const [cref, setCref] = useState("");
-    const [occupation, setOccupation] = useState("");
     const [observation, setObservation] = useState("");
 
     const context = {
-        cref, setCref, occupation, setOccupation,
+        cref, setCref,
         observation, setObservation,
     };
 

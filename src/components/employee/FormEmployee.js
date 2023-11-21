@@ -12,9 +12,13 @@ export default function FormEmployee() {
     } = useContext(EmployeeContext);
 
     const {
-        name, setName, email, setEmail,
-        document, setDocument, phone, setPhone, birthday, setBirthday,
-        gender, setGender,
+        idPersonEmployee, setIdPersonEmployee,
+        nameEmployee, setNameEmployee,
+        emailEmployee, setEmailEmployee,
+        documentEmployee, setDocumentEmployee,
+        phoneEmployee, setPhoneEmployee,
+        birthdayEmployee, setBirthdayEmployee,
+        genderEmployee, setGenderEmployee,
     } = useContext(PersonContext);
 
     return (
@@ -25,8 +29,8 @@ export default function FormEmployee() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={nameEmployee}
+                        onChange={(e) => setNameEmployee(e.target.value)}
                         type="text"
                         name="name"
                         id="name"
@@ -42,8 +46,8 @@ export default function FormEmployee() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={emailEmployee}
+                        onChange={(e) => setEmailEmployee(e.target.value)}
                         type="text"
                         name="email"
                         id="email"
@@ -61,8 +65,8 @@ export default function FormEmployee() {
                         mask='000.000.000-00'
                         placeholder='999.999.999-99'
                         lazy={true}
-                        value={document}
-                        onChange={(e) => setDocument(e.target.value)}
+                        value={documentEmployee}
+                        onChange={(e) => setDocumentEmployee(e.target.value)}
                         type="text"
                         name="document"
                         id="document"
@@ -80,8 +84,8 @@ export default function FormEmployee() {
                         mask='(00) 00000-0000'
                         placeholder='(99) 99999-9999'
                         lazy={true}
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={phoneEmployee}
+                        onChange={(e) => setPhoneEmployee(e.target.value)}
                         type="text"
                         name="phone"
                         id="phone"
@@ -96,8 +100,8 @@ export default function FormEmployee() {
                 </label>
                 <div className="mt-1">
                     <input
-                        value={birthday}
-                        onChange={(e) => setBirthday(e.target.value)}
+                        value={birthdayEmployee}
+                        onChange={(e) => setBirthdayEmployee(e.target.value)}
                         type="date"
                         name="birthday"
                         id="birthday"
@@ -112,8 +116,8 @@ export default function FormEmployee() {
                 </label>
                 <div className="mt-1">
                     <select
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
+                        value={genderEmployee}
+                        onChange={(e) => setGenderEmployee(e.target.value)}
                         name="gender"
                         id="gender"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
@@ -127,13 +131,10 @@ export default function FormEmployee() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="cref" className="block font-bold text-[16px] text-black-700">
-                    Cref *
+                    CREF *
                 </label>
                 <div className="mt-1">
-                    <IMaskInput
-                        mask='000.000.000-00'
-                        placeholder='999.999.999-99'
-                        lazy={true}
+                    <input
                         value={cref}
                         onChange={(e) => setCref(e.target.value)}
                         type="text"
