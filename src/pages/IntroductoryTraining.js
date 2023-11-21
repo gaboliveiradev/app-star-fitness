@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { IntroductoryCard } from "../components/training/IntroductoryCard";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/outline";
-import IntroductoryModal from "../components/training/IntroductoryModal";
 import CardTrainingWeek from "../components/CardTrainingWeek";
 
 export default function IntroductoryTraining() {
