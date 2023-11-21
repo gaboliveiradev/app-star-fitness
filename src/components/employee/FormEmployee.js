@@ -3,23 +3,26 @@ import { IMaskInput } from 'react-imask';
 
 import { EmployeeContext } from '../../context/Employee';
 import { PersonContext } from '../../context/Person';
+import { AuthContext } from '../../context/Auth';
 
 export default function FormEmployee() {
 
     const {
-        cref, setCref, occupation, setOccupation,
+        cref, setCref, idAccessGroup, setIdAccessGroup,
         observation, setObservation
     } = useContext(EmployeeContext);
 
     const {
-        idPersonEmployee, setIdPersonEmployee,
         nameEmployee, setNameEmployee,
         emailEmployee, setEmailEmployee,
         documentEmployee, setDocumentEmployee,
         phoneEmployee, setPhoneEmployee,
         birthdayEmployee, setBirthdayEmployee,
         genderEmployee, setGenderEmployee,
+        password, setPassword,
     } = useContext(PersonContext);
+
+    const { accessGroupList } = useContext(AuthContext);
 
     return (
         <>
@@ -147,20 +150,39 @@ export default function FormEmployee() {
 
             <div className="sm:col-span-1">
                 <label htmlFor="gender" className="block font-bold text-[16px] text-black-700">
-                    Ocupação *
+                    Grupo de Acesso *
                 </label>
                 <div className="mt-1">
                     <select
-                        value={occupation}
-                        onChange={(e) => setOccupation(e.target.value)}
+                        value={idAccessGroup}
+                        onChange={(e) => setIdAccessGroup(e.target.value)}
                         name="occupation"
                         id="occupation"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     >
-                        <option value={""} selected disabled>Escolha</option>
-                        <option value="G">Gerente</option>
-                        <option value="F">Funcionário</option>
+                        <option value={""} selected disabled>--- Escolha ---</option>
+                        {
+                            accessGroupList.map(accessGroup => (
+                                <option value={accessGroup.id}>{accessGroup.name}</option>
+                            ))
+                        }
                     </select>
+                </div>
+            </div>
+
+            <div className="sm:col-span-6">
+                <label htmlFor="password" className="block font-bold text-[16px] text-black-700">
+                    Senha de Acesso *
+                </label>
+                <div className="mt-1">
+                    <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type="password"
+                        name="password"
+                        id="password"
+                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
+                    />
                 </div>
             </div>
 

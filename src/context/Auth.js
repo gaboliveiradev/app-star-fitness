@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Await, useNavigate } from 'react-router-dom';
 import * as auth from '../services/auth';
 import * as type from '../services/type';
 import * as address from '../services/address';
@@ -7,6 +7,7 @@ import * as gymMemberPerson from '../services/gymMember';
 import * as billing from '../services/billing';
 import * as exercise from '../services/exercise';
 import * as employee from '../services/employee';
+import * as accessGroup from '../services/accessGroup';
 
 export const AuthContext = createContext();
 
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     const [gymMembersList, setGymMembersList] = useState(null);
     const [exerciseList, setExerciseList] = useState(null);
     const [employeeList, setEmployeeList] = useState(null);
+    const [accessGroupList, setAccessGroupList] = useState(null);
 
     useEffect(() => {
         const token = localStorage.getItem('app-star-fitness-token');
@@ -31,11 +33,18 @@ export const AuthProvider = ({ children }) => {
         const gymMembersList = localStorage.getItem('app-star-fitness-gym-members');
         const exerciseList = localStorage.getItem('app-star-fitness-exercise');
         const employeeList = localStorage.getItem('app-star-fitness-employee');
+        const accessGroupList = localStorage.getItem('app-star-fitness-access-group');
 
         if (token && user && isAuthenticated) {
             setUser(JSON.parse(user));
             setToken(token);
             setIsAuthenticated(true);
+
+            return;
+        }
+
+        if (accessGroupList) {
+            setAccessGroupList(JSON.parse(accessGroupList));
 
             return;
         }
@@ -99,8 +108,9 @@ export const AuthProvider = ({ children }) => {
 
             await getType();
             await getGymMembers();
-            await getEmployee()
+            await getEmployee();
             await getExercise();
+            await getAccessGroup();
 
             return true;
         } catch (error) {
@@ -140,6 +150,17 @@ export const AuthProvider = ({ children }) => {
 
         setEmployeeList(response.data.data);
         localStorage.setItem('app-star-fitness-employee', JSON.stringify(response.data.data));
+
+        return true;
+    }
+
+    async function getAccessGroup() {
+        const response = await accessGroup.get();
+
+        if (response.status !== 200) return false;
+
+        setAccessGroupList(response.data.data);
+        localStorage.setItem('app-star-fitness-access-group', JSON.stringify(response.data.data));
 
         return true;
     }
@@ -203,6 +224,7 @@ export const AuthProvider = ({ children }) => {
         user, setUser,
         isAuthenticated, setIsAuthenticated,
         typeList, setTypeList,
+        accessGroupList, setAccessGroupList,
         exerciseList, setExerciseList,
         employeeList, setEmployeeList,
         getExercise, getEmployee,

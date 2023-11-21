@@ -12,9 +12,8 @@ export const create = async (parameters) => {
             gender: parameters.gender,
             cref: parameters.cref,
             occupation: parameters.occupation,
-            observation: parameters.observation,
+            observation: (parameters.observation === "") ? null : parameters.observation,
             id_address: parameters.id_address
-
         })
 
         return (response.status === 201) ? response : false;

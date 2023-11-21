@@ -15,6 +15,7 @@ export default function RegisterEmployee() {
     } = useContext(MainContext);
 
     const {
+        password, setPassword,
         nameEmployee, setNameEmployee,
         emailEmployee, setEmailEmployee,
         documentEmployee, setDocumentEmployee,
@@ -24,7 +25,7 @@ export default function RegisterEmployee() {
     } = useContext(PersonContext);
 
     const {
-        cref, setCref,
+        cref, setCref, idAccessGroup, setIdAccessGroup,
         observation, setObservation
     } = useContext(EmployeeContext);
 
@@ -37,13 +38,15 @@ export default function RegisterEmployee() {
         stateEmployee, setStateEmployee,
     } = useContext(AddressContext);
 
-    const { createEmployee } = useContext(EmployeeContext);
+    const { createEmployee, createAccessGroupEmployeeAssoc } = useContext(EmployeeContext);
     const { createAddress } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
 
     const handleClickClearFields = async () => {
         setNameEmployee('');
+        setIdAccessGroup('');
+        setPassword("");
         setEmailEmployee('');
         setDocumentEmployee('');
         setPhoneEmployee('');
@@ -93,6 +96,7 @@ export default function RegisterEmployee() {
                 const employeeParameters = {
                     name: nameEmployee,
                     email: emailEmployee,
+                    password: password,
                     document: documentEmployee.replace(/[^0-9]/g, ''),
                     phone: phoneEmployee.replace(/[^0-9]/g, ''),
                     birthday: birthdayEmployee,
@@ -108,6 +112,24 @@ export default function RegisterEmployee() {
                         icon: 'error',
                         title: 'Erro Inesperado',
                         html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> os dados de um <b>novo funcionário</b>. Por favor, verifique e tente novamente.'
+                    })
+
+                    return;
+                }
+
+                setIsLoadingText("Vinculando Grupo de Acesso...");
+
+                const accessGroupEmployeeAssocParameters = {
+                    id_access_group: idAccessGroup,
+                    id_employee: responseEmployee.data.data.id,
+                }
+                const responseAccessGroupEmployeeAssoc = await createAccessGroupEmployeeAssoc(accessGroupEmployeeAssocParameters);
+
+                if (responseAccessGroupEmployeeAssoc.status !== 201) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro Inesperado',
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>vincular</b> os dados de um <b>novo funcionário</b> a um grupo de acesso. Por favor, verifique e tente novamente.'
                     })
 
                     return;
