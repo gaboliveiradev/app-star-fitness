@@ -39,7 +39,7 @@ export default function RegisterEmployee() {
     } = useContext(AddressContext);
 
     const { createEmployee, createAccessGroupEmployeeAssoc } = useContext(EmployeeContext);
-    const { createAddress } = useContext(AuthContext);
+    const { createAddress, getEmployee } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
 
@@ -134,6 +134,9 @@ export default function RegisterEmployee() {
 
                     return;
                 }
+
+                setIsLoadingText("Atualizando Funcionários...");
+                await getEmployee();
 
                 Swal.fire({
                     icon: 'success',
