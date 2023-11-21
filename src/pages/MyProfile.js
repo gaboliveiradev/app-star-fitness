@@ -12,7 +12,7 @@ export default function MyProfile() {
   const [photoUrl, setPhotoUrl] = useState(user.photo_url);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [occupation, setOccupation] = useState(user.employee.occupation);
+  const [accessGroup, setAccessGroup] = useState(user.accessGroup.name);
   const [document, setDocument] = useState(user.document);
   const [cref, setCref] = useState(user.employee.cref);
   const [phone, setPhone] = useState(user.phone);
@@ -34,7 +34,7 @@ export default function MyProfile() {
     setPhotoUrl(user.photo_url);
     setName(user.name);
     setEmail(user.email);
-    setOccupation(user.employee.occupation);
+    setAccessGroup(user.accessGroup.name);
     setDocument(user.document);
     setCref(user.employee.cref);
     setPhone(user.phone);
@@ -67,7 +67,7 @@ export default function MyProfile() {
             <div className="h-full">
               <h5 className="mb-1 text-white font-medium">{name}</h5>
               <p class="mb-0 font-semibold leading-normal text-white dark:opacity-60 text-sm">
-                {capitalizeFirstLetter(occupation)}
+                {capitalizeFirstLetter(accessGroup)}
               </p>
             </div>
           </div>

@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import Logo from './../assets/logo.png';
 
 import DarkModeSwitcher from './small_components/DarkModeSwitcher';
-import DropdownNotification from './small_components/DropdownNotification';
-import DropdownMessage from './small_components/DropdownMessage';
 import DropdownUser from './small_components/DropdownUser';
 
 export default function Header(props) {

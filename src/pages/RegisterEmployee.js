@@ -7,7 +7,6 @@ import FormEmployee from '../components/employee/FormEmployee';
 import { PersonContext } from '../context/Person';
 import { AddressContext } from '../context/Address';
 
-
 export default function RegisterEmployee() {
 
     const {
