@@ -14,6 +14,20 @@ export const createAccessGroupEmployeeAssoc = async (parameters) => {
     }
 }
 
+export const updateAccessGroupEmployeeAssoc = async (parameters) => {
+    try {
+        const response = await api.post(`/access-group/employee/update`, {
+            id_access_group: parameters.id_access_group,
+            id_employee: parameters.id_employee,
+        })
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 
 export const get = async () => {
     try {

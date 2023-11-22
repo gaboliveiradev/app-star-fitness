@@ -19,6 +19,12 @@ export const EmployeeProvider = ({ children }) => {
         return (response.status === 201) ? response : false;
     }
 
+    async function updateAccessGroupEmployeeAssoc(parameters) {
+        const response = await accessGroup.updateAccessGroupEmployeeAssoc(parameters);
+
+        return (response.status === 200) ? response : false;
+    }
+
     async function createEmployee(parameters) {
         const response = await employee.create(parameters);
 
@@ -46,7 +52,7 @@ export const EmployeeProvider = ({ children }) => {
         // methods
         createAccessGroupEmployeeAssoc,
         createEmployee, deleteEmployee,
-        updateEmployee,
+        updateEmployee, updateAccessGroupEmployeeAssoc,
     };
 
     return (

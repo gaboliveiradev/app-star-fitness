@@ -30,7 +30,7 @@ export default function RegisterEmployee() {
     const {
         cref, setCref, idAccessGroup, setIdAccessGroup,
         observation, setObservation, isUpdate, setIsUpdate,
-        idEmployee, updateEmployee
+        idEmployee, updateEmployee, updateAccessGroupEmployeeAssoc
     } = useContext(EmployeeContext);
 
     const {
@@ -135,6 +135,24 @@ export default function RegisterEmployee() {
                     icon: 'error',
                     title: 'Erro Inesperado',
                     html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>funcionário</b>. Por favor, verifique e tente novamente.'
+                })
+
+                return;
+            }
+
+            setIsLoadingText("Cadastrando/Atualizando Grupo de Acesso...");
+
+            const accessGroupEmployeeParameters = {
+                id_access_group: idAccessGroup,
+                id_employee: idEmployee,
+            }
+            const responseAccessGroupEmployee = await updateAccessGroupEmployeeAssoc(accessGroupEmployeeParameters);
+
+            if (responseAccessGroupEmployee.status !== 200) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro Inesperado',
+                    html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>grupo de acesso</b> a um funcionário. Por favor, verifique e tente novamente.'
                 })
 
                 return;
