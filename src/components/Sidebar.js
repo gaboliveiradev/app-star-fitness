@@ -310,12 +310,12 @@ export default function Sidebar(props) {
                     <div className={`translate transform overflow-hidden ${!open && 'hidden'}`}>
                       <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                         <li>
-                          <NavLink to="/employee/register/form" className={({ isActive }) => 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' + (isActive && '!text-white')}>
+                          <NavLink to="/employee/form" className={({ isActive }) => 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' + (isActive && '!text-white')}>
                             Cadastrar Funcionários
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/employee-management" className={({ isActive }) => 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' + (isActive && '!text-white')}>
+                          <NavLink to="/employee" className={({ isActive }) => 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' + (isActive && '!text-white')}>
                             Gestão de Funcionários
                           </NavLink>
                         </li>

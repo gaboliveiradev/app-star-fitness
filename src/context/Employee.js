@@ -6,6 +6,8 @@ export const EmployeeContext = createContext();
 
 export const EmployeeProvider = ({ children }) => {
 
+    const [isUpdate, setIsUpdate] = useState(false);
+
     const [cref, setCref] = useState("");
     const [idAccessGroup, setIdAccessGroup] = useState('');
     const [observation, setObservation] = useState("");
@@ -32,6 +34,7 @@ export const EmployeeProvider = ({ children }) => {
         cref, setCref,
         idAccessGroup, setIdAccessGroup,
         observation, setObservation,
+        isUpdate, setIsUpdate,
         // methods
         createAccessGroupEmployeeAssoc,
         createEmployee, deleteEmployee,

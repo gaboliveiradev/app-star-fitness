@@ -54,8 +54,6 @@ export default function MyGymMembers() {
     const handleClickAlterUpdate = async (e, row) => {
         e.preventDefault();
 
-        console.log(row);
-
         // Person;
         setIdPerson(row.person.id);
         setName(row.person.name);

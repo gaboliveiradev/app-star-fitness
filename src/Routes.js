@@ -65,12 +65,12 @@ export const Routing = () => {
                 </ProtectedRoutes>
             } />
             {/* @==== Employee ====@ */}
-            <Route path="/employee/register/form" exact element={
+            <Route path="/employee/form" exact element={
                 <ProtectedRoutes>
                     <DashboardLayout page={<RegisterEmployee />} />
                 </ProtectedRoutes>
             } />
-            <Route path="/employee-management" exact element={
+            <Route path="/employee" exact element={
                 <ProtectedRoutes>
                     <DashboardLayout page={<MyEmployee />} />
                 </ProtectedRoutes>

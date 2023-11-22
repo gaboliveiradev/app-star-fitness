@@ -3,21 +3,76 @@ import { formatCPF, formatPhone } from '../utils/format';
 import DataTable from 'react-data-table-component';
 import { AuthContext } from '../context/Auth';
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 import { EmployeeContext } from '../context/Employee';
 import { MainContext } from '../context/Main';
+import { PersonContext } from '../context/Person';
+import { AddressContext } from '../context/Address';
 
 export default function MyEmployee() {
+  const navigate = useNavigate();
 
   const { employeeList, getEmployee } = useContext(AuthContext);
   const { deleteEmployee } = useContext(EmployeeContext);
   const { setIsLoading, setIsLoadingText } = useContext(MainContext);
 
+  const {
+    setNameEmployee,
+    setEmailEmployee,
+    setDocumentEmployee,
+    setPhoneEmployee,
+    setBirthdayEmployee,
+    setGenderEmployee,
+    setIdPersonEmployee,
+  } = useContext(PersonContext);
+
+  const {
+    setZipCodeEmployee, setStreetEmployee,
+    setDistrictEmployee, setNumberEmployee,
+    setCityEmployee, setStateEmployee,
+    setIdAddressEmployee
+  } = useContext(AddressContext);
+
+  const {
+    setCref,
+    setIdAccessGroup,
+    setObservation,
+    setIsUpdate,
+  } = useContext(EmployeeContext);
+
   const [records, setRecords] = useState(employeeList);
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [filterSelect, setFilterSelect] = useState('');
 
-  const handleClickAlterUpdate = async (e) => {
+  const handleClickAlterUpdate = async (e, row) => {
+    e.preventDefault();
 
+    // Person
+    setIdPersonEmployee(row.person.id)
+    setNameEmployee(row.person.name);
+    setEmailEmployee(row.person.email);
+    setDocumentEmployee(row.person.document);
+    setPhoneEmployee(row.person.phone);
+    setBirthdayEmployee(row.person.birthday);
+    setGenderEmployee(row.person.gender);
+
+    // Address
+    setIdAddressEmployee(row.person.address.id);
+    setZipCodeEmployee(row.person.address.zip_code);
+    setStreetEmployee(row.person.address.street);
+    setDistrictEmployee(row.person.address.district);
+    setNumberEmployee(row.person.address.number);
+    setCityEmployee(row.person.address.city);
+    setStateEmployee(row.person.address.state);
+
+    // Employee
+    setCref(row.cref);
+    setObservation(row.observation);
+    setIdAccessGroup(row.access_group_employee_assoc[0].id_access_group);
+
+    setIsUpdate(true);
+
+    navigate('/employee/form');
   }
 
   const handleClickDelete = async (e, row) => {
