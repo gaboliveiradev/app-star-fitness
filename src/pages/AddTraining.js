@@ -92,8 +92,8 @@ export default function AddTraining() {
       if (responseWorkoutRoutineAssoc.status !== 201) {
         Swal.fire({
           icon: 'error',
-          title: 'Oops...',
-          html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível vincular todos exercícios a ficha de treino criada.'
+          title: 'Erro Inesperado',
+          html: 'Oops... Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível vincular todos exercícios a ficha de treino criada.'
         })
 
         return;
@@ -102,7 +102,6 @@ export default function AddTraining() {
       Swal.fire({
         icon: 'success',
         title: 'Ficha de Treino Criada',
-        html: 'Ihuul... Parabéns, você <b>criou</b> uma ficha de treino. Acesse \"<b>Ficha de Treino/Gestão e Fichas de Treinos</b>\" para gerenciar as fichas de treinos.'
       })
 
       handleClickClear(e);
@@ -110,8 +109,8 @@ export default function AddTraining() {
     } catch (error) {
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        html: 'Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar uma ficha de treino.'
+        title: 'Erro Inesperado',
+        html: 'Oops... Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar uma ficha de treino.'
       })
       console.log(error);
     } finally {

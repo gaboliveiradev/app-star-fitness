@@ -22,13 +22,19 @@ export const EmployeeProvider = ({ children }) => {
         return (response.status === 201) ? response : false;
     }
 
+    async function deleteEmployee(idEmployee) {
+        const response = await employee.del(idEmployee);
+
+        return (response.status === 200) ? response : false;
+    }
+
     const context = {
         cref, setCref,
         idAccessGroup, setIdAccessGroup,
         observation, setObservation,
         // methods
         createAccessGroupEmployeeAssoc,
-        createEmployee
+        createEmployee, deleteEmployee,
     };
 
     return (

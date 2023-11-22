@@ -141,7 +141,6 @@ export default function RegisterEmployee() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Funcionário Cadastrado.',
-                    html: 'Ihuul... Parabéns, você <b>cadastrou</b> um novo funcionário na academia. Acompanhe os funcionários da sua academia acessando <b>Funcionários/Gestão de Funcionários.</b>'
                 })
 
                 handleClickClearFields();
