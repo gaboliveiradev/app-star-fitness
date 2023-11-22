@@ -15,6 +15,7 @@ export default function RegisterEmployee() {
     } = useContext(MainContext);
 
     const {
+        idPersonEmployee,
         password, setPassword,
         nameEmployee, setNameEmployee,
         emailEmployee, setEmailEmployee,
@@ -22,20 +23,26 @@ export default function RegisterEmployee() {
         phoneEmployee, setPhoneEmployee,
         birthdayEmployee, setBirthdayEmployee,
         genderEmployee, setGenderEmployee,
+        //methods
+        updatePerson
     } = useContext(PersonContext);
 
     const {
         cref, setCref, idAccessGroup, setIdAccessGroup,
-        observation, setObservation
+        observation, setObservation, isUpdate, setIsUpdate,
+        idEmployee, updateEmployee
     } = useContext(EmployeeContext);
 
     const {
+        idAddressEmployee,
         zipCodeEmployee, setZipCodeEmployee,
         streetEmployee, setStreetEmployee,
         districtEmployee, setDistrictEmployee,
         numberEmployee, setNumberEmployee,
         cityEmployee, setCityEmployee,
         stateEmployee, setStateEmployee,
+        //methods
+        updateAddress,
     } = useContext(AddressContext);
 
     const { createEmployee, createAccessGroupEmployeeAssoc } = useContext(EmployeeContext);
@@ -60,6 +67,99 @@ export default function RegisterEmployee() {
         setNumberEmployee('');
         setCityEmployee('');
         setStateEmployee('');
+
+        setIsUpdate(false);
+    }
+
+    const handleClickUpdateEmployee = async (e) => {
+        e.preventDefault();
+
+        try {
+            setIsLoading(true);
+            setIsLoadingText("Cadastrando/Atualizando Endereço...");
+
+            const addressParameters = {
+                idAddress: idAddressEmployee,
+                street: streetEmployee,
+                district: districtEmployee,
+                number: numberEmployee,
+                zipCode: zipCodeEmployee.replace(/[^0-9]/g, ''),
+                city: cityEmployee,
+                state: stateEmployee
+            }
+            const responseAddress = await updateAddress(addressParameters);
+
+            if (responseAddress.status !== 200) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro Inesperado',
+                    html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>endereço</b>. Por favor, verifique e tente novamente.'
+                })
+
+                return;
+            }
+
+            setIsLoadingText("Cadastrando/Atualizando Funcionário...");
+
+            const personParameters = {
+                idPerson: idPersonEmployee,
+                name: nameEmployee,
+                email: emailEmployee,
+                document: documentEmployee.replace(/[^0-9]/g, ''),
+                phone: phoneEmployee.replace(/[^0-9]/g, ''),
+                birthday: birthdayEmployee,
+                gender: genderEmployee,
+            }
+
+            const responsePerson = await updatePerson(personParameters);
+
+            if (responsePerson.status !== 200) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro Inesperado',
+                    html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>funcionário</b>. Por favor, verifique e tente novamente.'
+                })
+
+                return;
+            }
+
+            const employeeParameters = {
+                idEmployee: idEmployee,
+                cref: cref,
+                observation: observation,
+            }
+            const responseEmployee = await updateEmployee(employeeParameters);
+
+            if (responseEmployee.status !== 200) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro Inesperado',
+                    html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> um <b>funcionário</b>. Por favor, verifique e tente novamente.'
+                })
+
+                return;
+            }
+
+            setIsLoadingText("Atualizando Funcionários...");
+            await getEmployee();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Funcionário Atualizado.',
+            })
+
+            handleClickClearFields(e);
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro Inesperado',
+                html: 'Oops... Ocorreu um erro inesperado, ao <b>tentar atualizar</b> um <b>ALUNO</b> tente novamente mais tarde.'
+            })
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+            setIsLoadingText("");
+        }
     }
 
     const handleClickSaveEmployee = async (e) => {
@@ -171,13 +271,13 @@ export default function RegisterEmployee() {
             <article className='flex-auto h-full mx-auto rounded-md w-full'>
                 <div className='flex flex-col md:flex-row'>
                     <div className="flex-auto pb-[14px]">
-                        <h1 class="title">Novo Funcionário</h1>
+                        <h1 class="title">{isUpdate ? 'Atualizar' : 'Novo'} Funcionário</h1>
                         <ul class="breadcrumbs">
                             <li><span>Principal</span></li>
                             <li class="divider">/</li>
                             <li><span>Funcionários</span></li>
                             <li class="divider">/</li>
-                            <li><span class="active">Cadastrar Funcionários</span></li>
+                            <li><span class="active">{isUpdate ? 'Atualizar' : 'Cadastrar'} Funcionários</span></li>
                         </ul>
                     </div>
 
@@ -223,83 +323,83 @@ export default function RegisterEmployee() {
                 </div>
 
                 <div className="sm:col-span-6 my-[20px] flex flex-row justify-between hover:cursor-pointer">
-                            <div>
-                                <button onClick={(e) => {
-                                    Swal.fire({
-                                        title: 'Você tem Certeza?',
-                                        icon: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        cancelButtonText: 'Cancelar',
-                                        confirmButtonText: 'Sim, Limpar!'
-                                    }).then(async (result) => {
-                                        if (result.isConfirmed) {
-                                            handleClickClearFields(e)
-                                        }
-                                    })
-                                }} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    <div>
+                        <button onClick={(e) => {
+                            Swal.fire({
+                                title: 'Você tem Certeza?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                cancelButtonText: 'Cancelar',
+                                confirmButtonText: 'Sim, Limpar!'
+                            }).then(async (result) => {
+                                if (result.isConfirmed) {
+                                    handleClickClearFields(e)
+                                }
+                            })
+                        }} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Cancelar
+                        </button>
+                    </div>
+                    <div className='flex flex-row'>
+                        {
+                            (stepper !== 1) && (
+                                <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
                                     </svg>
-                                    Cancelar
+                                    Voltar
                                 </button>
-                            </div>
-                            <div className='flex flex-row'>
-                                {
-                                    (stepper !== 1) && (
-                                        <button onClick={() => setStepper((stepper === 1) ? 1 : stepper - 1)} class="flex flex-row justify-center items-center bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
-                                            </svg>
-                                            Voltar
-                                        </button>
-                                    )
-                                }
-                                {
-                                    (stepper === 2) ? (
-                                        <button onClick={(e) => {
-                                            if (nameEmployee !== "" && emailEmployee !== "" && documentEmployee !== "" && phoneEmployee !== "" && birthdayEmployee !== "" && genderEmployee !== "" && zipCodeEmployee !== "" && streetEmployee !== ""
-                                                && districtEmployee !== "" && numberEmployee !== "" && cityEmployee !== "" && stateEmployee !== "" && cref !== "") {
-                                                Swal.fire({
-                                                    title: 'Você tem Certeza?',
-                                                    icon: 'warning',
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: '#3085d6',
-                                                    cancelButtonColor: '#d33',
-                                                    cancelButtonText: 'Cancelar',
-                                                    confirmButtonText: `Sim, cadastrar`
-                                                }).then(async (result) => {
-                                                    if (result.isConfirmed) {
-                                                        handleClickSaveEmployee(e);
-                                                    }
-                                                })
-
-                                                return;
+                            )
+                        }
+                        {
+                            (stepper === 2) ? (
+                                <button onClick={(e) => {
+                                    if (nameEmployee !== "" && emailEmployee !== "" && documentEmployee !== "" && phoneEmployee !== "" && birthdayEmployee !== "" && genderEmployee !== "" && zipCodeEmployee !== "" && streetEmployee !== ""
+                                        && districtEmployee !== "" && numberEmployee !== "" && cityEmployee !== "" && stateEmployee !== "" && cref !== "") {
+                                        Swal.fire({
+                                            title: 'Você tem Certeza?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#3085d6',
+                                            cancelButtonColor: '#d33',
+                                            cancelButtonText: 'Cancelar',
+                                            confirmButtonText: `Sim, ${isUpdate ? 'atualizar' : 'cadastrar'}`
+                                        }).then(async (result) => {
+                                            if (result.isConfirmed) {
+                                                (isUpdate) ? handleClickUpdateEmployee(e) : handleClickSaveEmployee(e);
                                             }
+                                        })
 
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Campos Vazio!',
-                                                html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
-                                            })
-                                        }} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                            </svg>
-                                            Salvar
-                                        </button>
-                                    ) : (
-                                        <button onClick={() => setStepper((stepper === 2) ? 2 : stepper + 1)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                            Avançar
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                                            </svg>
-                                        </button>
-                                    )
-                                }
-                            </div>
-                        </div>
+                                        return;
+                                    }
+
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Campos Vazio!',
+                                        html: 'Oops... Parece que <b>alguns campos</b> estão <b>VAZIOS</b>. Por favor, verifique e tente novamente'
+                                    })
+                                }} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    {isUpdate ? "Atualizar" : 'Salvar'}
+                                </button>
+                            ) : (
+                                <button onClick={() => setStepper((stepper === 2) ? 2 : stepper + 1)} class="flex flex-row justify-center items-center bg-tertiary-blue text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    Avançar
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                                    </svg>
+                                </button>
+                            )
+                        }
+                    </div>
+                </div>
             </article>
         </>
     )

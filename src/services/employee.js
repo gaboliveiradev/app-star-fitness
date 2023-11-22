@@ -11,12 +11,25 @@ export const create = async (parameters) => {
             birthday: parameters.birthday,
             gender: parameters.gender,
             cref: parameters.cref,
-            occupation: parameters.occupation,
             observation: (parameters.observation === "") ? null : parameters.observation,
             id_address: parameters.id_address
         })
 
         return (response.status === 201) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export const update = async (parameters) => {
+    try {
+        const response = await api.put(`/employee/${parameters.idEmployee}`, {
+            cref: parameters.cref,
+            observation: (parameters.observation === "") ? null : parameters.observation,
+        })
+
+        return (response.status === 200) ? response : false;
     } catch (error) {
         console.log(error);
         return false;

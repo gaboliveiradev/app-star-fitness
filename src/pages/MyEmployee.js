@@ -37,6 +37,7 @@ export default function MyEmployee() {
     setCref,
     setIdAccessGroup,
     setObservation,
+    setIdEmployee,
     setIsUpdate,
   } = useContext(EmployeeContext);
 
@@ -66,6 +67,7 @@ export default function MyEmployee() {
     setStateEmployee(row.person.address.state);
 
     // Employee
+    setIdEmployee(row.id);
     setCref(row.cref);
     setObservation(row.observation);
     setIdAccessGroup(row.access_group_employee_assoc[0].id_access_group);

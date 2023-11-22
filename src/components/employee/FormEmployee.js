@@ -9,7 +9,7 @@ export default function FormEmployee() {
 
     const {
         cref, setCref, idAccessGroup, setIdAccessGroup,
-        observation, setObservation
+        observation, setObservation, isUpdate
     } = useContext(EmployeeContext);
 
     const {
@@ -180,6 +180,7 @@ export default function FormEmployee() {
                         onChange={(e) => setPassword(e.target.value)}
                         type="password"
                         name="password"
+                        disabled={isUpdate}
                         id="password"
                         className="block w-full rounded-md border-gray-300 shadow-sm focus:border-dark-gray focus:ring-dark-gray sm:text-[16px] dark:bg-sidebar dark:border-sidebar duration-300 ease-linear"
                     />

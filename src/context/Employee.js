@@ -8,6 +8,7 @@ export const EmployeeProvider = ({ children }) => {
 
     const [isUpdate, setIsUpdate] = useState(false);
 
+    const [idEmployee, setIdEmployee] = useState('');
     const [cref, setCref] = useState("");
     const [idAccessGroup, setIdAccessGroup] = useState('');
     const [observation, setObservation] = useState("");
@@ -24,6 +25,12 @@ export const EmployeeProvider = ({ children }) => {
         return (response.status === 201) ? response : false;
     }
 
+    async function updateEmployee(parameters) {
+        const response = await employee.update(parameters);
+
+        return (response.status === 200) ? response : false;
+    }
+
     async function deleteEmployee(idEmployee) {
         const response = await employee.del(idEmployee);
 
@@ -31,6 +38,7 @@ export const EmployeeProvider = ({ children }) => {
     }
 
     const context = {
+        idEmployee, setIdEmployee,
         cref, setCref,
         idAccessGroup, setIdAccessGroup,
         observation, setObservation,
@@ -38,6 +46,7 @@ export const EmployeeProvider = ({ children }) => {
         // methods
         createAccessGroupEmployeeAssoc,
         createEmployee, deleteEmployee,
+        updateEmployee,
     };
 
     return (

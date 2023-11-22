@@ -106,7 +106,6 @@ export default function EnrollGymMember() {
                     city: city,
                     state: state
                 }
-
                 const responseAddress = await updateAddress(addressParameters);
 
                 if (responseAddress.status !== 200) {
@@ -164,7 +163,7 @@ export default function EnrollGymMember() {
                 }
 
                 setIsLoadingText("Atualizando Alunos...");
-                await getGymMembers(token);
+                await getGymMembers();
 
                 Swal.fire({
                     icon: 'success',
