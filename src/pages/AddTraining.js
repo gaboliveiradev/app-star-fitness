@@ -11,7 +11,6 @@ import CardTrainingWeek from "../components/CardTrainingWeek";
 import { MainContext } from "../context/Main";
 import AddExerciseModal from "../components/modals/AddExerciseModal";
 
-
 export default function AddTraining() {
   const [currentPage, setCurrentPage] = useState(1);
 
