@@ -42,7 +42,6 @@ export default function AddNewAcademyPlans() {
                     Swal.fire({
                         icon: 'success',
                         title: 'Plano Atualizado',
-                        html: 'Ihuul... Parabéns, você <b>atualizou</b> um plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
                     })
 
                     handleClickClearFields(e);
@@ -99,7 +98,6 @@ export default function AddNewAcademyPlans() {
                     Swal.fire({
                         icon: 'success',
                         title: 'Plano Criado',
-                        html: 'Ihuul... Parabéns, você <b>criou</b> um novo plano da academia. Acesse \"<b>Planos da Academia/Meus Planos</b>\" para gerenciar seus planos'
                     })
 
                     handleClickClearFields(e);

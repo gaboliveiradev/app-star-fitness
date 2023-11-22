@@ -16,3 +16,16 @@ export const create = async (parameters) => {
         return false;
     }
 }
+
+export const update = async (parameters) => {
+    try {
+        const response = await api.put(`/billing/${parameters.idBilling}`, {
+            payment_date: parameters.payment_date,
+        })
+
+        return (response.status === 200) ? response : false;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}

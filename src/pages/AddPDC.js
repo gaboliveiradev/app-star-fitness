@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { GymMemberContext } from "../context/GymMember";
 import { BillingContext } from "../context/Billing";
-import { formatCPF, formatMoney } from "../utils/format";
+import { add30Days, formatCPF, formatDatePtBr, formatMoney, getCurrentDate } from "../utils/format";
 import { PaymentContext } from "../context/Payment";
 import { IMaskInput } from 'react-imask';
 import { Toast } from './../common/Toast';
 import Swal from 'sweetalert2'
+import { MainContext } from "../context/Main";
 
 export default function AddPDC() {
 
@@ -15,13 +16,14 @@ export default function AddPDC() {
   const [receivedAmount, setReceivedAmount] = useState(0);
   const [changeAmount, setChangeAmount] = useState(0);
 
-  const { typeList, gymMembersList } = useContext(AuthContext);
-  const { idPlan, setIdPlan, isUpdate } = useContext(GymMemberContext);
-  const { invoiceDate, setInvoiceDate, dueDate, setDueDate } = useContext(BillingContext);
-  const { paymentMethod, setPaymentMethod } = useContext(PaymentContext);
+  const { typeList, gymMembersList, createBilling } = useContext(AuthContext);
+  const { setIsLoading, setIsLoadingText } = useContext(MainContext);
+  const { paymentMethod, setPaymentMethod, createPayment, } = useContext(PaymentContext);
+  const {updateBilling} = useContext(BillingContext);
 
   const [document, setDocument] = useState('');
-  const [currentGymMember, setCurrentGymMember] = useState([]);
+  const [currentGymMember, setCurrentGymMember] = useState(null);
+  const [currentBilling, setCurrentBilling] = useState(null);
 
   const handleClickSearchGymMemberByDocument = async (e) => {
     e.preventDefault();
@@ -46,15 +48,102 @@ export default function AddPDC() {
     console.log(item[0]);
 
     setCurrentGymMember(item[0]);
+    setCurrentBilling(item[0].billing.filter(billing => billing.payment_date === null));
   }
 
   const handleClickConfirmPayment = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      setIsLoadingText('Registrando Pagamento...');
+
+      const paymentParamerters = {
+        idBilling: currentBilling[0].id,
+        paymentMethod: paymentMethod,
+        amount: amount,
+      }
+
+      const responsePayment = await createPayment(paymentParamerters);
+
+      if (responsePayment.status !== 201) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro Inesperado',
+          html: 'Oops... Parece que ocorreu algum erro ao tentar <b>registrar</b> um <b>pagamento a um aluno</b>. Por favor, verifique e tente novamente.'
+        })
+
+        return;
+      }
+
+      setIsLoadingText('Atualizando Cobrança Atual...');
+
+      const billingUpdateParaments = {
+        idBilling: currentBilling[0].id,
+        payment_date: getCurrentDate()
+      }
+      const responseUpdateBillingCurrent = await updateBilling(billingUpdateParaments)
+
+      if (responseUpdateBillingCurrent.status !== 200) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro Inesperado',
+          html: 'Oops... Parece que ocorreu algum erro ao tentar <b>atualizar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
+        })
+
+        return;
+      }
+
+      setIsLoadingText('Gerando Nova Cobrança...');
+
+      const billingParameters = {
+        invoice_date: currentBilling[0].due_date,
+        due_date: add30Days(currentBilling[0].due_date),
+        id_type_enrollment: currentGymMember.type.id,
+        id_gym_member: currentGymMember.id
+      }
+
+      console.log(billingParameters);
+
+      const responseBilling = await createBilling(billingParameters);
+
+      if (responseBilling.status !== 201) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro Inesperado',
+          html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
+        })
+
+        return;
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Pagamento Registrado.',
+      })
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro Inesperado',
+        html: 'Oops... Ocorreu um erro inesperado, e infelizmente <b>NÃO</b> foi possível criar uma ficha de treino.'
+      })
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      setIsLoadingText('');
+    }
   }
 
   const handleClickClear = async (e) => {
     e.preventDefault();
+
+    setDocument('');
+    setCurrentGymMember(null);
+    setPaymentMethod('');
   }
+
+  console.log(getCurrentDate());
 
   return (
     <>
@@ -99,6 +188,7 @@ export default function AddPDC() {
 
                     return;
                   }
+
                   handleClickSearchGymMemberByDocument(e)
                 }}
                 type="button"
@@ -117,14 +207,36 @@ export default function AddPDC() {
           <div class="flex-auto">
             <div className="flex flex-wrap mt-[10px]">
               <div>
-                <p><span className="font-bold">Aluno:</span> {currentGymMember !== null && currentGymMember.person.name}</p>
-                <p><span className="font-bold">CPF:</span> {formatCPF(currentGymMember !== null && currentGymMember.person.document)}</p>
-                <p><span className="font-bold">Plano:</span> {currentGymMember !== null && currentGymMember.type.name}</p>
+                <p><span className="font-bold">Aluno:</span> {currentGymMember === null ? 'Selecione um aluno' : currentGymMember.person.name}</p>
+                <p><span className="font-bold">CPF:</span> {currentGymMember === null ? 'Selecione um aluno' : formatCPF(currentGymMember.person.document)}</p>
+                <p><span className="font-bold">Plano:</span> {currentGymMember === null ? 'Selecione um aluno' : currentGymMember.type.name}</p>
+                <p>
+                  <span className="font-bold">Data de Vencimento:</span>
+                  {
+                    currentGymMember === null
+                      ? <span className="pl-1">Selecione um aluno</span>
+                      : currentGymMember.billing.filter(billing => billing.payment_date === null).map(charge => (
+                        <span className="pl-1">{formatDatePtBr(charge.invoice_date)}</span>
+                      ))
+                  }
+                </p>
+                <p>
+                  <span className="font-bold">Status:</span>
+                  {
+                    currentGymMember === null
+                      ? <span className='pl-1'>Selecione um aluno</span>
+                      : currentGymMember.billing.filter(billing => billing.payment_date === null).length > 0
+                        ? <span className="pl-1 font-bold text-red-500">Não Pago</span>
+                        : <span className="pl-1 font-bold text-green-500">Pago</span>
+                  }
+                </p>
               </div>
             </div>
           </div>
         </div>
+
         <div className="mt-[10px] sm:col-span-6 border-t-2 border-gray-300"></div>
+
         <div className="mt-[30px] sm:col-span-6">
           <label
             htmlFor="paymentMethod"
@@ -135,11 +247,11 @@ export default function AddPDC() {
           <div className="mt-1">
             <div class="flex flex-wrap -m-4 text-center">
               <button
-                disabled={idPlan === null || idPlan === "" || isUpdate}
+                disabled={currentGymMember === null || currentGymMember === ""}
                 onClick={() => {
                   setPaymentMethod("CREDIT_CARD");
                   typeList
-                    .filter((type) => type.id === idPlan)
+                    .filter((type) => type.id === currentGymMember.type.id)
                     .map((type) =>
                       setAmount(parseFloat(type.price) + parseFloat(4))
                     );
@@ -152,24 +264,17 @@ export default function AddPDC() {
                     : "bg-transparent"
                     } rounded-lg p-2 xl:p-6 border-gray-400 border`}
                 >
-                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">
-                    {typeList
-                      .filter((type) => type.id === idPlan)
-                      .map((type) =>
-                        formatMoney(parseFloat(type.price) + parseFloat(4))
-                      )}
-                  </h2>
                   <p class="leading-relaxed text-black-100 font-bold">
                     Crédito <span className="text-green-500">(+ R$ 4,00)</span>
                   </p>
                 </div>
               </button>
               <button
-                disabled={idPlan === null || idPlan === "" || isUpdate}
+                disabled={currentGymMember === null || currentGymMember === ""}
                 onClick={() => {
                   setPaymentMethod("DEBIT_CARD");
                   typeList
-                    .filter((type) => type.id === idPlan)
+                    .filter((type) => type.id === currentGymMember.type.id)
                     .map((type) =>
                       setAmount(parseFloat(type.price) + parseFloat(2.5))
                     );
@@ -182,24 +287,17 @@ export default function AddPDC() {
                     : "bg-transparent"
                     } rounded-lg p-2 xl:p-6 border-gray-400 border`}
                 >
-                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">
-                    {typeList
-                      .filter((type) => type.id === idPlan)
-                      .map((type) =>
-                        formatMoney(parseFloat(type.price) + parseFloat(2.5))
-                      )}
-                  </h2>
                   <p class="leading-relaxed text-black font-bold">
                     Débito <span className="text-green-500">(+ R$ 2,50)</span>
                   </p>
                 </div>
               </button>
               <button
-                disabled={idPlan === null || idPlan === "" || isUpdate}
+                disabled={currentGymMember === null || currentGymMember === ""}
                 onClick={() => {
                   setPaymentMethod("PIX");
                   typeList
-                    .filter((type) => type.id === idPlan)
+                    .filter((type) => type.id === currentGymMember.type.id)
                     .map((type) => setAmount(type.price));
                 }}
                 class="cursor-pointer p-4 sm:w-1/4 w-1/2"
@@ -208,33 +306,70 @@ export default function AddPDC() {
                   class={`${paymentMethod === "PIX" ? "bg-green-200" : "bg-transparent"
                     } rounded-lg p-2 xl:p-6 border-gray-400 border`}
                 >
-                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-black">
-                    {typeList
-                      .filter((type) => type.id === idPlan)
-                      .map((type) => formatMoney(type.price))}
-                  </h2>
                   <p class="leading-relaxed text-black font-bold">PIX</p>
                 </div>
               </button>
               <button
+                disabled={currentGymMember === null || currentGymMember === ""}
                 onClick={() => {
                   setPaymentMethod("MONEY");
                   typeList
-                    .filter((type) => type.id === idPlan)
+                    .filter((type) => type.id === currentGymMember.type.id)
                     .map((type) => setAmount(type.price));
                 }}
                 class="cursor-pointer p-4 sm:w-1/4 w-1/2"
               >
                 <div
-                  class={`${paymentMethod === "MONEY"
-                    ? "bg-green-200"
-                    : "bg-transparent"
+                  class={`${paymentMethod === "MONEY" ? "bg-green-200" : "bg-transparent"
                     } rounded-lg p-2 xl:p-6 border-gray-400 border`}
                 >
-                  <h2 class="title-font font-medium sm:text-4xl text-3xl text-black"></h2>
                   <p class="leading-relaxed text-black font-bold">Dinheiro</p>
                 </div>
               </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="sm:col-span-6 mt-[30px]">
+          <div className="mt-1">
+            <div class="w-full flex mb-3 items-center">
+              <div class="flex-grow">
+                <span class="text-gray-600">Subtotal</span>
+              </div>
+              <div class="pl-3">
+                <span class="font-semibold">
+                  {(currentGymMember === null) ? "R$00,00" : typeList.filter(type => type.id === currentGymMember.type.id).map(type => formatMoney(type.price))}
+                </span>
+              </div>
+            </div>
+            <div class="w-full flex items-center">
+              <div class="flex-grow">
+                <span class="text-gray-600">Taxas de Cartão</span>
+              </div>
+              <div class="pl-3">
+                <span class="font-semibold">
+                  {
+                    (paymentMethod === "CREDIT_CARD") ? formatMoney(4)
+                      : (paymentMethod === "DEBIT_CARD") ? formatMoney(2.5)
+                        : (paymentMethod === "PIX" || paymentMethod === "MONEY") ? formatMoney(0) : "R$00,00"
+                  }
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='my-[10px] sm:col-span-6 border-t-2 border-gray-300'></div>
+
+        <div className="sm:col-span-6">
+          <div class="border-b border-gray-200 md:border-none text-gray-800 text-xl">
+            <div class="w-full flex items-center">
+              <div class="flex-grow">
+                <span class="text-gray-600">Total</span>
+              </div>
+              <div class="pl-3">
+                <span class="font-semibold text-gray-400 text-sm">{(currentGymMember !== null && paymentMethod !== "") && "BRL"}</span> <span class="font-semibold">{(currentGymMember === null && paymentMethod === "") ? 'R$00,00' : formatMoney(amount)}</span>
+              </div>
             </div>
           </div>
         </div>

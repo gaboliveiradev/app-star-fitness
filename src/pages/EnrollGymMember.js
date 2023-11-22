@@ -168,7 +168,6 @@ export default function EnrollGymMember() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Aluno Atualizado.',
-                    html: 'Ihuul... Parabéns, você <b>atualizou</b> um aluno com sucesso. Acompanhe os alunos da sua academia acessando <b>Aluno/Matrículas e Alunos.</b>'
                 })
 
                 handleClickClearFields(e);
@@ -319,7 +318,6 @@ export default function EnrollGymMember() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Aluno Matriculado.',
-                    html: 'Ihuul... Parabéns, você <b>matriculou</b> um novo aluno na academia. Acompanhe os alunos da sua academia acessando <b>Aluno/Matrículas e Alunos.</b>'
                 })
 
                 handleClickClearFields(e);

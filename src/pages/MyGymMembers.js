@@ -148,7 +148,6 @@ export default function MyGymMembers() {
                         Swal.fire({
                             icon: 'success',
                             title: 'Aluno Deletado',
-                            html: 'Ihuul... Parabéns, você <b>deletou</b> um aluno cadastrado.'
                         })
 
                         return;
