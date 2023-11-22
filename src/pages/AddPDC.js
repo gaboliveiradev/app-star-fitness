@@ -16,7 +16,7 @@ export default function AddPDC() {
   const [receivedAmount, setReceivedAmount] = useState(0);
   const [changeAmount, setChangeAmount] = useState(0);
 
-  const { typeList, gymMembersList, createBilling } = useContext(AuthContext);
+  const { typeList, gymMembersList, getGymMembers, createBilling } = useContext(AuthContext);
   const { setIsLoading, setIsLoadingText } = useContext(MainContext);
   const { paymentMethod, setPaymentMethod, createPayment, } = useContext(PaymentContext);
   const {updateBilling} = useContext(BillingContext);
@@ -116,6 +116,10 @@ export default function AddPDC() {
 
         return;
       }
+
+      setIsLoadingText('Atualizando Alunos...');
+
+      await getGymMembers();
 
       Swal.fire({
         icon: 'success',

@@ -18,7 +18,7 @@ export default function StaticsInfoData() {
                         </div>
                     </div>
                 </div>
-                <div class="col-span-12 sm:col-span-6 md:col-span-3">
+                {/*<div class="col-span-12 sm:col-span-6 md:col-span-3">
                     <div class="flex flex-row bg-white dark:bg-boxdark shadow-md rounded p-4">
                         <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-green-100 text-green-500">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -50,7 +50,7 @@ export default function StaticsInfoData() {
                             <div class="font-bold text-lg">R$ 2.000,00</div>
                         </div>
                     </div>
-                </div>
+    </div>*/}
             </div>
             
         </div>
