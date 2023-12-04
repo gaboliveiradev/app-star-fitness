@@ -76,11 +76,13 @@ export const AuthProvider = ({ children }) => {
         return navigate('/login');
     }, []);
 
+    const [errorMessageLogin, setErrorMessageLogin] = useState('');
+
     async function login(email_l, password_l) {
         try {
             const response = await auth.login(email_l, password_l);
 
-            if (response.status !== 200) return false;
+            if (response.status !== 200) return response;
 
             const { token, user } = response.data;
             const { id, name, email, document, phone, birthday, gender, photo_url, id_address, employee, address, accessGroup } = user;
@@ -112,9 +114,8 @@ export const AuthProvider = ({ children }) => {
             await getExercise();
             await getAccessGroup();
 
-            return true;
+            return response;
         } catch (error) {
-            console.log(error);
             return false;
         }
     }
@@ -232,6 +233,7 @@ export const AuthProvider = ({ children }) => {
         createAddress, createGymMemberPerson,
         createBilling, getGymMembers,
         gymMembersList, deleteGymMember,
+        errorMessageLogin, setErrorMessageLogin,
     };
 
     return (

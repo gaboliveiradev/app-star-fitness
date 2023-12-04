@@ -7,9 +7,8 @@ export async function login(email, password) {
             password: password
         })
 
-        return (response.status === 200) ? response : false;
+        return (response.status === 200) && response;
     } catch (error) {
-        console.log(error);
-        return false;
+        return error;
     }
 }

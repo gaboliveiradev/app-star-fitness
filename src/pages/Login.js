@@ -26,6 +26,8 @@ export default function Login() {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
 
+  const [errorMessageLogin, setErrorMessageLogin] = useState('');
+
   const handdleClickLogin = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -33,9 +35,15 @@ export default function Login() {
     try {
       const response = await login(email, password);
 
-      if (response) {
-        navigate("/");
+      if (response.status !== 200) {
+        setErrorMessageLogin(response.response.data.message);
+        setEmail('');
+        setPassword('');
+
+        return;
       }
+
+      navigate("/");
     } catch (error) {
       console.log(error);
     } finally {
@@ -173,6 +181,7 @@ export default function Login() {
                       )}
                       Entrar
                     </button>
+                    <p className="text-center pt-2 text-red-400">{errorMessageLogin}</p>
                   </div>
                 </form>
               ) : stepper === 2 ? (
