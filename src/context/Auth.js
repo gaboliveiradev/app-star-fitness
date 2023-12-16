@@ -8,6 +8,7 @@ import * as billing from '../services/billing';
 import * as exercise from '../services/exercise';
 import * as employee from '../services/employee';
 import * as accessGroup from '../services/accessGroup';
+import * as enroll from '../services/enroll';
 
 export const AuthContext = createContext();
 
@@ -118,6 +119,12 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             return false;
         }
+    }
+
+    async function enrollGymMember(parameters) {
+        const response = await enroll.enrollGymMember(parameters);
+
+        return (response.status === 201) ? response : false;
     }
 
     async function createType(parameters) {
@@ -234,6 +241,8 @@ export const AuthProvider = ({ children }) => {
         createBilling, getGymMembers,
         gymMembersList, deleteGymMember,
         errorMessageLogin, setErrorMessageLogin,
+        // enroll
+        enrollGymMember,
     };
 
     return (

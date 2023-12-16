@@ -56,7 +56,7 @@ export default function EnrollGymMember() {
         createPayment,
     } = useContext(PaymentContext);
 
-    const { getGymMembers, createAddress, createGymMemberPerson, createBilling, token } = useContext(AuthContext);
+    const { getGymMembers, createAddress, createGymMemberPerson, enrollGymMember, token } = useContext(AuthContext);
 
     const [stepper, setStepper] = useState(1);
 
@@ -201,113 +201,41 @@ export default function EnrollGymMember() {
             if (name !== "" && email !== "" && document !== "" && phone !== "" && birthday !== "" && gender !== "" && zipCode !== "" && street !== ""
                 && district !== "" && number !== "" && city !== "" && state !== "" && idPlan !== "" && invoiceDate !== "" && dueDate !== '' && paymentMethod !== '' && amount !== '') {
                 setIsLoading(true);
-                setIsLoadingText("Cadastrando Endereço...");
+                setIsLoadingText("Matriculando Aluno...");
 
-                const addressParameters = {
+                const parameters = {
+                    // address
                     street: street,
                     district: district,
                     number: number,
-                    zipCode: zipCode.replace(/[^0-9]/g, ''),
+                    zip_code: zipCode.replace(/[^0-9]/g, ''),
                     city: city,
-                    state: state
-                }
-
-                const responseAddress = await createAddress(addressParameters, token);
-
-                if (responseAddress.status !== 201) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> um <b>novo endereço</b>. Por favor, verifique e tente novamente.'
-                    })
-
-                    return;
-                }
-
-                setIsLoadingText("Cadastrando Aluno...");
-
-                const personGymMemberParameters = {
+                    state: state,
+                    // person
                     name: name,
                     email: email,
                     document: document.replace(/[^0-9]/g, ''),
                     phone: phone.replace(/[^0-9]/g, ''),
                     birthday: birthday,
                     gender: gender,
+                    // gym member
                     height_cm: height.replace(/[^0-9]/g, ''),
                     weight_kg: weight.replace(/[^0-9]/g, ''),
                     observation: observation,
-                    id_address: responseAddress.data.data.id,
+                    // billing & payment
                     id_type_enrollment: idPlan,
-                }
-
-                const responseGymMemberPerson = await createGymMemberPerson(personGymMemberParameters, token);
-
-                if (responseGymMemberPerson.status !== 201) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> os dados de um <b>novo aluno</b>. Por favor, verifique e tente novamente.'
-                    })
-
-                    return;
-                }
-
-                setIsLoadingText("Gerando Cobranças...");
-
-                const billingParameters = {
-                    invoice_date: invoiceDate,
-                    due_date: dueDate,
-                    payment_date: invoiceDate,
-                    id_type_enrollment: idPlan,
-                    id_gym_member: responseGymMemberPerson.data.data.id
-                }
-
-                const responseBilling = await createBilling(billingParameters);
-
-                if (responseBilling.status !== 201) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
-                    })
-
-                    return;
-                }
-
-                const billingParameters1 = {
-                    invoice_date: dueDate,
-                    due_date: add30Days(dueDate),
-                    id_type_enrollment: idPlan,
-                    id_gym_member: responseGymMemberPerson.data.data.id
-                }
-
-                const responseBilling1 = await createBilling(billingParameters1);
-
-                if (responseBilling1.status !== 201) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>cadastrar</b> uma <b>cobrança a um aluno</b>. Por favor, verifique e tente novamente.'
-                    })
-
-                    return;
-                }
-
-                setIsLoadingText("Registrando Pagamento...");
-
-                const paymentParamerters = {
-                    idBilling: responseBilling.data.data.id,
-                    paymentMethod: paymentMethod,
+                    payment_method: paymentMethod,
                     amount: amount,
+
                 }
 
-                const responsePayment = await createPayment(paymentParamerters);
+                const response = await enrollGymMember(parameters);
 
-                if (responsePayment.status !== 201) {
+                if (response.status !== 201) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro Inesperado',
-                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>registrar</b> um <b>pagamento a um aluno</b>. Por favor, verifique e tente novamente.'
+                        html: 'Oops... Parece que ocorreu algum erro ao tentar <b>matricular</b> um <b>aluno</b>. Por favor, verifique e tente novamente.'
                     })
 
                     return;
